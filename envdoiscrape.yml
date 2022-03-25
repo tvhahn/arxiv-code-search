@@ -1,0 +1,19 @@
+name: doiscrape
+channels:
+  - conda-forge
+dependencies:
+  - python=3.8
+  - conda
+  - mamba
+  - jupyterlab
+  - scipy
+  - requests
+  - beautifulsoup4
+  - lxml
+  - matplotlib
+  - seaborn
+  - pandas
+  - black
+  - pdfminer.six
+
+
