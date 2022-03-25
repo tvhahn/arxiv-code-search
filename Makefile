@@ -20,7 +20,7 @@ endif
 # COMMANDS                                                                      #
 #################################################################################
 
-create_environment:
+environment:
 ifeq (True,$(HAS_CONDA)) # assume on local
 	@echo ">>> Detected conda. Assume local computer. Installing packages from yml."
 	bash install_conda_local.sh
@@ -34,7 +34,7 @@ endif
 ## Download data
 download:
 ifeq (True,$(HAS_CONDA)) # assume on local
-	$(PYTHON_INTERPRETER) src/data/download_articles.py
+	$(PYTHON_INTERPRETER) src/data/download_arxiv_kaggle.py
 else # assume on HPC
 	bash src/dataprep/download_data_hpc.sh $(PROJECT_DIR)
 endif

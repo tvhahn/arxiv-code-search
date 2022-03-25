@@ -1,12 +1,11 @@
-name: doiscrape
+name: arxiv
 channels:
   - conda-forge
 dependencies:
   - python=3.8
-  - conda
-  - mamba
   - jupyterlab
   - scipy
+  - kaggle 
   - requests
   - beautifulsoup4
   - lxml
