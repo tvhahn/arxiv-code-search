@@ -27,7 +27,7 @@ ifeq (True,$(HAS_CONDA)) # assume on local
 else # assume on HPC
 	@echo ">>> No Conda detected. Assume on HPC."
 	bash install_env_hpc.sh
-	@echo ">>> venv created. Activate with source ~/doiscrape/bin/activate"
+	@echo ">>> venv created. Activate with source ~/arxiv/bin/activate"
 endif
 
 
@@ -36,7 +36,7 @@ download:
 ifeq (True,$(HAS_CONDA)) # assume on local
 	$(PYTHON_INTERPRETER) src/data/download_arxiv_kaggle.py
 else # assume on HPC
-	bash src/dataprep/download_data_hpc.sh $(PROJECT_DIR)
+	$(PYTHON_INTERPRETER) src/data/download_arxiv_kaggle.py
 endif
 
 ## Make Dataset
