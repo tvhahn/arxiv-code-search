@@ -40,6 +40,12 @@ else # assume on HPC
 endif
 
 ## Parse entire metadata json to csv
+parse_json:
+ifeq (True,$(HAS_CONDA)) # assume on local
+	$(PYTHON_INTERPRETER) src/data/parse_json.py
+else # assume on HPC
+	sbatch src/data/parse_json.sh
+endif
 
 ## Select subset of articles based on criteria
 ## and save to a new CSV file that will be used for labelling
