@@ -1,23 +1,31 @@
 # -*- coding: utf-8 -*-
 import logging
 from pathlib import Path
-import kaggle
+import json
+import pandas as pd
 
 
 
 def main():
     """
-    Download the arxiv dataset from kaggle. Uses kaggle api.
-    Refer to kaggle api github for setup: https://github.com/Kaggle/kaggle-api
+    Parse the json file downloaded from kaggle and save it as a csv file.
     """
     logger = logging.getLogger(__name__)
     logger.info('making final data set from raw data')
 
-    # download using kaggle api https://stackoverflow.com/a/54869077
-    raw_data_dir = project_dir / 'data/raw'
-    kaggle.api.authenticate()
-    kaggle.api.dataset_download_files('Cornell-University/arxiv', path=raw_data_dir, unzip=True)
 
+    raw_data_dir = project_dir / 'data/raw'
+    arxiv_json_path = raw_data_dir / "arxiv-metadata-oai-snapshot.json"
+
+    metadata  = []
+    with open(arxiv_json_path, 'r') as f:
+        for line in f: 
+            metadata.append(json.loads(line))
+
+    df = pd.DataFrame(metadata)
+
+    # save the dataframe as a csv file and compress
+    df.to_csv(raw_data_dir / 'arxiv-metadata-oai-snapshot.csv.gz', index=False, compression='gzip')
 
 
 if __name__ == '__main__':
