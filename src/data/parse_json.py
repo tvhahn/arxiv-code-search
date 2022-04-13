@@ -5,6 +5,16 @@ import json
 import pandas as pd
 
 
+def parse_json(arxiv_json_path):
+    """Parse the kaggle json file and return as dataframe"""
+
+    metadata  = []
+    with open(arxiv_json_path, 'r') as f:
+        for line in f: 
+            metadata.append(json.loads(line))
+
+    return pd.DataFrame(metadata)
+
 
 def main():
     """
@@ -17,12 +27,7 @@ def main():
     raw_data_dir = project_dir / 'data/raw'
     arxiv_json_path = raw_data_dir / "arxiv-metadata-oai-snapshot.json"
 
-    metadata  = []
-    with open(arxiv_json_path, 'r') as f:
-        for line in f: 
-            metadata.append(json.loads(line))
-
-    df = pd.DataFrame(metadata)
+    df = parse_json(arxiv_json_path)
 
     # save the dataframe as a csv file and compress
     df.to_csv(raw_data_dir / 'arxiv-metadata-oai-snapshot.csv.gz', index=False, compression='gzip')
