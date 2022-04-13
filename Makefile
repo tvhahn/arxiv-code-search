@@ -39,6 +39,11 @@ else # assume on HPC
 	$(PYTHON_INTERPRETER) src/data/download_arxiv_kaggle.py
 endif
 
+## Parse entire metadata json to csv
+
+## Select subset of articles based on criteria
+## and save to a new CSV file that will be used for labelling
+
 ## Make Dataset
 data: requirements
 ifeq (True,$(HAS_CONDA)) # assume on local
