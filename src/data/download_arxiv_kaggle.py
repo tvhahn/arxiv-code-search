@@ -3,18 +3,20 @@ import logging
 from pathlib import Path
 import kaggle
 
-# download using kaggle api https://stackoverflow.com/a/54869077
+
 
 def main():
-    """ Runs data processing scripts to turn raw data from (../raw) into
-        cleaned data ready to be analyzed (saved in ../processed).
+    """
+    Download the arxiv dataset from kaggle. Uses kaggle api.
+    Refer to kaggle api github for setup: https://github.com/Kaggle/kaggle-api
     """
     logger = logging.getLogger(__name__)
     logger.info('making final data set from raw data')
 
+    # download using kaggle api https://stackoverflow.com/a/54869077
     save_dir = project_dir / 'data/raw'
     kaggle.api.authenticate()
-    kaggle.api.dataset_download_files('Cornell-University/arxiv', path=save_dir, unzip=False)
+    kaggle.api.dataset_download_files('Cornell-University/arxiv', path=save_dir, unzip=True)
 
 
 
