@@ -157,4 +157,4 @@ def select_random_articles(df, index_file_dir, check_duplicates=True, save_csv=T
         save_path = index_file_dir / save_name
         df_unique.to_csv(save_path, index=False)
 
-    return df_unique
+    return df_unique, save_name

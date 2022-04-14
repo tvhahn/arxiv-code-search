@@ -5,6 +5,43 @@ import json
 import pandas as pd
 from src.data.utils import parse_json, load_metadata_csv, filter_by_category, filter_by_date, filter_by_license, select_random_articles
 import argparse
+import ast
+
+# function that takes in save_name and args, and saves all the relevant arguments to a csv file called "index_parameters.csv"
+# also checks if "index_parameters.csv" already exists, and if so, appends the new arguments to the existing csv file
+def save_index_parameters(save_name, args, index_file_dir):
+    index_parameters_file_path = index_file_dir.parent / "index_parameters.csv"
+    if index_parameters_file_path.exists():
+        # load index_parameters_file_path and have all columns as strings
+
+        df_index_parameters = pd.read_csv(index_parameters_file_path, dtype=str,)
+
+        df_new = pd.DataFrame.from_dict(
+            {
+                "save_name": save_name,
+                "regex_pattern_cat": str(args.regex_pattern_cat),
+                "start_date": args.start_date,
+                "end_date": args.end_date,
+                "license_filter_list": args.license_filter_list,
+                "n_articles": args.n_articles
+            }, orient='index'
+        ).T
+
+        df_index_parameters = pd.concat([df_index_parameters, df_new], sort=False)
+        # df_index_parameters = df_index_parameters.append(df_new, ignore_index=True)
+        df_index_parameters.to_csv(index_parameters_file_path, index=False)
+    else:
+        df_index_parameters = pd.DataFrame.from_dict(
+            {
+                "save_name": save_name,
+                "regex_pattern_cat": str(args.regex_pattern_cat),
+                "start_date": args.start_date,
+                "end_date": args.end_date,
+                "license_filter_list": args.license_filter_list,
+                "n_articles": args.n_articles
+            }, orient='index'
+        ).T
+        df_index_parameters.to_csv(index_parameters_file_path, index=False)
 
 
 def main():
@@ -24,7 +61,7 @@ def main():
     assert metadata_file_path.exists(), f"{metadata_file_path} does not exist."
 
     # assert that arxiv_data_path is either a csv or a json file
-    assert metadata_file_path.suffix in ['.csv', '.json'], f"{metadata_file_path} is not a csv or json file."
+    assert metadata_file_path.suffix in ['.csv', '.gz', '.json'], f"{metadata_file_path} is not a csv, gz, or json file."
 
     if metadata_file_path.suffix == '.json':
         df = parse_json(metadata_file_path)
@@ -51,7 +88,8 @@ def main():
 
     # filter by license type
     if args.license_filter_list:
-        df = filter_by_license(df, license_filter_list=args.license_filter_list)
+        license_filter_list = ast.literal_eval(args.license_filter_list)
+        df = filter_by_license(df, license_filter_list)
     else:
         pass
 
@@ -59,7 +97,13 @@ def main():
     index_file_dir = project_dir / "data/processed/labels/index_files"
     index_file_dir.mkdir(parents=True, exist_ok=True)
 
-    df_unique = select_random_articles(df, index_file_dir, check_duplicates=True, save_csv=True, save_name=None, n_articles=10)
+    df_unique, save_name = select_random_articles(df, index_file_dir, check_duplicates=True, save_csv=True, save_name=None, n_articles=args.n_articles)
+
+
+
+    save_index_parameters(save_name, args, index_file_dir)
+
+
 
 
 if __name__ == '__main__':
@@ -78,7 +122,7 @@ if __name__ == '__main__':
     parser.add_argument(
         "--regex_pattern_cat",
         type=str,
-        help="Regex pattern for filtering by category. e.g. 'cs|eess'",
+        help="Regex pattern for filtering by category. e.g. '\beess|\bcs'",
     )
 
     # argument for start_date and end_date
