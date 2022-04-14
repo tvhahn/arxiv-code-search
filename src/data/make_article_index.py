@@ -33,6 +33,7 @@ def main():
 
     # filter by category
     if args.regex_pattern_cat:
+        print(args.regex_pattern_cat)
         df = filter_by_category(df, regex_pattern_cat=args.regex_pattern_cat)
  
     # filter by date

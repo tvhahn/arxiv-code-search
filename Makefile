@@ -45,14 +45,14 @@ parse_json:
 ifeq (True,$(HAS_CONDA)) # assume on local
 	$(PYTHON_INTERPRETER) src/data/parse_json.py
 else # assume on HPC
-	sbatch src/data/parse_json.sh
+	sbatch src/data/parse_json_hpc.sh
 endif
 
 ## Select subset of articles based on criteria
 ## and save to a new CSV file that will be used as a definitive index
 article_index:
 ifeq (True,$(HAS_CONDA)) # assume on local
-	$(PYTHON_INTERPRETER) src/data/parse_json.py
+	bash src/data/make_article_index_local.sh
 else # assume on HPC
 	sbatch src/data/parse_json.sh
 endif
