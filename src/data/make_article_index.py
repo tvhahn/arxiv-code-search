@@ -3,18 +3,28 @@ import logging
 from pathlib import Path
 import json
 import pandas as pd
-from src.data.utils import parse_json, load_metadata_csv, filter_by_category, filter_by_date, filter_by_license, select_random_articles
+from src.data.utils import (
+    parse_json,
+    load_metadata_csv,
+    filter_by_category,
+    filter_by_date,
+    filter_by_license,
+    select_random_articles,
+)
 import argparse
 import ast
 
 # function that takes in save_name and args, and saves all the relevant arguments to a csv file called "index_parameters.csv"
 # also checks if "index_parameters.csv" already exists, and if so, appends the new arguments to the existing csv file
 def save_index_parameters(save_name, args, index_file_dir):
-    index_parameters_file_path = index_file_dir.parent / "index_parameters.csv"
+    index_parameters_file_path = index_file_dir.parent / "index_selection_params.csv"
     if index_parameters_file_path.exists():
         # load index_parameters_file_path and have all columns as strings
 
-        df_index_parameters = pd.read_csv(index_parameters_file_path, dtype=str,)
+        df_index_parameters = pd.read_csv(
+            index_parameters_file_path,
+            dtype=str,
+        )
 
         df_new = pd.DataFrame.from_dict(
             {
@@ -23,12 +33,12 @@ def save_index_parameters(save_name, args, index_file_dir):
                 "start_date": args.start_date,
                 "end_date": args.end_date,
                 "license_filter_list": args.license_filter_list,
-                "n_articles": args.n_articles
-            }, orient='index'
+                "n_articles": args.n_articles,
+            },
+            orient="index",
         ).T
 
         df_index_parameters = pd.concat([df_index_parameters, df_new], sort=False)
-        # df_index_parameters = df_index_parameters.append(df_new, ignore_index=True)
         df_index_parameters.to_csv(index_parameters_file_path, index=False)
     else:
         df_index_parameters = pd.DataFrame.from_dict(
@@ -38,8 +48,9 @@ def save_index_parameters(save_name, args, index_file_dir):
                 "start_date": args.start_date,
                 "end_date": args.end_date,
                 "license_filter_list": args.license_filter_list,
-                "n_articles": args.n_articles
-            }, orient='index'
+                "n_articles": args.n_articles,
+            },
+            orient="index",
         ).T
         df_index_parameters.to_csv(index_parameters_file_path, index=False)
 
@@ -51,19 +62,22 @@ def main():
     Saved csv files have naming convention: 'index_of_articles_for_lables_{index_no}.csv'
     """
     logger = logging.getLogger(__name__)
-    logger.info('Make an index of random articles in the arxiv dataset.')
+    logger.info("Make an index of random articles in the arxiv dataset.")
 
-
-    raw_data_dir = project_dir / 'data/raw'
+    raw_data_dir = project_dir / "data/raw"
     metadata_file_path = raw_data_dir / args.metadata_name
 
     # assert that arxiv_data_path exists
     assert metadata_file_path.exists(), f"{metadata_file_path} does not exist."
 
     # assert that arxiv_data_path is either a csv or a json file
-    assert metadata_file_path.suffix in ['.csv', '.gz', '.json'], f"{metadata_file_path} is not a csv, gz, or json file."
+    assert metadata_file_path.suffix in [
+        ".csv",
+        ".gz",
+        ".json",
+    ], f"{metadata_file_path} is not a csv, gz, or json file."
 
-    if metadata_file_path.suffix == '.json':
+    if metadata_file_path.suffix == ".json":
         df = parse_json(metadata_file_path)
     else:
         df = load_metadata_csv(metadata_file_path)
@@ -72,7 +86,7 @@ def main():
     if args.regex_pattern_cat:
         print(args.regex_pattern_cat)
         df = filter_by_category(df, regex_pattern_cat=args.regex_pattern_cat)
- 
+
     # filter by date
     if args.start_date:
         start_date = args.start_date
@@ -93,21 +107,23 @@ def main():
     else:
         pass
 
-
     index_file_dir = project_dir / "data/processed/labels/index_files"
     index_file_dir.mkdir(parents=True, exist_ok=True)
 
-    df_unique, save_name = select_random_articles(df, index_file_dir, check_duplicates=True, save_csv=True, save_name=None, n_articles=args.n_articles)
-
-
+    df_unique, save_name = select_random_articles(
+        df,
+        index_file_dir,
+        check_duplicates=True,
+        save_csv=True,
+        save_name=None,
+        n_articles=args.n_articles,
+    )
 
     save_index_parameters(save_name, args, index_file_dir)
 
 
-
-
-if __name__ == '__main__':
-    log_fmt = '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+if __name__ == "__main__":
+    log_fmt = "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
     logging.basicConfig(level=logging.INFO, format=log_fmt)
 
     parser = argparse.ArgumentParser(description="Build data sets for analysis")

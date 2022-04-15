@@ -153,7 +153,7 @@ def select_random_articles(df, index_file_dir, check_duplicates=True, save_csv=T
     # save df_unique to csv if save_csv is True
     if save_csv:
         if save_name is None:
-            save_name = f"index_of_articles_for_lables_{no_exisiting_index_files+1}.csv"
+            save_name = f"index_of_articles_for_labels_{no_exisiting_index_files+1}.csv"
         save_path = index_file_dir / save_name
         df_unique.to_csv(save_path, index=False)
 
