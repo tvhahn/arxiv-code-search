@@ -108,9 +108,9 @@ def filter_by_license(df, license_filter_list=None):
         # filter by license
         return df[df["license"].isin(license_filter_list)]
 
-def select_random_articles(df, index_file_dir, check_duplicates=True, save_csv=True, save_name=None, n_articles=10):
+def select_random_papers(df, index_file_dir, check_duplicates=True, save_csv=True, save_name=None, n_papers=10):
     """
-    Select n random articles from df, and ensure
+    Select n random papers from df, and ensure
     that they are not duplicated in other 'index_of_labels' csvs.
     """
 
@@ -139,21 +139,21 @@ def select_random_articles(df, index_file_dir, check_duplicates=True, save_csv=T
     else:
         df_unique = df
 
-    # select random articles
-    # check for edge cases where n_articles > df_unique.shape[0]
+    # select random papers
+    # check for edge cases where n_papers > df_unique.shape[0]
     # or when df_unique.shape[0] is 0
     if df_unique.shape[0] == 0:
-        print("No unique articles to select from.")
+        print("No unique papers to select from.")
         return None
-    elif n_articles > df_unique.shape[0]:
+    elif n_papers > df_unique.shape[0]:
         pass
     else:
-        df_unique = df_unique.sample(n_articles)
+        df_unique = df_unique.sample(n_papers)
 
     # save df_unique to csv if save_csv is True
     if save_csv:
         if save_name is None:
-            save_name = f"index_of_articles_for_labels_{no_exisiting_index_files+1}.csv"
+            save_name = f"index_of_papers_for_labels_{no_exisiting_index_files+1}.csv"
         save_path = index_file_dir / save_name
         df_unique.to_csv(save_path, index=False)
 

@@ -9,7 +9,7 @@ from src.data.utils import (
     filter_by_category,
     filter_by_date,
     filter_by_license,
-    select_random_articles,
+    select_random_papers,
 )
 import argparse
 import ast
@@ -33,7 +33,7 @@ def save_index_parameters(save_name, args, index_file_dir):
                 "start_date": args.start_date,
                 "end_date": args.end_date,
                 "license_filter_list": args.license_filter_list,
-                "n_articles": args.n_articles,
+                "n_papers": args.n_papers,
             },
             orient="index",
         ).T
@@ -48,7 +48,7 @@ def save_index_parameters(save_name, args, index_file_dir):
                 "start_date": args.start_date,
                 "end_date": args.end_date,
                 "license_filter_list": args.license_filter_list,
-                "n_articles": args.n_articles,
+                "n_papers": args.n_papers,
             },
             orient="index",
         ).T
@@ -57,12 +57,12 @@ def save_index_parameters(save_name, args, index_file_dir):
 
 def main():
     """
-    Make an index of random articles in the arxiv dataset. This select a subset of the
+    Make an index of random papers in the arxiv dataset. This select a subset of the
     arxiv dataset (based on some filtering criteria) and saves it as a csv file.
-    Saved csv files have naming convention: 'index_of_articles_for_lables_{index_no}.csv'
+    Saved csv files have naming convention: 'index_of_papers_for_lables_{index_no}.csv'
     """
     logger = logging.getLogger(__name__)
-    logger.info("Make an index of random articles in the arxiv dataset.")
+    logger.info("Make an index of random papers in the arxiv dataset.")
 
     raw_data_dir = project_dir / "data/raw"
     metadata_file_path = raw_data_dir / args.metadata_name
@@ -110,13 +110,13 @@ def main():
     index_file_dir = project_dir / "data/processed/labels/index_files"
     index_file_dir.mkdir(parents=True, exist_ok=True)
 
-    df_unique, save_name = select_random_articles(
+    df_unique, save_name = select_random_papers(
         df,
         index_file_dir,
         check_duplicates=True,
         save_csv=True,
         save_name=None,
-        n_articles=args.n_articles,
+        n_papers=args.n_papers,
     )
 
     save_index_parameters(save_name, args, index_file_dir)
@@ -161,12 +161,12 @@ if __name__ == "__main__":
         help="Input as list of license types. e.g. ['cc by 4.0', 'cc0 1.0']",
     )
 
-    # argument for n_articles to select and save in index_file_dir
+    # argument for n_papers to select and save in index_file_dir
     parser.add_argument(
-        "--n_articles",
+        "--n_papers",
         type=int,
         default=10,
-        help="Number of articles to select and save as an index file",
+        help="Number of papers to select and save as an index file",
     )
 
     args = parser.parse_args()

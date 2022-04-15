@@ -48,11 +48,11 @@ else # assume on HPC
 	sbatch src/data/parse_json_hpc.sh
 endif
 
-## Select subset of articles based on criteria
+## Select subset of papers based on criteria
 ## and save to a new CSV file that will be used as a definitive index
-article_index:
+paper_index:
 ifeq (True,$(HAS_CONDA)) # assume on local
-	bash src/data/make_article_index_local.sh
+	bash src/data/make_paper_index_local.sh
 else # assume on HPC
 	sbatch src/data/parse_json.sh
 endif
