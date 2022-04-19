@@ -58,18 +58,19 @@ else # assume on HPC
 endif
 
 
-## Make Dataset
-data: requirements
+## Download papers from arxiv
+download_papers:
 ifeq (True,$(HAS_CONDA)) # assume on local
-	$(PYTHON_INTERPRETER) src/data/get_mssp.py
+	$(PYTHON_INTERPRETER) src/data/download_papers.py --index_file_no 2 --n_papers 10
 else # assume on HPC
-	sbatch src/dataprep/make_raw_data_hpc.sh $(PROJECT_DIR)
+	sbatch src/data/parse_json.sh
 endif
+
 
 ## Make Dataset
 txt: requirements
 ifeq (True,$(HAS_CONDA)) # assume on local
-	$(PYTHON_INTERPRETER) src/data/make_txt.py --n_cores 6
+	$(PYTHON_INTERPRETER) src/data/make_txt.py --n_cores 6 --pdf_root_dir $(PROJECT_DIR)/data/raw/pdfs/
 else # assume on HPC
 	sbatch src/data/make_hpc_txt_files.sh
 endif

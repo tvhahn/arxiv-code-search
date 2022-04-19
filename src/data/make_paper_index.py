@@ -14,8 +14,7 @@ from src.data.utils import (
 import argparse
 import ast
 
-# function that takes in save_name and args, and saves all the relevant arguments to a csv file called "index_parameters.csv"
-# also checks if "index_parameters.csv" already exists, and if so, appends the new arguments to the existing csv file
+
 def save_index_parameters(save_name, args, index_file_dir):
     index_parameters_file_path = index_file_dir.parent / "index_selection_params.csv"
     if index_parameters_file_path.exists():

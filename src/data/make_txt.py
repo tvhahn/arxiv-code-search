@@ -34,7 +34,7 @@ def convert_pdf_to_txt(path):
     return {save_name: text}
 
 
-def main(pdf_dir_path):
+def main():
     """Runs data processing scripts to turn raw data from (../raw) into
     cleaned data ready to be analyzed (saved in ../processed).
     """
@@ -43,14 +43,34 @@ def main(pdf_dir_path):
     #     "making the final data set with geo data, but nothing extra (e.g APGAR data)"
     # )
 
-    # get a list of file names
-    files = os.listdir(pdf_dir_path)
+    pdf_root_dir = Path(args.pdf_root_dir)
 
-    file_list = [
-        Path(pdf_dir_path) / filename
-        for filename in files
-        if filename.endswith(".pdf")
-    ]
+    if args.index_file_no:
+        # get a list of file names
+        pdf_dir = pdf_root_dir / str(args.index_file_no)
+
+        files = os.listdir(pdf_dir)
+
+        file_list = [
+            Path(pdf_dir) / filename
+            for filename in files
+            if filename.endswith(".pdf")
+        ]
+    else:
+        # find all the sub folders in the pdf_root_dir
+        pdf_dir_list = [pdf_root_dir / dir_name for dir_name in os.listdir(pdf_root_dir)]
+
+        file_list = []
+        for pdf_dir in pdf_dir_list:
+            files = os.listdir(pdf_dir)
+
+            index_file_list = [
+                Path(pdf_dir) / filename
+                for filename in files
+                if filename.endswith(".pdf")
+            ]
+
+            file_list.extend(index_file_list)
 
     # set up your pool
     with Pool(processes=args.n_cores) as pool:  # or whatever your hardware can support
@@ -86,29 +106,35 @@ if __name__ == "__main__":
 
     # argument for txt_dir_path
     parser.add_argument(
-        "--raw_data_dir",
+        "--pdf_root_dir",
         type=str,
-        help="Path to the raw data directory (as a str).",
+        help="Path to the folder that contains all the pdf files.",
+    )
+
+    parser.add_argument(
+        "--index_file_no",
+        type=int,
+        help="Index number of the index file to use. Will only search in this file for pdfs.",
     )
 
 
     args = parser.parse_args()
 
-    if args.raw_data_dir:
-        raw_data_dir = Path(args.raw_data_dir)
-    else:
-        raw_data_dir = project_dir / "data/raw"
+    # if args.raw_data_dir:
+    #     raw_data_dir = Path(args.raw_data_dir)
+    # else:
+    #     raw_data_dir = project_dir / "data/raw"
 
     ######
     # journal articles
     ######
-    pdf_dir_path = raw_data_dir / "pdfs"
-    txt_dir_path = raw_data_dir / "txts"
+    # pdf_dir_path = raw_data_dir / "pdfs"
+    txt_dir_path = Path(args.pdf_root_dir).parent / "txts"
 
     # make the txt directory if it doesn't exist
     txt_dir_path.mkdir(parents=True, exist_ok=True)
 
-    txt_dict = main(pdf_dir_path)
+    txt_dict = main()
     
     for save_name in txt_dict:
         with open(txt_dir_path / save_name, "w") as f:
