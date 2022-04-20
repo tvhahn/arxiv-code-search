@@ -61,7 +61,7 @@ endif
 ## Download papers from arxiv
 download_papers:
 ifeq (True,$(HAS_CONDA)) # assume on local
-	$(PYTHON_INTERPRETER) src/data/download_papers.py --index_file_no 2 --n_papers 10
+	$(PYTHON_INTERPRETER) src/data/download_papers.py --index_file_no 1 --n_papers 3
 else # assume on HPC
 	sbatch src/data/parse_json.sh
 endif

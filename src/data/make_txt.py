@@ -14,6 +14,7 @@ import tqdm
 import re
 import unicodedata
 from pdfminer import high_level
+import shutil
 
 
 # from https://stackoverflow.com/a/26495057
@@ -30,6 +31,41 @@ def convert_pdf_to_txt(path):
 
 
     return {save_name: text}
+
+
+def get_pdf_file_list(pdf_root_dir):
+    if args.index_file_no:
+        # get a list of file names
+        pdf_dir = pdf_root_dir / str(args.index_file_no)
+
+        files = os.listdir(pdf_dir)
+
+        file_list = [
+            Path(pdf_dir) / filename
+            for filename in files
+            if filename.endswith(".pdf")
+        ]
+
+        file_dict = {args.index_file_no: file_list}
+    else:
+        # find all the sub folders in the pdf_root_dir
+        pdf_dir_list = [pdf_root_dir / dir_name for dir_name in os.listdir(pdf_root_dir)]
+
+        file_dict = {}
+        for pdf_dir in pdf_dir_list:
+            # get index_no from pdf_dir
+            index_no = int(pdf_dir.stem)
+            files = os.listdir(pdf_dir)
+
+            file_list = [
+                Path(pdf_dir) / filename
+                for filename in files
+                if filename.endswith(".pdf")
+            ]
+
+            file_dict[index_no] = file_list
+            
+    return file_dict
 
 
 def main(file_list):
@@ -93,32 +129,12 @@ if __name__ == "__main__":
 
     pdf_root_dir = Path(args.pdf_root_dir)
 
-    if args.index_file_no:
-        # get a list of file names
-        pdf_dir = pdf_root_dir / str(args.index_file_no)
+    file_dict = get_pdf_file_list(pdf_root_dir)
 
-        files = os.listdir(pdf_dir)
-
-        file_list = [
-            Path(pdf_dir) / filename
-            for filename in files
-            if filename.endswith(".pdf")
-        ]
-    else:
-        # find all the sub folders in the pdf_root_dir
-        pdf_dir_list = [pdf_root_dir / dir_name for dir_name in os.listdir(pdf_root_dir)]
-
-        file_list = []
-        for pdf_dir in pdf_dir_list:
-            files = os.listdir(pdf_dir)
-
-            index_file_list = [
-                Path(pdf_dir) / filename
-                for filename in files
-                if filename.endswith(".pdf")
-            ]
-
-            file_list.extend(index_file_list)
+    # create a list of all the pdf files (use file_dict)
+    file_list = []
+    for index_no, file_list_ in file_dict.items():
+        file_list.extend(file_list_)
 
     # if args.raw_data_dir:
     #     raw_data_dir = Path(args.raw_data_dir)
@@ -129,13 +145,26 @@ if __name__ == "__main__":
     # journal articles
     ######
     # pdf_dir_path = raw_data_dir / "pdfs"
-    txt_dir_path = Path(args.pdf_root_dir).parent / "txts"
+    txt_root_dir = Path(args.pdf_root_dir).parent / "txts"
 
     # make the txt directory if it doesn't exist
-    txt_dir_path.mkdir(parents=True, exist_ok=True)
+    txt_root_dir.mkdir(parents=True, exist_ok=True)
 
     txt_dict = main(file_list)
     
     for save_name in txt_dict:
-        with open(txt_dir_path / save_name, "w") as f:
+        with open(txt_root_dir / save_name, "w") as f:
             f.write(txt_dict[save_name])
+
+    # move all the txt files to the proper folder based on the index_no within file_dict
+    for index_no, file_list in file_dict.items():
+        # convert all pdf file names to txt file names based on the stem of the pdf file name
+        txt_list = [file.stem + ".txt" for file in file_list]
+
+        txt_dir = txt_root_dir / str(index_no)
+        txt_dir.mkdir(parents=True, exist_ok=True)
+
+        # move all the txt files to the proper folder
+        for file in txt_list:
+            shutil.move(txt_root_dir / file, txt_dir / file)
+
