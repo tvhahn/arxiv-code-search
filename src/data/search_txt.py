@@ -7,6 +7,41 @@ import argparse
 import logging
 
 
+def get_txt_file_list(txt_root_dir):
+    if args.index_file_no:
+        # get a list of file names
+        txt_dir = txt_root_dir / str(args.index_file_no)
+
+        files = os.listdir(txt_dir)
+
+        file_list = [
+            Path(txt_dir) / filename
+            for filename in files
+            if filename.endswith(".txt")
+        ]
+
+        file_dict = {args.index_file_no: file_list}
+    else:
+        # find all the sub folders in the txt_root_dir
+        txt_dir_list = [txt_root_dir / dir_name for dir_name in os.listdir(txt_root_dir)]
+
+        file_dict = {}
+        for txt_dir in txt_dir_list:
+            # get index_no from txt_dir
+            index_no = int(txt_dir.stem)
+            files = os.listdir(txt_dir)
+
+            file_list = [
+                Path(txt_dir) / filename
+                for filename in files
+                if filename.endswith(".txt")
+            ]
+
+            file_dict[index_no] = file_list
+            
+    return file_dict
+
+
 def get_paragraph(sub_str, rel_ind):
     counter = 0
 
@@ -45,7 +80,7 @@ def extract_matches_as_paragraphs(match_indices, text, save_str_width=4000):
     return str_list
 
 
-def main(csv_save_name="search_results.csv"):
+def main(file_list, index_no):
     """Runs data processing scripts to turn raw data from (../raw) into
     cleaned data ready to be analyzed (saved in ../processed).
     """
@@ -114,16 +149,6 @@ def main(csv_save_name="search_results.csv"):
 
     pattern_names = list(pattern_dict.keys())
 
-    # doi = txt_name.replace('.txt', '').replace('_', '/')
-
-    # df = pd.DataFrame(columns=['doi'] + search_list)
-
-    # get a list of file names
-    files = os.listdir(txt_dir_path)
-
-    file_list = [
-        Path(txt_dir_path) / filename for filename in files if filename.endswith(".txt")
-    ]
 
     df_list = []
 
@@ -132,7 +157,7 @@ def main(csv_save_name="search_results.csv"):
     # load the txt file as a string
 
     for txt_path in file_list:
-        doi = txt_path.stem.replace("_", "/")
+        doi = txt_path.stem
         doi_list = []
         para_list = []
         pattern_name_list = []
@@ -154,7 +179,7 @@ def main(csv_save_name="search_results.csv"):
             else:
 
                 temp_para_list = extract_matches_as_paragraphs(
-                    match_index, txt, save_str_width=4000
+                    match_index, txt, save_str_width=save_str_width
                 )
 
                 para_list.extend(temp_para_list)
@@ -192,13 +217,13 @@ def main(csv_save_name="search_results.csv"):
 
     df = df[["save_name", "doi", "pattern", "label", "para"]]
 
-    save_dir = project_dir / "data/processed"
+    save_dir = project_dir / "data/interim"
 
     # make the save_dir directory if it doesn't exist
     save_dir.mkdir(parents=True, exist_ok=True)
 
     # save df_all to a csv
-    df.to_csv(save_dir / csv_save_name, index=False)
+    df.to_csv(save_dir / f"labels_{str(index_no)}.csv", index=False)
 
 
 if __name__ == "__main__":
@@ -210,24 +235,33 @@ if __name__ == "__main__":
 
     parser = argparse.ArgumentParser(description="Create .txt files from .pdf files")
 
+
     # argument for txt_dir_path
     parser.add_argument(
-        "--raw_data_dir",
+        "--txt_root_dir",
         type=str,
-        help="Path to the raw data directory (as a str).",
+        help="Path to the folder that contains all the txt files.",
     )
+
+    parser.add_argument(
+        "--index_file_no",
+        type=int,
+        help="Index number of the index file to use. Will only search in this folder for txts.",
+    )
+
 
     args = parser.parse_args()
 
-    if args.raw_data_dir:
-        raw_data_dir = Path(args.raw_data_dir)
+    if args.txt_root_dir:
+        txt_root_dir = Path(args.txt_root_dir)
     else:
-        raw_data_dir = project_dir / "data/raw"
+        txt_root_dir = project_dir / "data/raw/txts"
 
-    ######
-    # mssp journal articles
-    ######
-    pdf_dir_path = raw_data_dir / "mssp_pdfs"
-    txt_dir_path = raw_data_dir / "mssp_txts"
 
-    main(csv_save_name="mssp_word_search.csv")
+    file_dict = get_txt_file_list(txt_root_dir)
+
+    for index_no, file_list in file_dict.items():
+        main(file_list, index_no)
+
+
+    

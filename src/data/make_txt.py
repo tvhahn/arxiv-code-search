@@ -126,7 +126,10 @@ if __name__ == "__main__":
 
     args = parser.parse_args()
 
-    pdf_root_dir = Path(args.pdf_root_dir)
+    if args.pdf_root_dir:
+        pdf_root_dir = Path(args.pdf_root_dir)
+    else:
+        pdf_root_dir = project_dir / "data/raw/pdfs"
 
     file_dict = get_pdf_file_list(pdf_root_dir)
 
