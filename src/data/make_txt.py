@@ -126,7 +126,6 @@ if __name__ == "__main__":
 
     args = parser.parse_args()
 
-
     pdf_root_dir = Path(args.pdf_root_dir)
 
     file_dict = get_pdf_file_list(pdf_root_dir)
@@ -136,15 +135,6 @@ if __name__ == "__main__":
     for index_no, file_list_ in file_dict.items():
         file_list.extend(file_list_)
 
-    # if args.raw_data_dir:
-    #     raw_data_dir = Path(args.raw_data_dir)
-    # else:
-    #     raw_data_dir = project_dir / "data/raw"
-
-    ######
-    # journal articles
-    ######
-    # pdf_dir_path = raw_data_dir / "pdfs"
     txt_root_dir = Path(args.pdf_root_dir).parent / "txts"
 
     # make the txt directory if it doesn't exist
