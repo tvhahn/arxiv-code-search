@@ -25,8 +25,6 @@ def convert_pdf_to_txt(path):
 
     text_lower = text.lower()
 
- 
-
     # get the .txt save name
     save_name = path.stem + ".txt"
 
@@ -34,7 +32,7 @@ def convert_pdf_to_txt(path):
     return {save_name: text}
 
 
-def main():
+def main(file_list):
     """Runs data processing scripts to turn raw data from (../raw) into
     cleaned data ready to be analyzed (saved in ../processed).
     """
@@ -43,34 +41,6 @@ def main():
     #     "making the final data set with geo data, but nothing extra (e.g APGAR data)"
     # )
 
-    pdf_root_dir = Path(args.pdf_root_dir)
-
-    if args.index_file_no:
-        # get a list of file names
-        pdf_dir = pdf_root_dir / str(args.index_file_no)
-
-        files = os.listdir(pdf_dir)
-
-        file_list = [
-            Path(pdf_dir) / filename
-            for filename in files
-            if filename.endswith(".pdf")
-        ]
-    else:
-        # find all the sub folders in the pdf_root_dir
-        pdf_dir_list = [pdf_root_dir / dir_name for dir_name in os.listdir(pdf_root_dir)]
-
-        file_list = []
-        for pdf_dir in pdf_dir_list:
-            files = os.listdir(pdf_dir)
-
-            index_file_list = [
-                Path(pdf_dir) / filename
-                for filename in files
-                if filename.endswith(".pdf")
-            ]
-
-            file_list.extend(index_file_list)
 
     # set up your pool
     with Pool(processes=args.n_cores) as pool:  # or whatever your hardware can support
@@ -120,6 +90,36 @@ if __name__ == "__main__":
 
     args = parser.parse_args()
 
+
+    pdf_root_dir = Path(args.pdf_root_dir)
+
+    if args.index_file_no:
+        # get a list of file names
+        pdf_dir = pdf_root_dir / str(args.index_file_no)
+
+        files = os.listdir(pdf_dir)
+
+        file_list = [
+            Path(pdf_dir) / filename
+            for filename in files
+            if filename.endswith(".pdf")
+        ]
+    else:
+        # find all the sub folders in the pdf_root_dir
+        pdf_dir_list = [pdf_root_dir / dir_name for dir_name in os.listdir(pdf_root_dir)]
+
+        file_list = []
+        for pdf_dir in pdf_dir_list:
+            files = os.listdir(pdf_dir)
+
+            index_file_list = [
+                Path(pdf_dir) / filename
+                for filename in files
+                if filename.endswith(".pdf")
+            ]
+
+            file_list.extend(index_file_list)
+
     # if args.raw_data_dir:
     #     raw_data_dir = Path(args.raw_data_dir)
     # else:
@@ -134,7 +134,7 @@ if __name__ == "__main__":
     # make the txt directory if it doesn't exist
     txt_dir_path.mkdir(parents=True, exist_ok=True)
 
-    txt_dict = main()
+    txt_dict = main(file_list)
     
     for save_name in txt_dict:
         with open(txt_dir_path / save_name, "w") as f:
