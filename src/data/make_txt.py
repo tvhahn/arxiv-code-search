@@ -156,15 +156,13 @@ if __name__ == "__main__":
         with open(txt_root_dir / save_name, "w") as f:
             f.write(txt_dict[save_name])
 
-    # move all the txt files to the proper folder based on the index_no within file_dict
     for index_no, file_list in file_dict.items():
-        # convert all pdf file names to txt file names based on the stem of the pdf file name
-        txt_list = [file.stem + ".txt" for file in file_list]
+        txt_name_list = [file.stem + ".txt" for file in file_list]
 
         txt_dir = txt_root_dir / str(index_no)
         txt_dir.mkdir(parents=True, exist_ok=True)
 
         # move all the txt files to the proper folder
-        for file in txt_list:
-            shutil.move(txt_root_dir / file, txt_dir / file)
+        for txt_name in txt_name_list:
+            shutil.move(txt_root_dir / txt_name, txt_dir / txt_name)
 
