@@ -19,16 +19,21 @@ import shutil
 
 # from https://stackoverflow.com/a/26495057
 def convert_pdf_to_txt(path):
+    try:
+        save_name = path.stem + ".txt"
+        text = high_level.extract_text(path)
+        text = text.replace("-\n", "")
+        text = unicodedata.normalize("NFC", text)
 
-    text = high_level.extract_text(path)
-    text = text.replace("-\n", "")
-    text = unicodedata.normalize("NFC", text)
+        text_lower = text.lower()
 
-    text_lower = text.lower()
-
-    # get the .txt save name
-    save_name = path.stem + ".txt"
-
+        # get the .txt save name
+        save_name = path.stem + ".txt"
+    
+    # save full traceback in exception
+    except Exception as e:
+        text = "error in converting pdf to txt \n" + str(e)
+        save_name = path.stem + "_error.txt"
 
     return {save_name: text}
 
@@ -157,5 +162,8 @@ if __name__ == "__main__":
 
         # move all the txt files to the proper folder
         for txt_name in txt_name_list:
-            shutil.move(txt_root_dir / txt_name, txt_dir / txt_name)
+            try:
+                shutil.move(txt_root_dir / txt_name, txt_dir / txt_name)
+            except:
+                print("error moving file: " + txt_name)
 
