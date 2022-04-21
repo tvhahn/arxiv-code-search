@@ -80,6 +80,17 @@ def extract_matches_as_paragraphs(match_indices, text, save_str_width=4000):
     return str_list
 
 
+def merge_existing_new_labels(df_existing, df_new):
+    df_existing = df_existing.merge(df_new[['para', 'id', 'pattern']], on=['para', 'id'], how="outer")
+
+    # if pattern_y is NaN, then copy pattern_x to pattern_y
+    df_existing['pattern'] = df_existing['pattern_y'].fillna(df_existing['pattern_x'])
+
+    # drop columns that are not needed, pattern_x and pattern_y
+    df_existing = df_existing.drop(['pattern_x', 'pattern_y'], axis=1)
+    return df_existing[["id", "pattern", "update_date", "label", "para"]]
+
+
 def main(file_list, index_no):
     """Runs data processing scripts to turn raw data from (../raw) into
     cleaned data ready to be analyzed (saved in ../processed).
@@ -218,13 +229,29 @@ def main(file_list, index_no):
 
     df = df[["id", "pattern", "update_date", "label", "para"]]
 
+    df = df.astype({"id": str, "pattern": str, "update_date": str, "label": str, "para": str})
+
     save_dir = project_dir / "data/interim"
 
     # make the save_dir directory if it doesn't exist
     save_dir.mkdir(parents=True, exist_ok=True)
+    save_name = f"labels_{str(index_no)}.csv"
 
-    # save df_all to a csv
+    if args.overwrite:
+        print("overwriting")
+        pass
+    else:
+        # load existing labels csv
+        existing_labels_path = save_dir / save_name
+        if existing_labels_path.exists():
+            df_existing = pd.read_csv(existing_labels_path, dtype=str)
+            df = merge_existing_new_labels(df_existing, df)       
+        else:
+            pass
+
     df.to_csv(save_dir / f"labels_{str(index_no)}.csv", index=False)
+
+        
 
 
 if __name__ == "__main__":
