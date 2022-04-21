@@ -238,7 +238,6 @@ def main(file_list, index_no):
     save_name = f"labels_{str(index_no)}.csv"
 
     if args.overwrite:
-        print("overwriting")
         pass
     else:
         # load existing labels csv
