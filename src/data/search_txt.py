@@ -157,8 +157,8 @@ def main(file_list, index_no):
     # load the txt file as a string
 
     for txt_path in file_list:
-        doi = txt_path.stem
-        doi_list = []
+        id = txt_path.stem
+        id_list = []
         para_list = []
         pattern_name_list = []
 
@@ -184,12 +184,12 @@ def main(file_list, index_no):
 
                 para_list.extend(temp_para_list)
                 pattern_name_list.extend([pattern] * match_count)
-                doi_list.extend([doi] * match_count)
+                id_list.extend([id] * match_count)
 
         df = pd.DataFrame(
-            [doi_list, pattern_name_list, para_list],
+            [id_list, pattern_name_list, para_list],
         ).T
-        df.columns = ["doi", "pattern_name", "para"]
+        df.columns = ["id", "pattern_name", "para"]
         df_list.append(df)
 
     # concatenate the dataframes
@@ -203,7 +203,7 @@ def main(file_list, index_no):
     # groupby and create list: https://stackoverflow.com/a/22221675
     # to load df with a list in it: https://stackoverflow.com/a/57373513 - use pd.eval
     df = (
-        df.groupby(["doi", "para"])["pattern_name"]
+        df.groupby(["id", "para"])["pattern_name"]
         .apply(list)
         .reset_index(name="pattern")
     )
@@ -212,10 +212,11 @@ def main(file_list, index_no):
     # add an empty 'label' column to the df
     df["label"] = ""
 
-    # replace the '/' with '_' in the 'doi' column
-    df["save_name"] = df["doi"].str.replace("/", "_")
+    # add an empty 'update_date' column to the df
+    df["update_date"] = ""
 
-    df = df[["save_name", "doi", "pattern", "label", "para"]]
+
+    df = df[["id", "pattern", "update_date", "label", "para"]]
 
     save_dir = project_dir / "data/interim"
 
@@ -249,6 +250,11 @@ if __name__ == "__main__":
         help="Index number of the index file to use. Will only search in this folder for txts.",
     )
 
+    parser.add_argument(
+        "--overwrite",
+        help="Overwrite existing files, otherwise will be merged into existing file.",
+    )
+
 
     args = parser.parse_args()
 
@@ -256,7 +262,6 @@ if __name__ == "__main__":
         txt_root_dir = Path(args.txt_root_dir)
     else:
         txt_root_dir = project_dir / "data/raw/txts"
-
 
     file_dict = get_txt_file_list(txt_root_dir)
 
