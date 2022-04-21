@@ -5,6 +5,7 @@ import re
 import os
 import argparse
 import logging
+from datetime import datetime
 
 
 def get_txt_file_list(txt_root_dir):
@@ -166,7 +167,6 @@ def main(file_list, index_no):
     save_str_width = 4000
 
     # load the txt file as a string
-
     for txt_path in file_list:
         id = txt_path.stem
         id_list = []
@@ -183,7 +183,6 @@ def main(file_list, index_no):
             ]
 
             match_count = len(match_index)
-            # print(match_count)
 
             if match_count == 0:
                 continue
@@ -237,10 +236,19 @@ def main(file_list, index_no):
     save_dir.mkdir(parents=True, exist_ok=True)
     save_name = f"labels_{str(index_no)}.csv"
 
+    if args.keep_old_files:
+        # get current date and time and store as nice format
+        now = datetime.now()
+        now_str = now.strftime("%Y-%m-%d_%H.%M")
+
+        # save the old version of the file
+        old_save_name = f"{now_str}_labels_{str(index_no)}.csv"
+        old_save_path = save_dir / old_save_name
+        df.to_csv(old_save_path, index=False)
+
     if args.overwrite:
         pass
     else:
-        # load existing labels csv
         existing_labels_path = save_dir / save_name
         if existing_labels_path.exists():
             df_existing = pd.read_csv(existing_labels_path, dtype=str)
@@ -278,7 +286,17 @@ if __name__ == "__main__":
 
     parser.add_argument(
         "--overwrite",
+        default=False,
+        action="store_true",
         help="Overwrite existing files, otherwise will be merged into existing file.",
+    )
+
+
+    parser.add_argument(
+        "--keep_old_files",
+        default=False,
+        action="store_true",
+        help="Keep a copy of the old label file.",
     )
 
 
