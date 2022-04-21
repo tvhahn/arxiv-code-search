@@ -61,7 +61,7 @@ endif
 ## Download papers from arxiv
 download_papers:
 ifeq (True,$(HAS_CONDA)) # assume on local
-	$(PYTHON_INTERPRETER) src/data/download_papers.py --index_file_no 1 --n_papers 3
+	$(PYTHON_INTERPRETER) src/data/download_papers.py --index_file_no 2
 else # assume on HPC
 	sbatch src/data/parse_json.sh
 endif
@@ -70,7 +70,7 @@ endif
 ## Make Dataset
 txt: requirements
 ifeq (True,$(HAS_CONDA)) # assume on local
-	$(PYTHON_INTERPRETER) src/data/make_txt.py --n_cores 6 --pdf_root_dir $(PROJECT_DIR)/data/raw/pdfs/
+	$(PYTHON_INTERPRETER) src/data/make_txt.py --n_cores 6 --pdf_root_dir $(PROJECT_DIR)/data/raw/pdfs/ --index_file_no 2
 else # assume on HPC
 	sbatch src/data/make_hpc_txt_files.sh
 endif
@@ -78,7 +78,7 @@ endif
 ## Make Dataset
 search: requirements
 ifeq (True,$(HAS_CONDA)) # assume on local
-	$(PYTHON_INTERPRETER) src/data/search_txt.py --keep_old_files
+	$(PYTHON_INTERPRETER) src/data/search_txt.py --keep_old_files --index_file_no 1
 else # assume on HPC
 	sbatch src/data/search_hpc_txt_files.sh
 endif
