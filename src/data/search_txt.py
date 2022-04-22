@@ -58,7 +58,7 @@ def get_paragraph(sub_str, rel_ind):
 
 
 def extract_matches_as_paragraphs(match_indices, text, save_str_width=4000):
-    str_list = []
+    para_list = []
 
     for i in match_indices:
 
@@ -77,8 +77,8 @@ def extract_matches_as_paragraphs(match_indices, text, save_str_width=4000):
 
         matched_para = get_paragraph(text[start:end], rel_ind)
 
-        str_list.append(matched_para)
-    return str_list
+        para_list.append(matched_para)
+    return para_list
 
 
 def merge_existing_new_labels(df_existing, df_new):
