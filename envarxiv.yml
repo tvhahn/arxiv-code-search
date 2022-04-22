@@ -14,5 +14,6 @@ dependencies:
   - pandas
   - black
   - pdfminer.six
+  - nltk
 
 

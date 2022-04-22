@@ -119,10 +119,11 @@ def main(file_list, index_no):
             r"\b(code)(?:\W+\w+){0,9}?\W+(open-source|open source)\b"
         ),
         "github": re.compile(r"(github|gitlab)"),
-        "data repos": re.compile(r"(mendeley|phm data challenge|nasa ames|repo)"),
+        "data repos": re.compile(r"(mendeley|phm data challenge|nasa ames)"),
         "data repository": re.compile(
             r"\b(data|dataset|data set)(?:\W+\w+){0,9}?\W+(repository|repo)\b"
         ),
+        "repo": re.compile(r"\b(repo)\b"),
         "used dataset": re.compile(
             r"\b(used|use)(?:\W+\w+){0,5}?\W+(dataset|data set)\b"
         ),
