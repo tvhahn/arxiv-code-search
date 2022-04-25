@@ -7,6 +7,7 @@ import argparse
 import logging
 from datetime import datetime
 import nltk
+import shutil
 
 
 def get_txt_file_list(txt_root_dir):
@@ -179,7 +180,7 @@ def extract_matches_as_paragraphs(match_indices, text, save_str_width=4000, init
 
 def merge_existing_new_labels(df_existing, df_new):
     df_existing = df_existing.merge(
-        df_new[["para", "id", "pattern"]], on=["para", "id"], how="outer"
+        df_new[["para", "id", "pattern", "token_count"]], on=["para", "id", "token_count"], how="outer"
     )
 
     # if pattern_y is NaN, then copy pattern_x to pattern_y
@@ -309,15 +310,6 @@ def main(file_list, index_no):
     # concatenate the dataframes
     df = pd.concat(df_list)
 
-    #### temp save datafram
-    # save_dir = project_dir / "data/interim"
-
-    # # make the save_dir directory if it doesn't exist
-    # save_dir.mkdir(parents=True, exist_ok=True)
-    # save_name = f"labels_{str(index_no)}_ungrouped.csv"
-    # df.to_csv(save_dir / save_name, index=False)
-
-
     def unique_vals(cols):
         l = cols[0]
         # return a string of l, with each element separated by a comma
@@ -351,7 +343,6 @@ def main(file_list, index_no):
     save_dir.mkdir(parents=True, exist_ok=True)
     save_name = f"labels_{str(index_no)}.csv"
 
-    ##### CURRENTLY NOT WORKING PROPERLY!!!!
     if args.keep_old_files:
         # get current date and time and store as nice format
         now = datetime.now()
@@ -360,7 +351,10 @@ def main(file_list, index_no):
         # save the old version of the file
         old_save_name = f"{now_str}_labels_{str(index_no)}.csv"
         old_save_path = save_dir / old_save_name
-        df.to_csv(old_save_path, index=False)
+
+        # use shutil to copy the file and rename it to old_save_name
+        shutil.copy(save_dir / save_name, old_save_path)
+        
 
     if args.overwrite:
         pass
