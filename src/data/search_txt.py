@@ -276,6 +276,7 @@ def main(file_list, index_no):
         para_list = []
         pattern_name_list = []
         token_count_list = []
+        print(id)
 
         with open(txt_path, "r") as f:
             txt = f.read()
