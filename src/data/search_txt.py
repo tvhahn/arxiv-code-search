@@ -144,7 +144,7 @@ def create_chunks_of_text(text, init_token_length=400, max_token_length=500):
     return split_dict
 
 
-def extract_matches_as_paragraphs(match_indices, text, save_str_width=4000, init_token_length=400, max_token_length=500):
+def extract_matches_as_paragraphs(match_indices, text, id, save_str_width=4000, init_token_length=400, max_token_length=500):
     para_list = []
     token_count_list = []
 
@@ -167,10 +167,14 @@ def extract_matches_as_paragraphs(match_indices, text, save_str_width=4000, init
         token_count = len(nltk.word_tokenize(matched_para))
 
         if token_count > max_token_length:
-            split_dict = create_chunks_of_text(matched_para, init_token_length, max_token_length)
-            for k, v in split_dict.items():
-                para_list.append(v[0])
-                token_count_list.append(v[1])
+            try:
+                split_dict = create_chunks_of_text(matched_para, init_token_length, max_token_length)
+                for k, v in split_dict.items():
+                    para_list.append(v[0])
+                    token_count_list.append(v[1])
+            except Exception as e:
+                print(f"{id}: Error in creating chunks of text:", e)
+
         else:
             para_list.append(matched_para)
             token_count_list.append(token_count)
@@ -189,10 +193,6 @@ def merge_existing_new_labels(df_existing, df_new):
     # drop columns that are not needed, pattern_x and pattern_y
     df_existing = df_existing.drop(["pattern_x", "pattern_y"], axis=1)
     return df_existing[["id", "pattern", "token_count", "update_date", "label", "para"]]
-
-
-
-    
 
 
 def main(file_list, index_no):
@@ -276,8 +276,7 @@ def main(file_list, index_no):
         para_list = []
         pattern_name_list = []
         token_count_list = []
-        print(id)
-
+        
         with open(txt_path, "r") as f:
             txt = f.read()
             txt_lower = txt.lower()
@@ -294,7 +293,7 @@ def main(file_list, index_no):
             else:
 
                 temp_para_list, temp_token_count_list = extract_matches_as_paragraphs(
-                    match_index, txt, save_str_width=save_str_width
+                    match_index, txt, id, save_str_width=save_str_width
                 )
 
                 para_list.extend(temp_para_list)
@@ -388,6 +387,7 @@ if __name__ == "__main__":
 
     parser.add_argument(
         "--index_file_no",
+        default=8,
         type=int,
         help="Index number of the index file to use. Will only search in this folder for txts.",
     )

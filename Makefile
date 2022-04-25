@@ -78,7 +78,7 @@ endif
 ## Make Dataset
 search: requirements
 ifeq (True,$(HAS_CONDA)) # assume on local
-	$(PYTHON_INTERPRETER) src/data/search_txt.py --index_file_no 8 --overwrite
+	$(PYTHON_INTERPRETER) src/data/search_txt.py --index_file_no 2 --overwrite
 else # assume on HPC
 	sbatch src/data/search_hpc_txt_files.sh
 endif
