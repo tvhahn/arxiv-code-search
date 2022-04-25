@@ -143,7 +143,7 @@ def create_chunks_of_text(text, init_token_length=400, max_token_length=500):
     return split_dict
 
 
-def extract_matches_as_paragraphs(match_indices, text, save_str_width=4000):
+def extract_matches_as_paragraphs(match_indices, text, save_str_width=4000, init_token_length=400, max_token_length=500):
     para_list = []
     token_count_list = []
 
@@ -162,12 +162,17 @@ def extract_matches_as_paragraphs(match_indices, text, save_str_width=4000):
         else:
             end = i + save_str_width
 
-        matched_para = get_paragraph(text[start:end], rel_ind)
-        para_list.append(matched_para)
-
-        # count number of tokens in matched_para using nltk
+        matched_para = get_paragraph(text[start:end], rel_ind)      
         token_count = len(nltk.word_tokenize(matched_para))
-        token_count_list.append(token_count)
+
+        if token_count > max_token_length:
+            split_dict = create_chunks_of_text(matched_para, init_token_length, max_token_length)
+            for k, v in split_dict.items():
+                para_list.append(v[0])
+                token_count_list.append(v[1])
+        else:
+            para_list.append(matched_para)
+            token_count_list.append(token_count)
 
     return para_list, token_count_list
 
@@ -293,7 +298,7 @@ def main(file_list, index_no):
                 para_list.extend(temp_para_list)
                 token_count_list.extend(temp_token_count_list)
                 pattern_name_list.extend([pattern] * len(temp_para_list))
-                id_list.extend([id] * match_count)
+                id_list.extend([id] * len(temp_para_list))
 
         df = pd.DataFrame(
             [id_list, pattern_name_list, token_count_list, para_list],
@@ -303,6 +308,15 @@ def main(file_list, index_no):
 
     # concatenate the dataframes
     df = pd.concat(df_list)
+
+    #### temp save datafram
+    # save_dir = project_dir / "data/interim"
+
+    # # make the save_dir directory if it doesn't exist
+    # save_dir.mkdir(parents=True, exist_ok=True)
+    # save_name = f"labels_{str(index_no)}_ungrouped.csv"
+    # df.to_csv(save_dir / save_name, index=False)
+
 
     def unique_vals(cols):
         l = cols[0]
@@ -337,6 +351,7 @@ def main(file_list, index_no):
     save_dir.mkdir(parents=True, exist_ok=True)
     save_name = f"labels_{str(index_no)}.csv"
 
+    ##### CURRENTLY NOT WORKING PROPERLY!!!!
     if args.keep_old_files:
         # get current date and time and store as nice format
         now = datetime.now()
