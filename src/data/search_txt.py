@@ -58,43 +58,6 @@ def get_paragraph(sub_str, rel_ind):
             return s.strip()
 
 
-def extract_matches_as_paragraphs(match_indices, text, save_str_width=4000):
-    para_list = []
-
-    for i in match_indices:
-
-        # in case the match is too close to the beginning or
-        # end of the text
-        if i - save_str_width <= 0:
-            start = 0
-            rel_ind = i
-        else:
-            start = i - save_str_width
-            rel_ind = save_str_width
-        if i + save_str_width > len(text):
-            end = len(text)
-        else:
-            end = i + save_str_width
-
-        matched_para = get_paragraph(text[start:end], rel_ind)
-
-        para_list.append(matched_para)
-    return para_list
-
-
-def merge_existing_new_labels(df_existing, df_new):
-    df_existing = df_existing.merge(
-        df_new[["para", "id", "pattern"]], on=["para", "id"], how="outer"
-    )
-
-    # if pattern_y is NaN, then copy pattern_x to pattern_y
-    df_existing["pattern"] = df_existing["pattern_y"].fillna(df_existing["pattern_x"])
-
-    # drop columns that are not needed, pattern_x and pattern_y
-    df_existing = df_existing.drop(["pattern_x", "pattern_y"], axis=1)
-    return df_existing[["id", "pattern", "update_date", "label", "para"]]
-
-
 def create_chunks_of_text(text, init_token_length=400, max_token_length=500):
     token_count = len(nltk.word_tokenize(text))
 
@@ -178,6 +141,51 @@ def create_chunks_of_text(text, init_token_length=400, max_token_length=500):
             split_dict[i] = [split_text, chunk_lengths]
 
     return split_dict
+
+
+def extract_matches_as_paragraphs(match_indices, text, save_str_width=4000):
+    para_list = []
+    token_count_list = []
+
+    for i in match_indices:
+
+        # in case the match is too close to the beginning or
+        # end of the text
+        if i - save_str_width <= 0:
+            start = 0
+            rel_ind = i
+        else:
+            start = i - save_str_width
+            rel_ind = save_str_width
+        if i + save_str_width > len(text):
+            end = len(text)
+        else:
+            end = i + save_str_width
+
+        matched_para = get_paragraph(text[start:end], rel_ind)
+        para_list.append(matched_para)
+
+        # count number of tokens in matched_para using nltk
+        token_count = len(nltk.word_tokenize(matched_para))
+        token_count_list.append(token_count)
+
+    return para_list, token_count_list
+
+
+def merge_existing_new_labels(df_existing, df_new):
+    df_existing = df_existing.merge(
+        df_new[["para", "id", "pattern"]], on=["para", "id"], how="outer"
+    )
+
+    # if pattern_y is NaN, then copy pattern_x to pattern_y
+    df_existing["pattern"] = df_existing["pattern_y"].fillna(df_existing["pattern_x"])
+
+    # drop columns that are not needed, pattern_x and pattern_y
+    df_existing = df_existing.drop(["pattern_x", "pattern_y"], axis=1)
+    return df_existing[["id", "pattern", "token_count", "update_date", "label", "para"]]
+
+
+
     
 
 
@@ -261,6 +269,7 @@ def main(file_list, index_no):
         id_list = []
         para_list = []
         pattern_name_list = []
+        token_count_list = []
 
         with open(txt_path, "r") as f:
             txt = f.read()
@@ -277,18 +286,19 @@ def main(file_list, index_no):
                 continue
             else:
 
-                temp_para_list = extract_matches_as_paragraphs(
+                temp_para_list, temp_token_count_list = extract_matches_as_paragraphs(
                     match_index, txt, save_str_width=save_str_width
                 )
 
                 para_list.extend(temp_para_list)
-                pattern_name_list.extend([pattern] * match_count)
+                token_count_list.extend(temp_token_count_list)
+                pattern_name_list.extend([pattern] * len(temp_para_list))
                 id_list.extend([id] * match_count)
 
         df = pd.DataFrame(
-            [id_list, pattern_name_list, para_list],
+            [id_list, pattern_name_list, token_count_list, para_list],
         ).T
-        df.columns = ["id", "pattern_name", "para"]
+        df.columns = ["id", "pattern_name", "token_count", "para"]
         df_list.append(df)
 
     # concatenate the dataframes
@@ -302,10 +312,11 @@ def main(file_list, index_no):
     # groupby and create list: https://stackoverflow.com/a/22221675
     # to load df with a list in it: https://stackoverflow.com/a/57373513 - use pd.eval
     df = (
-        df.groupby(["id", "para"])["pattern_name"]
+        df.groupby(["id", "token_count", "para"])["pattern_name"]
         .apply(list)
         .reset_index(name="pattern")
     )
+
     df["pattern"] = df[["pattern"]].apply(unique_vals, axis=1)
 
     # add an empty 'label' column to the df
@@ -314,10 +325,10 @@ def main(file_list, index_no):
     # add an empty 'update_date' column to the df
     df["update_date"] = ""
 
-    df = df[["id", "pattern", "update_date", "label", "para"]]
+    df = df[["id", "pattern", "token_count", "update_date", "label", "para"]].sort_values(by=["id", "pattern", "token_count"])
 
     df = df.astype(
-        {"id": str, "pattern": str, "update_date": str, "label": str, "para": str}
+        {"id": str, "pattern": str, "token_count": str, "update_date": str, "label": str, "para": str}
     )
 
     save_dir = project_dir / "data/interim"
