@@ -6,6 +6,7 @@ import os
 import argparse
 import logging
 from datetime import datetime
+import nltk
 
 
 def get_txt_file_list(txt_root_dir):
@@ -16,15 +17,15 @@ def get_txt_file_list(txt_root_dir):
         files = os.listdir(txt_dir)
 
         file_list = [
-            Path(txt_dir) / filename
-            for filename in files
-            if filename.endswith(".txt")
+            Path(txt_dir) / filename for filename in files if filename.endswith(".txt")
         ]
 
         file_dict = {args.index_file_no: file_list}
     else:
         # find all the sub folders in the txt_root_dir
-        txt_dir_list = [txt_root_dir / dir_name for dir_name in os.listdir(txt_root_dir)]
+        txt_dir_list = [
+            txt_root_dir / dir_name for dir_name in os.listdir(txt_root_dir)
+        ]
 
         file_dict = {}
         for txt_dir in txt_dir_list:
@@ -39,7 +40,7 @@ def get_txt_file_list(txt_root_dir):
             ]
 
             file_dict[index_no] = file_list
-            
+
     return file_dict
 
 
@@ -82,14 +83,102 @@ def extract_matches_as_paragraphs(match_indices, text, save_str_width=4000):
 
 
 def merge_existing_new_labels(df_existing, df_new):
-    df_existing = df_existing.merge(df_new[['para', 'id', 'pattern']], on=['para', 'id'], how="outer")
+    df_existing = df_existing.merge(
+        df_new[["para", "id", "pattern"]], on=["para", "id"], how="outer"
+    )
 
     # if pattern_y is NaN, then copy pattern_x to pattern_y
-    df_existing['pattern'] = df_existing['pattern_y'].fillna(df_existing['pattern_x'])
+    df_existing["pattern"] = df_existing["pattern_y"].fillna(df_existing["pattern_x"])
 
     # drop columns that are not needed, pattern_x and pattern_y
-    df_existing = df_existing.drop(['pattern_x', 'pattern_y'], axis=1)
+    df_existing = df_existing.drop(["pattern_x", "pattern_y"], axis=1)
     return df_existing[["id", "pattern", "update_date", "label", "para"]]
+
+
+def create_chunks_of_text(text, init_token_length=400, max_token_length=500):
+    token_count = len(nltk.word_tokenize(text))
+
+    n_splits = int(np.ceil(token_count / init_token_length))
+
+    sent = np.array(nltk.sent_tokenize(text))
+
+    # create an array of sentence token lengths
+    sent_token_lengths = np.array([len(nltk.word_tokenize(s)) for s in sent])
+    sent_split_lengths = np.array_split(sent_token_lengths, n_splits)
+    sent_split_indices = np.array_split(np.arange(0, len(sent_token_lengths)), n_splits)
+
+    split_dict = {}
+    for i in range(n_splits):
+        chunk_lengths = int(np.sum(sent_split_lengths[i]))
+        chunk_indices = list(sent_split_indices[i])
+
+        if i == 0:
+            forwards = list(
+                zip(np.hstack(np.array(sent_split_lengths[i+1:], dtype=object)), 
+                    np.hstack(np.array(sent_split_indices[i+1:], dtype=object)))
+                    )
+            # f_l: forward lenghts, f_i: forward indices
+            for f_l, f_i in forwards:
+                if chunk_lengths + f_l <= max_token_length:
+                    chunk_lengths += f_l
+                    chunk_indices = chunk_indices + [f_i]
+                else:
+                    break
+            
+            split_text = " ".join([s for s in sent[chunk_indices]])
+            split_dict[i] = [split_text, chunk_lengths]
+
+        elif i > 0 and i <= n_splits - 2:
+            
+            forwards = list(
+                zip(np.hstack(np.array(sent_split_lengths[i+1:], dtype=object)), 
+                    np.hstack(np.array(sent_split_indices[i+1:], dtype=object))))
+
+            backwards = list(
+                zip(np.hstack(np.array(sent_split_lengths[:i], dtype=object))[::-1], 
+                    np.hstack(np.array(sent_split_indices[:i], dtype=object))[::-1]))
+
+            for k in range(max_token_length):
+                if k % 2 == 0:
+                    f_l = forwards[0][0]
+                    f_i = forwards[0][1]
+                    if chunk_lengths + f_l <= max_token_length:
+                        chunk_lengths += f_l
+                        chunk_indices = chunk_indices + [f_i]
+                        forwards.pop(0)
+                    else:
+                        break
+                else:
+                    b_l = backwards[0][0]
+                    b_i = backwards[0][1]
+                    if chunk_lengths + b_l <= max_token_length:
+                        chunk_lengths += b_l
+                        chunk_indices = [b_i] + chunk_indices
+                        backwards.pop(0)
+                    else:
+                        break
+
+            split_text = " ".join([s for s in sent[chunk_indices]])
+            split_dict[i] = [split_text, chunk_lengths]
+            
+        else:
+
+            backwards = list(
+                zip(np.hstack(np.array(sent_split_lengths[:i], dtype=object))[::-1], 
+                    np.hstack(np.array(sent_split_indices[:i], dtype=object))[::-1]))
+
+            for b_l, b_i in backwards:
+                if chunk_lengths + b_l <= max_token_length:
+                    chunk_lengths += b_l
+                    chunk_indices = [b_i] + chunk_indices
+                else:
+                    break
+
+            split_text = " ".join([s for s in sent[chunk_indices]])
+            split_dict[i] = [split_text, chunk_lengths]
+
+    return split_dict
+    
 
 
 def main(file_list, index_no):
@@ -162,7 +251,6 @@ def main(file_list, index_no):
 
     pattern_names = list(pattern_dict.keys())
 
-
     df_list = []
 
     save_str_width = 4000
@@ -226,10 +314,11 @@ def main(file_list, index_no):
     # add an empty 'update_date' column to the df
     df["update_date"] = ""
 
-
     df = df[["id", "pattern", "update_date", "label", "para"]]
 
-    df = df.astype({"id": str, "pattern": str, "update_date": str, "label": str, "para": str})
+    df = df.astype(
+        {"id": str, "pattern": str, "update_date": str, "label": str, "para": str}
+    )
 
     save_dir = project_dir / "data/interim"
 
@@ -253,13 +342,11 @@ def main(file_list, index_no):
         existing_labels_path = save_dir / save_name
         if existing_labels_path.exists():
             df_existing = pd.read_csv(existing_labels_path, dtype=str)
-            df = merge_existing_new_labels(df_existing, df)       
+            df = merge_existing_new_labels(df_existing, df)
         else:
             pass
 
     df.to_csv(save_dir / f"labels_{str(index_no)}.csv", index=False)
-
-        
 
 
 if __name__ == "__main__":
@@ -270,7 +357,6 @@ if __name__ == "__main__":
     project_dir = Path(__file__).resolve().parents[2]
 
     parser = argparse.ArgumentParser(description="Create .txt files from .pdf files")
-
 
     # argument for txt_dir_path
     parser.add_argument(
@@ -292,14 +378,12 @@ if __name__ == "__main__":
         help="Overwrite existing files, otherwise will be merged into existing file.",
     )
 
-
     parser.add_argument(
         "--keep_old_files",
         default=False,
         action="store_true",
         help="Keep a copy of the old label file.",
     )
-
 
     args = parser.parse_args()
 
@@ -312,6 +396,3 @@ if __name__ == "__main__":
 
     for index_no, file_list in file_dict.items():
         main(file_list, index_no)
-
-
-    
