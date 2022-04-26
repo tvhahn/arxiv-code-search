@@ -352,8 +352,10 @@ def main(file_list, index_no):
         old_save_name = f"{now_str}_labels_{str(index_no)}.csv"
         old_save_path = save_dir / old_save_name
 
-        # use shutil to copy the file and rename it to old_save_name
-        shutil.copy(save_dir / save_name, old_save_path)
+        # check if old_save_path exists
+        if old_save_path.exists():
+            # use shutil to copy the file and rename it to old_save_name
+            shutil.copy(save_dir / save_name, old_save_path)
         
 
     if args.overwrite:
