@@ -1,0 +1,1776 @@
+id,submitter,authors,title,comments,journal-ref,doi,report-no,categories,license,abstract,versions,update_date,authors_parsed
+2011.08596,Jonathan Crabb\'e,"Jonathan Crabb\'e, Yao Zhang, William Zame, Mihaela van der Schaar",Learning outside the Black-Box: The pursuit of interpretable models,"presented in 34th Conference on Neural Information Processing Systems
+  (NeurIPS 2020)","Advances in Neural Information Processing Systems 33 (2020)
+  17838-17849",,,cs.LG cs.AI,http://creativecommons.org/licenses/by/4.0/,"  Machine Learning has proved its ability to produce accurate models but the
+deployment of these models outside the machine learning community has been
+hindered by the difficulties of interpreting these models. This paper proposes
+an algorithm that produces a continuous global interpretation of any given
+continuous black-box function. Our algorithm employs a variation of projection
+pursuit in which the ridge functions are chosen to be Meijer G-functions,
+rather than the usual polynomial splines. Because Meijer G-functions are
+differentiable in their parameters, we can tune the parameters of the
+representation by gradient descent; as a consequence, our algorithm is
+efficient. Using five familiar data sets from the UCI repository and two
+familiar machine learning algorithms, we demonstrate that our algorithm
+produces global interpretations that are both highly accurate and parsimonious
+(involve a small number of terms). Our interpretations permit easy
+understanding of the relative importance of features and feature interactions.
+Our interpretation algorithm represents a leap forward from the previous state
+of the art.
+","[{'version': 'v1', 'created': 'Tue, 17 Nov 2020 12:39:44 GMT'}]",2021-03-19,"[['Crabbé', 'Jonathan', ''], ['Zhang', 'Yao', ''], ['Zame', 'William', ''], ['van der Schaar', 'Mihaela', '']]"
+2111.11616,Venkata Bhanu Teja Pallakonda,Venkata Bhanu Teja Pallakonda,Using mixup as regularization and tuning hyper-parameters for ResNets,"6 pages, 7 figures, 2 tables",,,,cs.CV cs.LG,http://creativecommons.org/licenses/by/4.0/,"  While novel computer vision architectures are gaining traction, the impact of
+model architectures is often related to changes or exploring in training
+methods. Identity mapping-based architectures ResNets and DenseNets have
+promised path-breaking results in the image classification task and are go-to
+methods for even now if the data given is fairly limited. Considering the ease
+of training with limited resources this work revisits the ResNets and improves
+the ResNet50 \cite{resnets} by using mixup data-augmentation as regularization
+and tuning the hyper-parameters.
+","[{'version': 'v1', 'created': 'Tue, 23 Nov 2021 02:33:24 GMT'}]",2021-11-24,"[['Pallakonda', 'Venkata Bhanu Teja', '']]"
+2006.11206,Yuval Wigderson,Avi Wigderson and Yuval Wigderson,The uncertainty principle: variations on a theme,43 pages,,,,math.FA cs.IT math-ph math.CO math.GR math.IT math.MP,http://creativecommons.org/licenses/by/4.0/,"  We show how a number of well-known uncertainty principles for the Fourier
+transform, such as the Heisenberg uncertainty principle, the Donoho--Stark
+uncertainty principle, and Meshulam's non-abelian uncertainty principle, have
+little to do with the structure of the Fourier transform itself. Rather, all of
+these results follow from very weak properties of the Fourier transform (shared
+by numerous linear operators), namely that it is bounded as an operator $L^1
+\to L^\infty$, and that it is unitary. Using a single, simple proof template,
+and only these (or weaker) properties, we obtain some new proofs and many
+generalizations of these basic uncertainty principles, to new operators and to
+new settings, in a completely unified way. Together with our general overview,
+this paper can also serve as a survey of the many facets of the phenomena known
+as uncertainty principles.
+","[{'version': 'v1', 'created': 'Fri, 19 Jun 2020 16:19:15 GMT'}, {'version': 'v2', 'created': 'Fri, 21 Aug 2020 16:48:19 GMT'}, {'version': 'v3', 'created': 'Fri, 11 Sep 2020 15:18:20 GMT'}]",2020-09-14,"[['Wigderson', 'Avi', ''], ['Wigderson', 'Yuval', '']]"
+1803.00618,Marcelo S. Reis,Marcelo S. Reis,"Finding steady-state solutions for ODE systems of zero, first and
+  homogeneous second-order chemical reactions is NP-hard","8 pages, 7 references",,,,cs.CC,http://creativecommons.org/licenses/by/4.0/,"  In the context of modeling of cell signaling pathways, a relevant step is
+finding steady-state solutions for ODE systems that describe the kinetics of a
+set of chemical reactions, especially sets composed of zero, first, and
+second-order reactions. To compute a steady-state solution, one must set the
+left-hand side of each ODE as zero, hence obtaining a system of non-negative,
+quadratic polynomial equations. If all second-order reactions are homogeneous
+in respect to their reactants, then the obtained quadratic polynomial equation
+system will also have univariate monomials. Although it is a well-known fact
+that finding a root of a quadratic polynomial equation system is a NP-hard
+problem, it is not so easy to find a readily available proof of NP-hardness for
+special cases like the aforementioned one. Therefore, we provide here a
+self-contained proof that finding a root of non-negative, with univariate
+monomials quadratic polynomial equation system (NUMQ-PES) is NP-hard. This
+result implies that finding steady-state solutions for ODE systems of zero,
+first and homogeneous second-order chemical reactions is a NP-hard problem;
+hence, it is not a feasible approach to approximate non-homogeneous
+second-order reactions into homogeneous ones.
+","[{'version': 'v1', 'created': 'Tue, 27 Feb 2018 14:33:36 GMT'}, {'version': 'v2', 'created': 'Tue, 10 Apr 2018 13:48:34 GMT'}]",2018-04-11,"[['Reis', 'Marcelo S.', '']]"
+2201.10945,Won-Yong Shin,"Jin-Duk Park, Cong Tran, Won-Yong Shin, Xin Cao","On the Power of Gradual Network Alignment Using Dual-Perception
+  Similarities","16 pages, 11 figures, 4 tables; its two-page extended summary to be
+  presented in the AAAI-22 Student Abstract and Poster Program",,,,cs.SI cs.AI cs.LG cs.NE cs.NI,http://creativecommons.org/licenses/by/4.0/,"  Network alignment (NA) is the task of finding the correspondence of nodes
+between two networks based on the network structure and node attributes. Our
+study is motivated by the fact that, since most of existing NA methods have
+attempted to discover all node pairs at once, they do not harness information
+enriched through interim discovery of node correspondences to more accurately
+find the next correspondences during the node matching. To tackle this
+challenge, we propose Grad-Align, a new NA method that gradually discovers node
+pairs by making full use of node pairs exhibiting strong consistency, which are
+easy to be discovered in the early stage of gradual matching. Specifically,
+Grad-Align first generates node embeddings of the two networks based on graph
+neural networks along with our layer-wise reconstruction loss, a loss built
+upon capturing the first-order and higher-order neighborhood structures. Then,
+nodes are gradually aligned by computing dual-perception similarity measures
+including the multi-layer embedding similarity as well as the Tversky
+similarity, an asymmetric set similarity using the Tversky index applicable to
+networks with different scales. Additionally, we incorporate an edge
+augmentation module into Grad-Align to reinforce the structural consistency.
+Through comprehensive experiments using real-world and synthetic datasets, we
+empirically demonstrate that Grad-Align consistently outperforms
+state-of-the-art NA methods.
+","[{'version': 'v1', 'created': 'Wed, 26 Jan 2022 14:01:32 GMT'}]",2022-01-27,"[['Park', 'Jin-Duk', ''], ['Tran', 'Cong', ''], ['Shin', 'Won-Yong', ''], ['Cao', 'Xin', '']]"
+2007.01675,Michael Chappell,"Michael A. Chappell, Martin S. Craig, Mark W. Woolrich",Stochastic Variational Bayesian Inference for a Nonlinear Forward Model,,,,,eess.SP stat.AP stat.ML,http://creativecommons.org/licenses/by/4.0/,"  Variational Bayes (VB) has been used to facilitate the calculation of the
+posterior distribution in the context of Bayesian inference of the parameters
+of nonlinear models from data. Previously an analytical formulation of VB has
+been derived for nonlinear model inference on data with additive gaussian noise
+as an alternative to nonlinear least squares. Here a stochastic solution is
+derived that avoids some of the approximations required of the analytical
+formulation, offering a solution that can be more flexibly deployed for
+nonlinear model inference problems. The stochastic VB solution was used for
+inference on a biexponential toy case and the algorithmic parameter space
+explored, before being deployed on real data from a magnetic resonance imaging
+study of perfusion. The new method was found to achieve comparable parameter
+recovery to the analytic solution and be competitive in terms of computational
+speed despite being reliant on sampling.
+","[{'version': 'v1', 'created': 'Fri, 3 Jul 2020 13:30:50 GMT'}]",2020-07-06,"[['Chappell', 'Michael A.', ''], ['Craig', 'Martin S.', ''], ['Woolrich', 'Mark W.', '']]"
+2111.07244,Sharat Ibrahimpur,Sharat Ibrahimpur and Chaitanya Swamy,"A Simple Approximation Algorithm for Vector Scheduling and Applications
+  to Stochastic Min-Norm Load Balancing","An extended abstract is to appear in the Proceedings of the 5th SOSA,
+  2022",,,,cs.DS,http://creativecommons.org/licenses/by/4.0/,"  We consider the Vector Scheduling problem on identical machines: we have m
+machines, and a set J of n jobs, where each job j has a processing-time vector
+$p_j\in \mathbb{R}^d_{\geq 0}$. The goal is to find an assignment $\sigma:J\to
+[m]$ of jobs to machines so as to minimize the makespan $\max_{i\in
+[m]}\max_{r\in [d]}( \sum_{j:\sigma(j)=i}p_{j,r})$. A natural lower bound on
+the optimal makespan is lb $:=\max\{\max_{j\in J,r\in [d]}p_{j,r},\max_{r\in
+[d]}(\sum_{j\in J}p_{j,r}/m)\}$. Our main result is a very simple O(log
+d)-approximation algorithm for vector scheduling with respect to the lower
+bound lb: we devise an algorithm that returns an assignment whose makespan is
+at most O(log d)*lb.
+  As an application, we show that the above guarantee leads to an O(log log
+m)-approximation for Stochastic Minimum-Norm Load Balancing (StochNormLB). In
+StochNormLB, we have m identical machines, a set J of n independent stochastic
+jobs whose processing times are nonnegative random variables, and a monotone,
+symmetric norm $f:\mathbb{R}^m \to \mathbb{R}_{\geq 0}$. The goal is to find an
+assignment $\sigma:J\to [m]$ that minimizes the expected $f$-norm of the
+induced machine-load vector, where the load on machine i is the (random) total
+processing time assigned to it. Our O(log log m)-approximation guarantee is in
+fact much stronger: we obtain an assignment that is simultaneously an O(log log
+m)-approximation for StochNormLB with all monotone, symmetric norms. Next, this
+approximation factor significantly improves upon the O(log m/log log
+m)-approximation in (Ibrahimpur and Swamy, FOCS 2020) for StochNormLB, and is a
+consequence of a more-general black-box reduction that we present, showing that
+a $\gamma(d)$-approximation for d-dimensional vector scheduling with respect to
+the lower bound lb yields a simultaneous $\gamma(\log m)$-approximation for
+StochNormLB with all monotone, symmetric norms.
+","[{'version': 'v1', 'created': 'Sun, 14 Nov 2021 05:20:43 GMT'}]",2021-11-16,"[['Ibrahimpur', 'Sharat', ''], ['Swamy', 'Chaitanya', '']]"
+2202.02310,Lois Orosa,"Lois Orosa, Skanda Koppula, Yaman Umuroglu, Konstantinos
+  Kanellopoulos, Juan Gomez-Luna, Michaela Blott, Kees Vissers, Onur Mutlu","EcoFlow: Efficient Convolutional Dataflows for Low-Power Neural Network
+  Accelerators",,,,,cs.LG cs.AR,http://creativecommons.org/licenses/by/4.0/,"  Dilated and transposed convolutions are widely used in modern convolutional
+neural networks (CNNs). These kernels are used extensively during CNN training
+and inference of applications such as image segmentation and high-resolution
+image generation. Although these kernels have grown in popularity, they stress
+current compute systems due to their high memory intensity, exascale compute
+demands, and large energy consumption.
+  We find that commonly-used low-power CNN inference accelerators based on
+spatial architectures are not optimized for both of these convolutional
+kernels. Dilated and transposed convolutions introduce significant zero padding
+when mapped to the underlying spatial architecture, significantly degrading
+performance and energy efficiency. Existing approaches that address this issue
+require significant design changes to the otherwise simple, efficient, and
+well-adopted architectures used to compute direct convolutions.
+  To address this challenge, we propose EcoFlow, a new set of dataflows and
+mapping algorithms for dilated and transposed convolutions. These algorithms
+are tailored to execute efficiently on existing low-cost, small-scale spatial
+architectures and requires minimal changes to the network-on-chip of existing
+accelerators. EcoFlow eliminates zero padding through careful dataflow
+orchestration and data mapping tailored to the spatial architecture. EcoFlow
+enables flexible and high-performance transpose and dilated convolutions on
+architectures that are otherwise optimized for CNN inference.
+  We evaluate the efficiency of EcoFlow on CNN training workloads and
+Generative Adversarial Network (GAN) training workloads. Experiments in our new
+cycle-accurate simulator show that EcoFlow 1) reduces end-to-end CNN training
+time between 7-85%, and 2) improves end-to-end GAN training performance between
+29-42%, compared to state-of-the-art CNN inference accelerators.
+","[{'version': 'v1', 'created': 'Fri, 4 Feb 2022 18:48:36 GMT'}]",2022-02-07,"[['Orosa', 'Lois', ''], ['Koppula', 'Skanda', ''], ['Umuroglu', 'Yaman', ''], ['Kanellopoulos', 'Konstantinos', ''], ['Gomez-Luna', 'Juan', ''], ['Blott', 'Michaela', ''], ['Vissers', 'Kees', ''], ['Mutlu', 'Onur', '']]"
+2108.09892,Yun-Bin Zhao Y,Yun-Bin Zhao and Zhi-Quan Luo,Dynamic Orthogonal Matching Pursuit for Signal Reconstruction,,,,,cs.IT cs.NA math.IT math.NA math.OC,http://creativecommons.org/licenses/by/4.0/,"  Orthogonal matching pursuit (OMP) is one of the mainstream algorithms for
+signal reconstruction/approximation. It plays a vital role in the development
+of compressed sensing theory, and it also acts as a driving force for the
+development of other heuristic methods for signal reconstruction. In this
+paper, we propose the so-called dynamic orthogonal matching pursuit (DOMP) and
+its two enhanced versions which are more efficient than OMP in signal
+reconstruction from a numerical point of view, and we provide a rigorous
+analysis for these algorithms in terms of the restricted isometry property
+(RIP) of the sensing matrix. The main result claims that the reconstruction
+error via the proposed algorithms can be controlled and measured with the
+number of iterations, sparsity level of the signal and the noise level of the
+measurements. The analysis in this paper sufficiently exploits the structure of
+the DOMP and an auxiliary convex optimization model (called approximation
+counterpart) to establish a mild RIP-based performance result for DOMP and its
+enhanced versions. Dramatically different from existing results for OMP-like
+algorithms, the results established for the algorithms proposed in this paper
+do not need any traditional assumptions imposed on the smallest nonzero element
+of the target signal which is unknown before being actually reconstructed.
+Moveover, the finite convergence of the algorithms for a class of large-scale
+compressed sensing problems is also discussed.
+","[{'version': 'v1', 'created': 'Mon, 23 Aug 2021 02:01:15 GMT'}]",2021-08-24,"[['Zhao', 'Yun-Bin', ''], ['Luo', 'Zhi-Quan', '']]"
+2003.14402,Surafel Melaku Lakew Mr.,"Surafel M. Lakew, Matteo Negri, Marco Turchi","Low Resource Neural Machine Translation: A Benchmark for Five African
+  Languages",Accepted for AfricaNLP workshop at ICLR 2020,,,,cs.CL,http://creativecommons.org/licenses/by/4.0/,"  Recent advents in Neural Machine Translation (NMT) have shown improvements in
+low-resource language (LRL) translation tasks. In this work, we benchmark NMT
+between English and five African LRL pairs (Swahili, Amharic, Tigrigna, Oromo,
+Somali [SATOS]). We collected the available resources on the SATOS languages to
+evaluate the current state of NMT for LRLs. Our evaluation, comparing a
+baseline single language pair NMT model against semi-supervised learning,
+transfer learning, and multilingual modeling, shows significant performance
+improvements both in the En-LRL and LRL-En directions. In terms of averaged
+BLEU score, the multilingual approach shows the largest gains, up to +5 points,
+in six out of ten translation directions. To demonstrate the generalization
+capability of each model, we also report results on multi-domain test sets. We
+release the standardized experimental data and the test sets for future works
+addressing the challenges of NMT in under-resourced settings, in particular for
+the SATOS languages.
+","[{'version': 'v1', 'created': 'Tue, 31 Mar 2020 17:50:07 GMT'}]",2020-04-01,"[['Lakew', 'Surafel M.', ''], ['Negri', 'Matteo', ''], ['Turchi', 'Marco', '']]"
+1704.00783,Gopal P. Sarma,Gopal P. Sarma,"Brief Notes on Hard Takeoff, Value Alignment, and Coherent Extrapolated
+  Volition",3 pages,,,,cs.AI cs.CY cs.LG,http://creativecommons.org/licenses/by/4.0/,"  I make some basic observations about hard takeoff, value alignment, and
+coherent extrapolated volition, concepts which have been central in analyses of
+superintelligent AI systems.
+","[{'version': 'v1', 'created': 'Mon, 3 Apr 2017 19:45:04 GMT'}, {'version': 'v2', 'created': 'Sat, 21 Apr 2018 20:32:30 GMT'}]",2018-04-24,"[['Sarma', 'Gopal P.', '']]"
+2108.07833,Peyman Mohtat,"Peyman Mohtat, Sravan Pannala, Valentin Sulzer, Jason B. Siegel, Anna
+  G. Stefanopoulou",An Algorithmic Safety VEST For Li-ion Batteries During Fast Charging,"In press; Modeling, Estimation and Control Conference 2021",,,,eess.SY cs.SY,http://creativecommons.org/licenses/by/4.0/,"  Fast charging of lithium-ion batteries is crucial to increase desirability
+for consumers and hence accelerate the adoption of electric vehicles. A major
+barrier to shorter charge times is the accelerated aging of the battery at
+higher charging rates, which can be driven by lithium plating, increased solid
+electrolyte interphase growth due to elevated temperatures, and particle
+cracking due to mechanical stress. Lithium plating depends on the overpotential
+of the negative electrode, and mechanical stress depends on the concentration
+gradient, both of which cannot be measured directly. Techniques based on
+physics-based models of the battery and optimal control algorithms have been
+developed to this end. While these methods show promise in reducing
+degradation, their optimization algorithms' complexity can limit their
+implementation. In this paper, we present a method based on the constant
+current constant voltage (CC-CV) charging scheme, called CC-CV$\eta \sigma$T
+(VEST). The new approach is simpler to implement and can be used with any model
+to impose varying levels of constraints on variables pertinent to degradation,
+such as plating potential and mechanical stress. We demonstrate the new
+CC-CV$\eta \sigma$T charging using an electrochemical model with mechanical and
+thermal effects included. Furthermore, we discuss how uncertainties can be
+accounted for by considering safety margins for the plating and stress
+constraints.
+","[{'version': 'v1', 'created': 'Tue, 17 Aug 2021 18:34:21 GMT'}]",2021-08-19,"[['Mohtat', 'Peyman', ''], ['Pannala', 'Sravan', ''], ['Sulzer', 'Valentin', ''], ['Siegel', 'Jason B.', ''], ['Stefanopoulou', 'Anna G.', '']]"
+1911.13154,Pan Cunhua,"Hong Ren, Cunhua Pan, Yansha Deng, Maged Elkashlan, and Arumugam
+  Nallanathan",Resource Allocation for Secure URLLC in Mission-Critical IoT Scenario,Submitted to one IEEE journal,,,,eess.SP cs.IT math.IT,http://creativecommons.org/licenses/by/4.0/,"  Ultra-reliable low latency communication (URLLC) is one of three primary use
+cases in the fifth-generation (5G) networks, and its research is still in its
+infancy due to its stringent and conflicting requirements in terms of extremely
+high reliability and low latency. To reduce latency, the channel blocklength
+for packet transmission is finite, which incurs transmission rate degradation
+and higher decoding error probability. In this case, conventional resource
+allocation based on Shannon capacity achieved with infinite blocklength codes
+is not optimal. Security is another critical issue in mission-critical internet
+of things (IoT) communications, and physical-layer security is a promising
+technique that can ensure the confidentiality for wireless communications as no
+additional channel uses are needed for the key exchange as in the conventional
+upper-layer cryptography method. This paper is the first work to study the
+resource allocation for a secure mission-critical IoT communication system with
+URLLC. Specifically, we adopt the security capacity formula under finite
+blocklength and consider two optimization problems: weighted throughput
+maximization problem and total transmit power minimization problem. Each
+optimization problem is non-convex and challenging to solve, and we develop
+efficient methods to solve each optimization problem. Simulation results
+confirm the fast convergence speed of our proposed algorithm and demonstrate
+the performance advantages over the existing benchmark algorithms.
+","[{'version': 'v1', 'created': 'Fri, 29 Nov 2019 15:37:43 GMT'}, {'version': 'v2', 'created': 'Wed, 12 Feb 2020 22:57:24 GMT'}]",2020-02-14,"[['Ren', 'Hong', ''], ['Pan', 'Cunhua', ''], ['Deng', 'Yansha', ''], ['Elkashlan', 'Maged', ''], ['Nallanathan', 'Arumugam', '']]"
+2106.11184,Michael Park,"Michael Park, Erin Leahey, Russell Funk",The decline of disruptive science and technology,,,,,cs.SI econ.GN q-fin.EC,http://creativecommons.org/licenses/by/4.0/,"  Although the number of new scientific discoveries and technological
+inventions has increased dramatically over the past century, there are growing
+concerns that progress is slowing. We analyze 25 million papers and 4 million
+patents across 6 decades and find that science and technology are becoming less
+disruptive of existing knowledge, a pattern that holds nearly universally
+across fields. We link this decline in disruptiveness to a narrowing in the
+utilization of existing knowledge. Diminishing quality of published science and
+changes in citation practices are unlikely to be responsible for this trend,
+suggesting that this pattern represents a fundamental shift in science and
+technology.
+","[{'version': 'v1', 'created': 'Mon, 21 Jun 2021 15:24:23 GMT'}, {'version': 'v2', 'created': 'Sat, 26 Jun 2021 01:57:43 GMT'}, {'version': 'v3', 'created': 'Sun, 10 Oct 2021 15:44:40 GMT'}, {'version': 'v4', 'created': 'Wed, 3 Nov 2021 17:46:25 GMT'}]",2021-11-04,"[['Park', 'Michael', ''], ['Leahey', 'Erin', ''], ['Funk', 'Russell', '']]"
+2105.15064,William Blanzeisky,"William Blanzeisky, P\'adraig Cunningham","Using Pareto Simulated Annealing to Address Algorithmic Bias in Machine
+  Learning",,,,,cs.LG cs.CY,http://creativecommons.org/licenses/by/4.0/,"  Algorithmic Bias can be due to bias in the training data or issues with the
+algorithm itself. These algorithmic issues typically relate to problems with
+model capacity and regularisation. This underestimation bias may arise because
+the model has been optimised for good generalisation accuracy without any
+explicit consideration of bias or fairness. In a sense, we should not be
+surprised that a model might be biased when it hasn't been ""asked"" not to be.
+In this paper, we consider including bias (underestimation) as an additional
+criterion in model training. We present a multi-objective optimisation strategy
+using Pareto Simulated Annealing that optimise for both balanced accuracy and
+underestimation. We demonstrate the effectiveness of this strategy on one
+synthetic and two real-world datasets.
+","[{'version': 'v1', 'created': 'Mon, 31 May 2021 15:51:43 GMT'}]",2021-06-01,"[['Blanzeisky', 'William', ''], ['Cunningham', 'Pádraig', '']]"
+1504.08211,Lorenzo Clemente,"Lorenzo Clemente, Jean-Fran\c{c}ois Raskin","Multidimensional beyond worst-case and almost-sure problems for
+  mean-payoff objectives",Technical report a paper accepted to LICS'15,,,,cs.GT cs.SY,http://creativecommons.org/licenses/by/4.0/,"  The beyond worst-case threshold problem (BWC), recently introduced by
+Bruy\`ere et al., asks given a quantitative game graph for the synthesis of a
+strategy that i) enforces some minimal level of performance against any
+adversary, and ii) achieves a good expectation against a stochastic model of
+the adversary. They solved the BWC problem for finite-memory strategies and
+unidimensional mean-payoff objectives and they showed membership of the problem
+in NP$\cap$coNP. They also noted that infinite-memory strategies are more
+powerful than finite-memory ones, but the respective threshold problem was left
+open. We extend these results in several directions. First, we consider
+multidimensional mean-payoff objectives. Second, we study both finite-memory
+and infinite-memory strategies. We show that the multidimensional BWC problem
+is coNP-complete in both cases. Third, in the special case when the worst-case
+objective is unidimensional (but the expectation objective is still
+multidimensional) we show that the complexity decreases to NP$\cap$coNP. This
+solves the infinite-memory threshold problem left open by Bruy\`ere et al., and
+this complexity cannot be improved without improving the currently known
+complexity of classical mean-payoff games. Finally, we introduce a natural
+relaxation of the BWC problem, the beyond almost-sure threshold problem (BAS),
+which asks for the synthesis of a strategy that ensures some minimal level of
+performance with probability one and a good expectation against the stochastic
+model of the adversary. We show that the multidimensional BAS threshold problem
+is solvable in P.
+","[{'version': 'v1', 'created': 'Thu, 30 Apr 2015 13:16:48 GMT'}, {'version': 'v2', 'created': 'Tue, 21 Nov 2017 10:02:44 GMT'}]",2017-11-22,"[['Clemente', 'Lorenzo', ''], ['Raskin', 'Jean-François', '']]"
+2107.03250,Xiao Zhang,Xiao Zhang and David Evans,Understanding Intrinsic Robustness Using Label Uncertainty,"ICLR 2022; 23 pages, 8 figures, 1 table",,,,cs.LG cs.CR,http://creativecommons.org/licenses/by/4.0/,"  A fundamental question in adversarial machine learning is whether a robust
+classifier exists for a given task. A line of research has made some progress
+towards this goal by studying the concentration of measure, but we argue
+standard concentration fails to fully characterize the intrinsic robustness of
+a classification problem since it ignores data labels which are essential to
+any classification task. Building on a novel definition of label uncertainty,
+we empirically demonstrate that error regions induced by state-of-the-art
+models tend to have much higher label uncertainty than randomly-selected
+subsets. This observation motivates us to adapt a concentration estimation
+algorithm to account for label uncertainty, resulting in more accurate
+intrinsic robustness measures for benchmark image classification problems.
+","[{'version': 'v1', 'created': 'Wed, 7 Jul 2021 14:26:57 GMT'}, {'version': 'v2', 'created': 'Thu, 17 Mar 2022 15:27:59 GMT'}]",2022-03-18,"[['Zhang', 'Xiao', ''], ['Evans', 'David', '']]"
+2103.02878,Shuangyong Song,"Shuangyong Song, Kexin Wang, Chao Wang, Haiqing Chen, Huan Chen","An Emotion-controlled Dialog Response Generation Model with Dynamic
+  Vocabulary",4 pages,,,,cs.CL cs.AI,http://creativecommons.org/licenses/by/4.0/,"  In response generation task, proper sentimental expressions can obviously
+improve the human-like level of the responses. However, for real application in
+online systems, high QPS (queries per second, an indicator of the flow capacity
+of on-line systems) is required, and a dynamic vocabulary mechanism has been
+proved available in improving speed of generative models. In this paper, we
+proposed an emotion-controlled dialog response generation model based on the
+dynamic vocabulary mechanism, and the experimental results show the benefit of
+this model.
+","[{'version': 'v1', 'created': 'Thu, 4 Mar 2021 07:58:43 GMT'}]",2021-03-05,"[['Song', 'Shuangyong', ''], ['Wang', 'Kexin', ''], ['Wang', 'Chao', ''], ['Chen', 'Haiqing', ''], ['Chen', 'Huan', '']]"
+2105.01053,Wei Jiang,"Wei Jiang, Kun Liu, Themistoklis Charalambous","Multi-agent consensus with heterogeneous time-varying input and
+  communication delays in digraphs",,,,,eess.SY cs.SY,http://creativecommons.org/licenses/by/4.0/,"  This paper investigates the distributed consensus tracking control problem
+for general linear multi-agent systems (MASs) with external disturbances and
+heterogeneous time-varying input and communication delays under a directed
+communication graph topology, containing a spanning tree. First, for all agents
+whose state matrix has no eigenvalues with positive real parts, a
+communication-delay-related observer, which is used to construct the
+controller, is designed for followers to estimate the leader's state
+information. Second, by means of the output regulation theory, the results are
+relaxed to the case that only the leader's state matrix eigenvalues have
+non-positive real parts and, under these relaxed conditions, the controller is
+redesigned. Both cases lead to a closed-loop error system of which the
+stability is guaranteed via a Lyapunov-Krasovskii functional with sufficient
+conditions in terms of input-delay-dependent linear matrix inequalities (LMIs).
+An extended LMI is proposed which, in conjunction with the rest of LMIs,
+results in a solution with a larger upper bound on delays than what would be
+feasible without it. It is highlighted that the integration of
+communication-delay-related observer and input-delay-related LMI to construct a
+fully distributed controller (which requires no global information) is scalable
+to arbitrarily large networks. The efficacy of the proposed scheme is
+demonstrated via illustrative numerical examples.
+","[{'version': 'v1', 'created': 'Mon, 3 May 2021 17:52:11 GMT'}]",2021-05-04,"[['Jiang', 'Wei', ''], ['Liu', 'Kun', ''], ['Charalambous', 'Themistoklis', '']]"
+2012.03168,Chaoyang Song,"Linhan Yang, Xudong Han, Weijie Guo, Zixin Zhang, Fang Wan, Jia Pan,
+  Chaoyang Song","Design of an Optoelectronically Innervated Gripper for Rigid-Soft
+  Interactive Grasping","11 pages, 6 figures, submitted to IEEE ICRA 2021",,,,cs.RO,http://creativecommons.org/licenses/by/4.0/,"  Over the past few decades, efforts have been made towards robust robotic
+grasping, and therefore dexterous manipulation. The soft gripper has shown
+their potential in robust grasping due to their inherent properties-low,
+control complexity, and high adaptability. However, the deformation of the soft
+gripper when interacting with objects bring inaccuracy of grasped objects,
+which causes instability for robust grasping and further manipulation. In this
+paper, we present an omni-directional adaptive soft finger that can sense
+deformation based on embedded optical fibers and the application of machine
+learning methods to interpret transmitted light intensities. Furthermore, to
+use tactile information provided by a soft finger, we design a low-cost and
+multi degrees of freedom gripper to conform to the shape of objects actively
+and optimize grasping policy, which is called Rigid-Soft Interactive Grasping.
+Two main advantages of this grasping policy are provided: one is that a more
+robust grasping could be achieved through an active adaptation; the other is
+that the tactile information collected could be helpful for further
+manipulation.
+","[{'version': 'v1', 'created': 'Sun, 6 Dec 2020 02:58:59 GMT'}]",2020-12-08,"[['Yang', 'Linhan', ''], ['Han', 'Xudong', ''], ['Guo', 'Weijie', ''], ['Zhang', 'Zixin', ''], ['Wan', 'Fang', ''], ['Pan', 'Jia', ''], ['Song', 'Chaoyang', '']]"
+1807.08654,Evan Bollig,"Evan F. Bollig, James C. Wilgenbusch","From Bare Metal to Virtual: Lessons Learned when a Supercomputing
+  Institute Deploys its First Cloud","8 pages, 5 figures, PEARC '18: Practice and Experience in Advanced
+  Research Computing, July 22--26, 2018, Pittsburgh, PA, USA",,10.1145/3219104.3219164,,cs.DC,http://creativecommons.org/licenses/by/4.0/,"  As primary provider for research computing services at the University of
+Minnesota, the Minnesota Supercomputing Institute (MSI) has long been
+responsible for serving the needs of a user-base numbering in the thousands.
+  In recent years, MSI---like many other HPC centers---has observed a growing
+need for self-service, on-demand, data-intensive research, as well as the
+emergence of many new controlled-access datasets for research purposes. In
+light of this, MSI constructed a new on-premise cloud service, named Stratus,
+which is architected from the ground up to easily satisfy data-use agreements
+and fill four gaps left by traditional HPC. The resulting OpenStack cloud,
+constructed from HPC-specific compute nodes and backed by Ceph storage, is
+designed to fully comply with controls set forth by the NIH Genomic Data
+Sharing Policy.
+  Herein, we present twelve lessons learned during the ambitious sprint to take
+Stratus from inception and into production in less than 18 months. Important,
+and often overlooked, components of this timeline included the development of
+new leadership roles, staff and user training, and user support documentation.
+Along the way, the lessons learned extended well beyond the technical
+challenges often associated with acquiring, configuring, and maintaining
+large-scale systems.
+","[{'version': 'v1', 'created': 'Mon, 23 Jul 2018 14:54:53 GMT'}]",2018-07-24,"[['Bollig', 'Evan F.', ''], ['Wilgenbusch', 'James C.', '']]"
+2009.05893,Wanming Hao,"Wanming Hao and Gangcan Sun and Ming Zeng and Zhengyu Zhu and Zheng
+  Chu and Octavia A. Dobre and Pei Xiao","Robust Design for Intelligent Reflecting Surface Assisted MIMO-OFDMA
+  Terahertz Communications",Submitted to IEEE Journals,,,,cs.IT math.IT,http://creativecommons.org/licenses/by/4.0/,"  Recently, terahertz (THz) communication has drawn considerable attention as
+one of the promising technologies for the future wireless communications owning
+to its ultra-wide bandwidth. Nonetheless, one major obstacle that prevents the
+actual deployment of THz lies in its inherent huge attenuation. Intelligent
+reflecting surface (IRS) and multiple-input multiple-output (MIMO) represent
+two effective solutions for compensating the large pathloss in THz systems. In
+this paper, we consider an IRS-aided multi-user THz MIMO system with orthogonal
+frequency division multiple access, where the sparse radio frequency chain
+antenna structure is adopted for reducing the power consumption. The objective
+is to maximize the weighted sum rate via jointly optimizing the hybrid
+analog/digital beamforming at the base station and reflection matrix at the
+IRS. {Since the analog beamforming and reflection matrix need to cater all
+users and subcarriers, it is difficult to directly solve the formulated
+problem, and thus, an alternatively iterative optimization algorithm is
+proposed.} Specifically, the analog beamforming is designed by solving a MIMO
+capacity maximization problem, while the digital beamforming and reflection
+matrix optimization are both tackled using semidefinite relaxation technique.
+Considering that obtaining perfect channel state information (CSI) is a
+challenging task in IRS-based systems, we further explore the case with the
+imperfect CSI for the channels from the IRS to users. Under this setup, we
+propose a robust beamforming and reflection matrix design scheme for the
+originally formulated non-convex optimization problem. Finally, simulation
+results are presented to demonstrate the effectiveness of the proposed
+algorithms.
+","[{'version': 'v1', 'created': 'Sun, 13 Sep 2020 01:35:07 GMT'}]",2020-09-15,"[['Hao', 'Wanming', ''], ['Sun', 'Gangcan', ''], ['Zeng', 'Ming', ''], ['Zhu', 'Zhengyu', ''], ['Chu', 'Zheng', ''], ['Dobre', 'Octavia A.', ''], ['Xiao', 'Pei', '']]"
+2203.06075,"Micha\""el Cadilhac","Corentin Barloy and Micha\""el Cadilhac and Charles Paperman and Thomas
+  Zeume",The Regular Languages of First-Order Logic with One Alternation,"11 pages + bibliography, submitted to LICS'22",,,,cs.LO cs.FL,http://creativecommons.org/licenses/by/4.0/,"  The regular languages with a neutral letter expressible in first-order logic
+with one alternation are characterized. Specifically, it is shown that if an
+arbitrary $\Sigma_2$ formula defines a regular language with a neutral letter,
+then there is an equivalent $\Sigma_2$ formula that only uses the order
+predicate. This shows that the so-called Central Conjecture of Straubing holds
+for $\Sigma_2$ over languages with a neutral letter, the first progress on the
+Conjecture in more than 20 years. To show the characterization, lower bounds
+against polynomial-size depth-3 Boolean circuits with constant top fan-in are
+developed. The heart of the combinatorial argument resides in studying how
+positions within a language are determined from one another, a technique of
+independent interest.
+","[{'version': 'v1', 'created': 'Fri, 11 Mar 2022 16:53:25 GMT'}]",2022-03-14,"[['Barloy', 'Corentin', ''], ['Cadilhac', 'Michaël', ''], ['Paperman', 'Charles', ''], ['Zeume', 'Thomas', '']]"
+2109.14755,Fengjun Yang,"Fengjun Yang, Negar Mehr and Mac Schwager","Decentralized Role Assignment in Multi-Agent Teams via Empirical
+  Game-Theoretic Analysis",,,,,cs.MA cs.RO,http://creativecommons.org/licenses/by/4.0/,"  We propose a method, based on empirical game theory, for a robot operating as
+part of a team to choose its role within the team without explicitly
+communicating with team members, by leveraging its knowledge about the team
+structure. To do this, we formulate the role assignment problem as a dynamic
+game, and borrow tools from empirical game-theoretic analysis to analyze such
+games. Based on this game-theoretic formulation, we propose a distributed
+controller for each robot to dynamically decide on the best role to take. We
+demonstrate our method in simulations of a collaborative planar manipulation
+scenario in which each agent chooses from a set of feedback control policies at
+each instant. The agents can effectively collaborate without communication to
+manipulate the object while also avoiding collisions using our method.
+","[{'version': 'v1', 'created': 'Wed, 29 Sep 2021 23:07:18 GMT'}]",2021-10-01,"[['Yang', 'Fengjun', ''], ['Mehr', 'Negar', ''], ['Schwager', 'Mac', '']]"
+2012.05640,Sebastien Gadat,S\'ebastien Gadat and Ioana Gavra,"Asymptotic study of stochastic adaptive algorithm in non-convex
+  landscape",36 pages,,,,stat.ML cs.LG math.PR math.ST stat.TH,http://creativecommons.org/licenses/by/4.0/,"  This paper studies some asymptotic properties of adaptive algorithms widely
+used in optimization and machine learning, and among them Adagrad and Rmsprop,
+which are involved in most of the blackbox deep learning algorithms. Our setup
+is the non-convex landscape optimization point of view, we consider a one time
+scale parametrization and we consider the situation where these algorithms may
+be used or not with mini-batches. We adopt the point of view of stochastic
+algorithms and establish the almost sure convergence of these methods when
+using a decreasing step-size point of view towards the set of critical points
+of the target function. With a mild extra assumption on the noise, we also
+obtain the convergence towards the set of minimizer of the function. Along our
+study, we also obtain a ""convergence rate"" of the methods, in the vein of the
+works of \cite{GhadimiLan}.
+","[{'version': 'v1', 'created': 'Thu, 10 Dec 2020 12:54:45 GMT'}, {'version': 'v2', 'created': 'Mon, 14 Dec 2020 10:42:40 GMT'}]",2020-12-15,"[['Gadat', 'Sébastien', ''], ['Gavra', 'Ioana', '']]"
+2109.06773,Cong-Thanh Vu,"Anh-Tu Nguyen, Cong-Thanh Vu",Obstacle Avoidance for Autonomous Mobile Robots Based on Mapping Method,,,,,cs.RO cs.SY eess.SY,http://creativecommons.org/licenses/by/4.0/,"  In recent years, the mobile robot has been considerable attention to
+researchers for its application in various environments. For a mobile robot
+navigating its way from starting point to a goal point while traversing through
+deterrents, needs to recognize the obstacles and generate new trajectories to
+reach the destination. This paper presents an obstacle avoidance method for
+mobile robots using an open-source in robot operation system (ROS) combining
+with the dynamic window approach (DWA) algorithm. The experiment is carried out
+using a mobile robot in which the navigation data is based on data collecting
+by a laser scanner. The experimental results show that the robot could work
+well in environments containing static and dynamic obstacles.
+","[{'version': 'v1', 'created': 'Tue, 14 Sep 2021 15:42:17 GMT'}]",2021-09-15,"[['Nguyen', 'Anh-Tu', ''], ['Vu', 'Cong-Thanh', '']]"
+2105.13910,Tore Frederiksen,Tore Kasper Frederiksen,"A Holistic Approach to Enhanced Security and Privacy in Digital Health
+  Passports","21 pages, to be published at the IWAPS workshop in connection with
+  the ARES conference 2021",,10.1145/3465481.3469212,,cs.CR,http://creativecommons.org/licenses/by/4.0/,"  As governments around the world decide to deploy digital health passports as
+a tool to curb the spread of Covid-19, it becomes increasingly important to
+consider how these can be constructed with privacy-by-design.
+  In this paper we discuss the privacy and security issues of common approaches
+for constructing digital health passports. We then show how to construct, and
+deploy, secure and private digital health passports, in a simple and efficient
+manner. We do so by using a protocol for distributed password-based token
+issuance, secret sharing and by leveraging modern smart phones' secure
+hardware.
+  Our solution only requires a constant amount of asymmetric cryptographic
+operations and a single round of communication between the user and the party
+verifying the user's digital health passport, and only two rounds between the
+user and the server issuing the digital health passport.
+","[{'version': 'v1', 'created': 'Fri, 28 May 2021 15:22:14 GMT'}, {'version': 'v2', 'created': 'Wed, 9 Jun 2021 12:45:45 GMT'}]",2021-06-10,"[['Frederiksen', 'Tore Kasper', '']]"
+2202.11456,Canjie Luo,"Canjie Luo, Yuanzhi Zhu, Lianwen Jin, Zhe Li, Dezhi Peng","SLOGAN: Handwriting Style Synthesis for Arbitrary-Length and
+  Out-of-Vocabulary Text","Accepted to appear in IEEE Transactions on Neural Networks and
+  Learning Systems (TNNLS)",,,,cs.CV,http://creativecommons.org/licenses/by/4.0/,"  Large amounts of labeled data are urgently required for the training of
+robust text recognizers. However, collecting handwriting data of diverse
+styles, along with an immense lexicon, is considerably expensive. Although data
+synthesis is a promising way to relieve data hunger, two key issues of
+handwriting synthesis, namely, style representation and content embedding,
+remain unsolved. To this end, we propose a novel method that can synthesize
+parameterized and controllable handwriting Styles for arbitrary-Length and
+Out-of-vocabulary text based on a Generative Adversarial Network (GAN), termed
+SLOGAN. Specifically, we propose a style bank to parameterize the specific
+handwriting styles as latent vectors, which are input to a generator as style
+priors to achieve the corresponding handwritten styles. The training of the
+style bank requires only the writer identification of the source images, rather
+than attribute annotations. Moreover, we embed the text content by providing an
+easily obtainable printed style image, so that the diversity of the content can
+be flexibly achieved by changing the input printed image. Finally, the
+generator is guided by dual discriminators to handle both the handwriting
+characteristics that appear as separated characters and in a series of cursive
+joins. Our method can synthesize words that are not included in the training
+vocabulary and with various new styles. Extensive experiments have shown that
+high-quality text images with great style diversity and rich vocabulary can be
+synthesized using our method, thereby enhancing the robustness of the
+recognizer.
+","[{'version': 'v1', 'created': 'Wed, 23 Feb 2022 12:13:27 GMT'}]",2022-02-24,"[['Luo', 'Canjie', ''], ['Zhu', 'Yuanzhi', ''], ['Jin', 'Lianwen', ''], ['Li', 'Zhe', ''], ['Peng', 'Dezhi', '']]"
+1807.04475,Mohammad Masudur Rahman,Mohammad Masudur Rahman and Chanchal K. Roy,"STRICT: Information Retrieval Based Search Term Identification for
+  Concept Location","The 24th IEEE International Conference on Software Analysis,
+  Evolution, and Reengineering (SANER 2017), pp. 79--90, Klagenfurt, Austria,
+  February 2017","Proc. SANER 2017, pp. 79--90",,10.1109/SANER.2017.7884611,cs.SE,http://creativecommons.org/licenses/by/4.0/,"  During maintenance, software developers deal with numerous change requests
+that are written in an unstructured fashion using natural language. Such
+natural language texts illustrate the change requirement involving various
+domain related concepts. Software developers need to find appropriate search
+terms from those concepts so that they could locate the possible locations in
+the source code using a search technique. Once such locations are identified,
+they can implement the requested changes there. Studies suggest that developers
+often perform poorly in coming up with good search terms for a change task. In
+this paper, we propose a novel technique--STRICT--that automatically identifies
+suitable search terms for a software change task by analyzing its task
+description using two information retrieval (IR) techniques-- TextRank and
+POSRank. These IR techniques determine a term's importance based on not only
+its co-occurrences with other important terms but also its syntactic
+relationships with them. Experiments using 1,939 change requests from eight
+subject systems report that STRICT can identify better quality search terms
+than baseline terms from 52%--62% of the requests with 30%--57% Top-10
+retrieval accuracy which are promising. Comparison with two state-of-the-art
+techniques not only validates our empirical findings and but also demonstrates
+the superiority of our technique.
+","[{'version': 'v1', 'created': 'Thu, 12 Jul 2018 08:40:45 GMT'}]",2018-07-13,"[['Rahman', 'Mohammad Masudur', ''], ['Roy', 'Chanchal K.', '']]"
+2101.00254,Oded Nov,Oded Nov,"Interface Features and Users' Well-Being: Measuring the Sensitivity of
+  Users' Well-Being to Resource Constraints and Feature Types",,,,,cs.HC,http://creativecommons.org/licenses/by/4.0/,"  Users increasingly face multiple interface features on one hand, and
+constraints on available resources (e.g., time, attention) on the other.
+Understanding the sensitivity of users' well-being to feature type and resource
+constraints, is critical for informed design. Building on microeconomic theory,
+and focusing on social information features, users' interface choices were
+conceptualized as an exchange of resources (e.g., time), in return for access
+to goods (social information features). We studied how sensitive users'
+well-being is to features' type, and to their cost level and type. We found
+that (1) increased cost of feature use leads to decreased well-being, (2)
+users' well-being is a function of features' cost type, and (3) users'
+well-being is sensitive to differences in feature type. The approach used here
+to quantify user well-being derived from interface features offers a basis for
+asynchronous feature comparison.
+","[{'version': 'v1', 'created': 'Fri, 1 Jan 2021 15:52:19 GMT'}]",2021-01-05,"[['Nov', 'Oded', '']]"
+2202.09161,Olga Bondarenko,"Rostyslav Tarasenko, Svitlana Amelina, Yuliya Kazhan and Olga
+  Bondarenko","The use of AR elements in the study of foreign languages at the
+  university","14 pages, 5 figures, 1 table",CEUR Workshop Proceedings 2731 (2020) 129-4142,,,cs.CY,http://creativecommons.org/licenses/by/4.0/,"  The article deals with the analysis of the impact of the using AR technology
+in the study of a foreign language by university students. It is stated out
+that AR technology can be a good tool for learning a foreign language. The use
+of elements of AR in the course of studying a foreign language, in particular
+in the form of virtual excursions, is proposed. Advantages of using AR
+technology in the study of the German language are identified, namely: the
+possibility of involvement of different channels of information perception, the
+integrity of the representation of the studied object, the faster and better
+memorization of new vocabulary, the development of communicative foreign
+language skills. The ease and accessibility of using QR codes to obtain
+information about the object of study from open Internet sources is shown. The
+results of a survey of students after virtual tours are presented. A
+reorientation of methodological support for the study of a foreign language at
+universities is proposed. Attention is drawn to the use of AR elements in order
+to support students with different learning styles (audio, visual,
+kinesthetic).
+","[{'version': 'v1', 'created': 'Fri, 18 Feb 2022 12:22:10 GMT'}]",2022-02-21,"[['Tarasenko', 'Rostyslav', ''], ['Amelina', 'Svitlana', ''], ['Kazhan', 'Yuliya', ''], ['Bondarenko', 'Olga', '']]"
+2107.04691,Vatsal Raina,"Vatsal Raina, Mark J.F. Gales",An Initial Investigation of Non-Native Spoken Question-Answering,"5 pages, 1 figure",,,,cs.CL,http://creativecommons.org/licenses/by/4.0/,"  Text-based machine comprehension (MC) systems have a wide-range of
+applications, and standard corpora exist for developing and evaluating
+approaches. There has been far less research on spoken question answering (SQA)
+systems. The SQA task considered in this paper is to extract the answer from a
+candidate$\text{'}$s spoken response to a question in a prompt-response style
+language assessment test. Applying these MC approaches to this SQA task rather
+than, for example, off-topic response detection provides far more detailed
+information that can be used for further downstream processing. One significant
+challenge is the lack of appropriately annotated speech corpora to train
+systems for this task. Hence, a transfer-learning style approach is adopted
+where a system trained on text-based MC is evaluated on an SQA task with
+non-native speakers. Mismatches must be considered between text documents and
+spoken responses; non-native spoken grammar and written grammar. In practical
+SQA, ASR systems are used, necessitating an investigation of the impact of ASR
+errors. We show that a simple text-based ELECTRA MC model trained on SQuAD2.0
+transfers well for SQA. It is found that there is an approximately linear
+relationship between ASR errors and the SQA assessment scores but grammar
+mismatches have minimal impact.
+","[{'version': 'v1', 'created': 'Fri, 9 Jul 2021 21:59:16 GMT'}]",2021-07-13,"[['Raina', 'Vatsal', ''], ['Gales', 'Mark J. F.', '']]"
+2109.04522,Hamid Reza Feyzmahdavian,Hamid Reza Feyzmahdavian and Mikael Johansson,"Asynchronous Iterations in Optimization: New Sequence Results and
+  Sharper Algorithmic Guarantees","44 pages, 1 Figure",,,,math.OC cs.DC cs.LG,http://creativecommons.org/licenses/by/4.0/,"  We introduce novel convergence results for asynchronous iterations which
+appear in the analysis of parallel and distributed optimization algorithms. The
+results are simple to apply and give explicit estimates for how the degree of
+asynchrony impacts the convergence rates of the iterates. Our results shorten,
+streamline and strengthen existing convergence proofs for several asynchronous
+optimization methods, and allow us to establish convergence guarantees for
+popular algorithms that were thus far lacking a complete theoretical
+understanding. Specifically, we use our results to derive better iteration
+complexity bounds for proximal incremental aggregated gradient methods, to
+provide less conservative analyses of the speedup conditions for asynchronous
+block-coordinate implementations of Krasnoselskii-Mann iterations, and to
+quantify the convergence rates for totally asynchronous iterations under
+various assumptions on communication delays and update rates.
+","[{'version': 'v1', 'created': 'Thu, 9 Sep 2021 19:08:56 GMT'}]",2021-09-13,"[['Feyzmahdavian', 'Hamid Reza', ''], ['Johansson', 'Mikael', '']]"
+2107.08151,Joao Victor De Carvalho Evangelista,Joao V. C. Evangelista and Georges Kaddoum and Zeeshan Sattar,"Reliability and User-Plane Latency Analysis of mmWave Massive MIMO for
+  Grant-Free URLLC Applications","14 pages, 9 figures",,,,cs.IT eess.SP math.IT,http://creativecommons.org/licenses/by/4.0/,"  5G cellular networks are designed to support a new range of applications not
+supported by previous standards. Among these, ultra-reliable low-latency
+communication (URLLC) applications are arguably the most challenging. URLLC
+service requires the user equipment (UE) to be able to transmit its data under
+strict latency constraints with high reliability. To address these
+requirements, new technologies, such as mini-slots, semi-persistent scheduling
+and grant-free access were introduced in 5G standards. In this work, we
+formulate a spatiotemporal mathematical model to evaluate the user-plane
+latency and reliability performance of millimetre wave (mmWave) massive
+multiple-input multiple-output (MIMO) URLLC with reactive and K-repetition
+hybrid automatic repeat request (HARQ) protocols. We derive closed-form
+approximate expressions for the latent access failure probability and validate
+them using numerical simulations. The results show that, under certain
+conditions, mmWave massive MIMO can reduce the failure probability by a factor
+of 32. Moreover, we identify that beyond a certain number of antennas there is
+no significant improvement in reliability. Finally, we conclude that mmWave
+massive MIMO alone is not enough to provide the performance guarantees required
+by the most stringent URLLC applications.
+","[{'version': 'v1', 'created': 'Sat, 17 Jul 2021 00:22:23 GMT'}]",2021-07-20,"[['Evangelista', 'Joao V. C.', ''], ['Kaddoum', 'Georges', ''], ['Sattar', 'Zeeshan', '']]"
+2110.10457,Boshko Koloski,"Boshko Koloski and Timen Stepi\v{s}nik-Perdih and Marko
+  Robnik-\v{S}ikonja and Senja Pollak and Bla\v{z} \v{S}krlj","Knowledge Graph informed Fake News Classification via Heterogeneous
+  Representation Ensembles",,,10.1016/j.neucom.2022.01.096,,cs.CL cs.AI cs.CY,http://creativecommons.org/licenses/by/4.0/,"  Increasing amounts of freely available data both in textual and relational
+form offers exploration of richer document representations, potentially
+improving the model performance and robustness. An emerging problem in the
+modern era is fake news detection -- many easily available pieces of
+information are not necessarily factually correct, and can lead to wrong
+conclusions or are used for manipulation. In this work we explore how different
+document representations, ranging from simple symbolic bag-of-words, to
+contextual, neural language model-based ones can be used for efficient fake
+news identification. One of the key contributions is a set of novel document
+representation learning methods based solely on knowledge graphs, i.e.
+extensive collections of (grounded) subject-predicate-object triplets. We
+demonstrate that knowledge graph-based representations already achieve
+competitive performance to conventionally accepted representation learners.
+Furthermore, when combined with existing, contextual representations, knowledge
+graph-based document representations can achieve state-of-the-art performance.
+To our knowledge this is the first larger-scale evaluation of how knowledge
+graph-based representations can be systematically incorporated into the process
+of fake news classification.
+","[{'version': 'v1', 'created': 'Wed, 20 Oct 2021 09:41:14 GMT'}, {'version': 'v2', 'created': 'Tue, 15 Feb 2022 11:29:40 GMT'}]",2022-02-16,"[['Koloski', 'Boshko', ''], ['Stepišnik-Perdih', 'Timen', ''], ['Robnik-Šikonja', 'Marko', ''], ['Pollak', 'Senja', ''], ['Škrlj', 'Blaž', '']]"
+2112.01820,"D\""om\""ot\""or P\'alv\""olgyi","G\'abor Dam\'asdi and D\""om\""ot\""or P\'alv\""olgyi",Three-chromatic geometric hypergraphs,,,,,math.CO cs.DM,http://creativecommons.org/licenses/by/4.0/,"  We prove that for any planar convex body C there is a positive integer m with
+the property that any finite point set P in the plane can be three-colored such
+that there is no translate of C containing at least m points of P, all of the
+same color. As a part of the proof, we show a strengthening of the
+Erd\H{o}s-Sands-Sauer-Woodrow conjecture. Surprisingly, the proof also relies
+on the two dimensional case of the Illumination conjecture.
+","[{'version': 'v1', 'created': 'Fri, 3 Dec 2021 10:21:36 GMT'}]",2021-12-06,"[['Damásdi', 'Gábor', ''], ['Pálvölgyi', 'Dömötör', '']]"
+2109.11642,Effrosyni Papanastasiou,"Effrosyni Papanastasiou, Anastasios Giovanidis",Bayesian Inference of a Social Graph with Trace Feasibility Guarantees,"Proceedings of the 2021 IEEE/ACM International Conference on Advances
+  in Social Networks Analysis and Mining (ASONAM), Nov 2021, The Hague,
+  Netherlands",,,,cs.SI cs.NI,http://creativecommons.org/licenses/by/4.0/,"  Network inference is the process of deciding what is the true unknown graph
+underlying a set of interactions between nodes. There is a vast literature on
+the subject, but most known methods have an important drawback: the inferred
+graph is not guaranteed to explain every interaction from the input trace. We
+consider this an important issue since such inferred graph cannot be used as
+input for applications that require a reliable estimate of the true graph. On
+the other hand, a graph having trace feasibility guarantees can help us better
+understand the true (hidden) interactions that may have taken place between
+nodes of interest. The inference of such graph is the goal of this paper.
+Firstly, given an activity log from a social network, we introduce a set of
+constraints that take into consideration all the hidden paths that are possible
+between the nodes of the trace, given their timestamps of interaction. Then, we
+develop a nontrivial modification of the Expectation-Maximization algorithm by
+Newman [1], that we call Constrained-EM, which incorporates the constraints and
+a set of auxiliary variables into the inference process to guide it towards the
+feasibility of the trace. Experimental results on real-world data from Twitter
+confirm that Constrained-EM generates a posterior distribution of graphs that
+explains all the events observed in the trace while presenting the desired
+properties of a scale-free, small-world graph. Our method also outperforms
+established methods in terms of feasibility and quality of the inferred graph.
+","[{'version': 'v1', 'created': 'Thu, 23 Sep 2021 20:48:19 GMT'}]",2021-09-27,"[['Papanastasiou', 'Effrosyni', ''], ['Giovanidis', 'Anastasios', '']]"
+1910.12086,Miguel A. Roman,"Miguel A. Rom\'an, Antonio Pertusa, Jorge Calvo-Zaragoza","A holistic approach to polyphonic music transcription with neural
+  networks",Source code available at https://github.com/mangelroman/audio2score,,,,cs.SD cs.LG eess.AS stat.ML,http://creativecommons.org/licenses/by/4.0/,"  We present a framework based on neural networks to extract music scores
+directly from polyphonic audio in an end-to-end fashion. Most previous
+Automatic Music Transcription (AMT) methods seek a piano-roll representation of
+the pitches, that can be further transformed into a score by incorporating
+tempo estimation, beat tracking, key estimation or rhythm quantization. Unlike
+these methods, our approach generates music notation directly from the input
+audio in a single stage. For this, we use a Convolutional Recurrent Neural
+Network (CRNN) with Connectionist Temporal Classification (CTC) loss function
+which does not require annotated alignments of audio frames with the score
+rhythmic information. We trained our model using as input Haydn, Mozart, and
+Beethoven string quartets and Bach chorales synthesized with different tempos
+and expressive performances. The output is a textual representation of
+four-voice music scores based on **kern format. Although the proposed approach
+is evaluated in a simplified scenario, results show that this model can learn
+to transcribe scores directly from audio signals, opening a promising avenue
+towards complete AMT.
+","[{'version': 'v1', 'created': 'Sat, 26 Oct 2019 15:19:11 GMT'}]",2019-10-29,"[['Román', 'Miguel A.', ''], ['Pertusa', 'Antonio', ''], ['Calvo-Zaragoza', 'Jorge', '']]"
+2108.11328,Shibal Ibrahim,"Shibal Ibrahim, Rahul Mazumder, Peter Radchenko, Emanuel Ben-David","Predicting Census Survey Response Rates via Interpretable Nonparametric
+  Additive Models with Structured Interactions","33 pages, 6 figures",,,,stat.ML cs.LG stat.AP stat.CO,http://creativecommons.org/licenses/by/4.0/,"  Accurate and interpretable prediction of survey response rates is important
+from an operational standpoint. The US Census Bureau's well-known ROAM
+application uses principled statistical models trained on the US Census
+Planning Database data to identify hard-to-survey areas. An earlier
+crowdsourcing competition revealed that an ensemble of regression trees led to
+the best performance in predicting survey response rates; however, the
+corresponding models could not be adopted for the intended application due to
+limited interpretability. In this paper, we present new interpretable
+statistical methods to predict, with high accuracy, response rates in surveys.
+We study sparse nonparametric additive models with pairwise interactions via
+$\ell_0$-regularization, as well as hierarchically structured variants that
+provide enhanced interpretability. Despite strong methodological underpinnings,
+such models can be computationally challenging -- we present new scalable
+algorithms for learning these models. We also establish novel non-asymptotic
+error bounds for the proposed estimators. Experiments based on the US Census
+Planning Database demonstrate that our methods lead to high-quality predictive
+models that permit actionable interpretability for different segments of the
+population. Interestingly, our methods provide significant gains in
+interpretability without losing in predictive performance to state-of-the-art
+black-box machine learning methods based on gradient boosting and feedforward
+neural networks. Our code implementation in python is available at
+https://github.com/ShibalIbrahim/Additive-Models-with-Structured-Interactions.
+","[{'version': 'v1', 'created': 'Tue, 24 Aug 2021 17:49:55 GMT'}]",2021-08-26,"[['Ibrahim', 'Shibal', ''], ['Mazumder', 'Rahul', ''], ['Radchenko', 'Peter', ''], ['Ben-David', 'Emanuel', '']]"
+2001.10567,Serikzhan Kazi,Meng He and Serikzhan Kazi,Path Query Data Structures in Practice,,,,,cs.DS,http://creativecommons.org/licenses/by/4.0/,"  We perform experimental studies on data structures that answer path median,
+path counting, and path reporting queries in weighted trees. These query
+problems generalize the well-known range median query problem in arrays, as
+well as the $2d$ orthogonal range counting and reporting problems in planar
+point sets, to tree structured data. We propose practical realizations of the
+latest theoretical results on path queries. Our data structures, which use tree
+extraction, heavy-path decomposition and wavelet trees, are implemented in both
+succinct and pointer-based form. Our succinct data structures are further
+specialized to be plain or entropy-compressed. Through experiments on large
+sets, we show that succinct data structures for path queries may present a
+viable alternative to standard pointer-based realizations, in practical
+scenarios. Compared to na{\""i}ve approaches that compute the answer by explicit
+traversal of the query path, our succinct data structures are several times
+faster in path median queries and perform comparably in path counting and path
+reporting queries, while being several times more space-efficient. Plain
+pointer-based realizations of our data structures, requiring a few times more
+space than the na{\""i}ve ones, yield up to $100$-times speed-up over them.
+","[{'version': 'v1', 'created': 'Tue, 28 Jan 2020 19:32:22 GMT'}, {'version': 'v2', 'created': 'Sat, 1 Feb 2020 10:32:43 GMT'}, {'version': 'v3', 'created': 'Sat, 18 Apr 2020 00:36:37 GMT'}]",2020-04-21,"[['He', 'Meng', ''], ['Kazi', 'Serikzhan', '']]"
+1907.10864,Pan Cunhua,"Cunhua Pan, Hong Ren, Kezhi Wang, Wei Xu, Maged Elkashlan, Arumugam
+  Nallanathan, and Lajos Hanzo",Multicell MIMO Communications Relying on Intelligent Reflecting Surface,"This paper has been accepted for publication in IEEE Transactions on
+  Wireless Communications",,,,eess.SP,http://creativecommons.org/licenses/by/4.0/,"  Intelligent reflecting surfaces (IRSs) constitute a disruptive wireless
+communication technique capable of creating a controllable propagation
+environment. In this paper, we propose to invoke an IRS at the cell boundary of
+multiple cells to assist the downlink transmission to cell-edge users, whilst
+mitigating the inter-cell interference, which is a crucial issue in multicell
+communication systems. We aim for maximizing the weighted sum rate (WSR) of all
+users through jointly optimizing the active precoding matrices at the base
+stations (BSs) and the phase shifts at the IRS subject to each BS's power
+constraint and unit modulus constraint. Both the BSs and the users are equipped
+with multiple antennas, which enhances the spectral efficiency by exploiting
+the spatial multiplexing gain. Due to the non-convexity of the problem, we
+first reformulate it into an equivalent one, which is solved by using the block
+coordinate descent (BCD) algorithm, where the precoding matrices and phase
+shifts are alternately optimized. The optimal precoding matrices can be
+obtained in closed form, when fixing the phase shifts. A pair of efficient
+algorithms are proposed for solving the phase shift optimization problem,
+namely the Majorization-Minimization (MM) Algorithm and the Complex Circle
+Manifold (CCM) Method. Both algorithms are guaranteed to converge to at least
+locally optimal solutions. We also extend the proposed algorithms to the more
+general multiple-IRS and network MIMO scenarios. Finally, our simulation
+results confirm the advantages of introducing IRSs in enhancing the cell-edge
+user performance.
+","[{'version': 'v1', 'created': 'Thu, 25 Jul 2019 07:06:59 GMT'}, {'version': 'v2', 'created': 'Fri, 26 Jul 2019 07:37:23 GMT'}, {'version': 'v3', 'created': 'Wed, 28 Aug 2019 20:38:41 GMT'}, {'version': 'v4', 'created': 'Fri, 24 Apr 2020 04:07:42 GMT'}]",2020-04-27,"[['Pan', 'Cunhua', ''], ['Ren', 'Hong', ''], ['Wang', 'Kezhi', ''], ['Xu', 'Wei', ''], ['Elkashlan', 'Maged', ''], ['Nallanathan', 'Arumugam', ''], ['Hanzo', 'Lajos', '']]"
+2011.03617,Georg Osang,Herbert Edelsbrunner and Georg Osang,A Simple Algorithm for Higher-order Delaunay Mosaics and Alpha Shapes,"15 pages, 10 figures, submitted to Algorithmica, see
+  https://github.com/geoo89/rhomboidtiling for an implementation",,,,cs.CG cs.DM,http://creativecommons.org/licenses/by/4.0/,"  We present a simple algorithm for computing higher-order Delaunay mosaics
+that works in Euclidean spaces of any finite dimensions. The algorithm selects
+the vertices of the order-$k$ mosaic from incrementally constructed lower-order
+mosaics and uses an algorithm for weighted first-order Delaunay mosaics as a
+black-box to construct the order-$k$ mosaic from its vertices. Beyond this
+black-box, the algorithm uses only combinatorial operations, thus facilitating
+easy implementation. We extend this algorithm to compute higher-order
+$\alpha$-shapes and provide open-source implementations. We present
+experimental results for properties of higher-order Delaunay mosaics of random
+point sets.
+","[{'version': 'v1', 'created': 'Fri, 6 Nov 2020 22:22:06 GMT'}]",2020-11-10,"[['Edelsbrunner', 'Herbert', ''], ['Osang', 'Georg', '']]"
+1602.06797,Zhiguo Wang,"Zhiguo Wang, Haitao Mi and Abraham Ittycheriah","Semi-supervised Clustering for Short Text via Deep Representation
+  Learning",In Proceedings of CoNLL 2016,,,,cs.CL,http://creativecommons.org/licenses/by/4.0/,"  In this work, we propose a semi-supervised method for short text clustering,
+where we represent texts as distributed vectors with neural networks, and use a
+small amount of labeled data to specify our intention for clustering. We design
+a novel objective to combine the representation learning process and the
+k-means clustering process together, and optimize the objective with both
+labeled data and unlabeled data iteratively until convergence through three
+steps: (1) assign each short text to its nearest centroid based on its
+representation from the current neural networks; (2) re-estimate the cluster
+centroids based on cluster assignments from step (1); (3) update neural
+networks according to the objective by keeping centroids and cluster
+assignments fixed. Experimental results on four datasets show that our method
+works significantly better than several other text clustering methods.
+","[{'version': 'v1', 'created': 'Mon, 22 Feb 2016 14:55:26 GMT'}, {'version': 'v2', 'created': 'Fri, 14 Jul 2017 19:52:33 GMT'}]",2017-07-18,"[['Wang', 'Zhiguo', ''], ['Mi', 'Haitao', ''], ['Ittycheriah', 'Abraham', '']]"
+2102.12780,J. Andrew Zhang,"J. Andrew Zhang, Fan Liu, Christos Masouros, Robert W. Heath Jr.,
+  Zhiyong Feng, Le Zheng, Athina Petropulu","An Overview of Signal Processing Techniques for Joint Communication and
+  Radar Sensing","18 pages, 3 figures, journal","IEEE Journal of Selected Topics in Signal Processing, 2021",10.1109/JSTSP.2021.3113120,,eess.SP,http://creativecommons.org/licenses/by/4.0/,"  Joint communication and radar sensing (JCR) represents an emerging research
+field aiming to integrate the above two functionalities into a single system,
+sharing a majority of hardware and signal processing modules and, in a typical
+case, sharing a single transmitted signal. It is recognised as a key approach
+in significantly improving spectrum efficiency, reducing device size, cost and
+power consumption, and improving performance thanks to potential close
+cooperation of the two functions. Advanced signal processing techniques are
+critical for making the integration efficient, from transmission signal design
+to receiver processing. This paper provides a comprehensive overview of JCR
+systems from the signal processing perspective, with a focus on
+state-of-the-art. A balanced coverage on both transmitter and receiver is
+provided for three types of JCR systems, communication-centric, radar-centric,
+and joint design and optimization.
+","[{'version': 'v1', 'created': 'Thu, 25 Feb 2021 10:55:02 GMT'}]",2021-12-15,"[['Zhang', 'J. Andrew', ''], ['Liu', 'Fan', ''], ['Masouros', 'Christos', ''], ['Heath', 'Robert W.', 'Jr.'], ['Feng', 'Zhiyong', ''], ['Zheng', 'Le', ''], ['Petropulu', 'Athina', '']]"
+1811.00146,Maarten Sap,"Maarten Sap, Ronan LeBras, Emily Allaway, Chandra Bhagavatula,
+  Nicholas Lourie, Hannah Rashkin, Brendan Roof, Noah A. Smith, Yejin Choi",ATOMIC: An Atlas of Machine Commonsense for If-Then Reasoning,AAAI 2019 CR,,,,cs.CL,http://creativecommons.org/licenses/by/4.0/,"  We present ATOMIC, an atlas of everyday commonsense reasoning, organized
+through 877k textual descriptions of inferential knowledge. Compared to
+existing resources that center around taxonomic knowledge, ATOMIC focuses on
+inferential knowledge organized as typed if-then relations with variables
+(e.g., ""if X pays Y a compliment, then Y will likely return the compliment"").
+We propose nine if-then relation types to distinguish causes vs. effects,
+agents vs. themes, voluntary vs. involuntary events, and actions vs. mental
+states. By generatively training on the rich inferential knowledge described in
+ATOMIC, we show that neural models can acquire simple commonsense capabilities
+and reason about previously unseen events. Experimental results demonstrate
+that multitask models that incorporate the hierarchical structure of if-then
+relation types lead to more accurate inference compared to models trained in
+isolation, as measured by both automatic and human evaluation.
+","[{'version': 'v1', 'created': 'Wed, 31 Oct 2018 22:57:51 GMT'}, {'version': 'v2', 'created': 'Thu, 15 Nov 2018 20:12:03 GMT'}, {'version': 'v3', 'created': 'Thu, 7 Feb 2019 19:52:21 GMT'}]",2019-02-11,"[['Sap', 'Maarten', ''], ['LeBras', 'Ronan', ''], ['Allaway', 'Emily', ''], ['Bhagavatula', 'Chandra', ''], ['Lourie', 'Nicholas', ''], ['Rashkin', 'Hannah', ''], ['Roof', 'Brendan', ''], ['Smith', 'Noah A.', ''], ['Choi', 'Yejin', '']]"
+2109.00916,Peter Pol\'ak,Peter Pol\'ak and Ond\v{r}ej Bojar,Coarse-To-Fine And Cross-Lingual ASR Transfer,Accepted to ITAT WAFNL,,,,cs.CL,http://creativecommons.org/licenses/by/4.0/,"  End-to-end neural automatic speech recognition systems achieved recently
+state-of-the-art results, but they require large datasets and extensive
+computing resources. Transfer learning has been proposed to overcome these
+difficulties even across languages, e.g., German ASR trained from an English
+model. We experiment with much less related languages, reusing an English model
+for Czech ASR. To simplify the transfer, we propose to use an intermediate
+alphabet, Czech without accents, and document that it is a highly effective
+strategy. The technique is also useful on Czech data alone, in the style of
+coarse-to-fine training. We achieve substantial eductions in training time as
+well as word error rate (WER).
+","[{'version': 'v1', 'created': 'Thu, 2 Sep 2021 13:16:12 GMT'}]",2021-09-03,"[['Polák', 'Peter', ''], ['Bojar', 'Ondřej', '']]"
+2103.13527,Francesco Osborne,"Angelo A. Salatino, Francesco Osborne, Aliaksandr Birukou and Enrico
+  Motta",Improving Editorial Workflow and Metadata Quality at Springer Nature,"In: The Semantic Web - ISWC 2019. Lecture Notes in Computer Science,
+  vol 11779. Springer, Cham",,10.1007/978-3-030-30796-7_31,,cs.DL cs.AI cs.IR cs.LG,http://creativecommons.org/licenses/by/4.0/,"  Identifying the research topics that best describe the scope of a scientific
+publication is a crucial task for editors, in particular because the quality of
+these annotations determine how effectively users are able to discover the
+right content in online libraries. For this reason, Springer Nature, the
+world's largest academic book publisher, has traditionally entrusted this task
+to their most expert editors. These editors manually analyse all new books,
+possibly including hundreds of chapters, and produce a list of the most
+relevant topics. Hence, this process has traditionally been very expensive,
+time-consuming, and confined to a few senior editors. For these reasons, back
+in 2016 we developed Smart Topic Miner (STM), an ontology-driven application
+that assists the Springer Nature editorial team in annotating the volumes of
+all books covering conference proceedings in Computer Science. Since then STM
+has been regularly used by editors in Germany, China, Brazil, India, and Japan,
+for a total of about 800 volumes per year. Over the past three years the
+initial prototype has iteratively evolved in response to feedback from the
+users and evolving requirements. In this paper we present the most recent
+version of the tool and describe the evolution of the system over the years,
+the key lessons learnt, and the impact on the Springer Nature workflow. In
+particular, our solution has drastically reduced the time needed to annotate
+proceedings and significantly improved their discoverability, resulting in 9.3
+million additional downloads. We also present a user study involving 9 editors,
+which yielded excellent results in term of usability, and report an evaluation
+of the new topic classifier used by STM, which outperforms previous versions in
+recall and F-measure.
+","[{'version': 'v1', 'created': 'Wed, 24 Mar 2021 23:23:59 GMT'}]",2021-03-26,"[['Salatino', 'Angelo A.', ''], ['Osborne', 'Francesco', ''], ['Birukou', 'Aliaksandr', ''], ['Motta', 'Enrico', '']]"
+1803.00101,Vladimir Feinberg,"Vladimir Feinberg, Alvin Wan, Ion Stoica, Michael I. Jordan, Joseph E.
+  Gonzalez, Sergey Levine","Model-Based Value Estimation for Efficient Model-Free Reinforcement
+  Learning",,,,,cs.LG cs.AI stat.ML,http://creativecommons.org/licenses/by/4.0/,"  Recent model-free reinforcement learning algorithms have proposed
+incorporating learned dynamics models as a source of additional data with the
+intention of reducing sample complexity. Such methods hold the promise of
+incorporating imagined data coupled with a notion of model uncertainty to
+accelerate the learning of continuous control tasks. Unfortunately, they rely
+on heuristics that limit usage of the dynamics model. We present model-based
+value expansion, which controls for uncertainty in the model by only allowing
+imagination to fixed depth. By enabling wider use of learned dynamics models
+within a model-free reinforcement learning algorithm, we improve value
+estimation, which, in turn, reduces the sample complexity of learning.
+","[{'version': 'v1', 'created': 'Wed, 28 Feb 2018 21:43:37 GMT'}]",2018-03-02,"[['Feinberg', 'Vladimir', ''], ['Wan', 'Alvin', ''], ['Stoica', 'Ion', ''], ['Jordan', 'Michael I.', ''], ['Gonzalez', 'Joseph E.', ''], ['Levine', 'Sergey', '']]"
+1910.06838,Derui Derek Wang,"Derui (Derek) Wang, Chaoran Li, Sheng Wen, Surya Nepal, Yang Xiang","Man-in-the-Middle Attacks against Machine Learning Classifiers via
+  Malicious Generative Models",,,,,cs.CR cs.LG,http://creativecommons.org/licenses/by/4.0/,"  Deep Neural Networks (DNNs) are vulnerable to deliberately crafted
+adversarial examples. In the past few years, many efforts have been spent on
+exploring query-optimisation attacks to find adversarial examples of either
+black-box or white-box DNN models, as well as the defending countermeasures
+against those attacks. In this work, we explore vulnerabilities of DNN models
+under the umbrella of Man-in-the-Middle (MitM) attacks, which has not been
+investigated before. From the perspective of an MitM adversary, the
+aforementioned adversarial example attacks are not viable anymore. First, such
+attacks must acquire the outputs from the models by multiple times before
+actually launching attacks, which is difficult for the MitM adversary in
+practice. Second, such attacks are one-off and cannot be directly generalised
+onto new data examples, which decreases the rate of return for the attacker. In
+contrast, using generative models to craft adversarial examples on the fly can
+mitigate the drawbacks. However, the adversarial capability of the generative
+models, such as Variational Auto-Encoder (VAE), has not been extensively
+studied. Therefore, given a classifier, we investigate using a VAE decoder to
+either transform benign inputs to their adversarial counterparts or decode
+outputs from benign VAE encoders to be adversarial examples. The proposed
+method can endue more capability to MitM attackers. Based on our evaluation,
+the proposed attack can achieve above 95% success rate on both MNIST and
+CIFAR10 datasets, which is better or comparable with state-of-the-art
+query-optimisation attacks. At the meantime, the attack is 104 times faster
+than the query-optimisation attacks.
+","[{'version': 'v1', 'created': 'Mon, 14 Oct 2019 05:04:37 GMT'}]",2019-10-16,"[['Derui', '', '', 'Derek'], ['Wang', '', ''], ['Li', 'Chaoran', ''], ['Wen', 'Sheng', ''], ['Nepal', 'Surya', ''], ['Xiang', 'Yang', '']]"
+2110.11850,Katy Ilonka Gero,"Katy Ilonka Gero, Chris Kedzie, Savvas Petridis and Lydia Chilton",Lightweight Decoding Strategies for Increasing Specificity,,,,,cs.CL,http://creativecommons.org/licenses/by/4.0/,"  Language models are known to produce vague and generic outputs. We propose
+two unsupervised decoding strategies based on either word-frequency or
+point-wise mutual information to increase the specificity of any model that
+outputs a probability distribution over its vocabulary at generation time. We
+test the strategies in a prompt completion task; with human evaluations, we
+find that both strategies increase the specificity of outputs with only modest
+decreases in sensibility. We also briefly present a summarization use case,
+where these strategies can produce more specific summaries.
+","[{'version': 'v1', 'created': 'Fri, 22 Oct 2021 15:32:25 GMT'}]",2021-10-25,"[['Gero', 'Katy Ilonka', ''], ['Kedzie', 'Chris', ''], ['Petridis', 'Savvas', ''], ['Chilton', 'Lydia', '']]"
+2107.06325,Rajat Koner,"Rajat Koner, Hang Li, Marcel Hildebrandt, Deepan Das, Volker Tresp,
+  Stephan G\""unnemann","Graphhopper: Multi-Hop Scene Graph Reasoning for Visual Question
+  Answering",arXiv admin note: text overlap with arXiv:2007.01072,,,,cs.CV,http://creativecommons.org/licenses/by/4.0/,"  Visual Question Answering (VQA) is concerned with answering free-form
+questions about an image. Since it requires a deep semantic and linguistic
+understanding of the question and the ability to associate it with various
+objects that are present in the image, it is an ambitious task and requires
+multi-modal reasoning from both computer vision and natural language
+processing. We propose Graphhopper, a novel method that approaches the task by
+integrating knowledge graph reasoning, computer vision, and natural language
+processing techniques. Concretely, our method is based on performing
+context-driven, sequential reasoning based on the scene entities and their
+semantic and spatial relationships. As a first step, we derive a scene graph
+that describes the objects in the image, as well as their attributes and their
+mutual relationships. Subsequently, a reinforcement learning agent is trained
+to autonomously navigate in a multi-hop manner over the extracted scene graph
+to generate reasoning paths, which are the basis for deriving answers. We
+conduct an experimental study on the challenging dataset GQA, based on both
+manually curated and automatically generated scene graphs. Our results show
+that we keep up with a human performance on manually curated scene graphs.
+Moreover, we find that Graphhopper outperforms another state-of-the-art scene
+graph reasoning model on both manually curated and automatically generated
+scene graphs by a significant margin.
+","[{'version': 'v1', 'created': 'Tue, 13 Jul 2021 18:33:04 GMT'}]",2021-07-15,"[['Koner', 'Rajat', ''], ['Li', 'Hang', ''], ['Hildebrandt', 'Marcel', ''], ['Das', 'Deepan', ''], ['Tresp', 'Volker', ''], ['Günnemann', 'Stephan', '']]"
+2106.15731,Martin Schirneck,"Davide Bil\`o, Sarel Cohen, Tobias Friedrich and Martin Schirneck",Near-Optimal Deterministic Single-Source Distance Sensitivity Oracles,"Full version of a paper to appear at ESA 2021. Abstract shortened to
+  meet ArXiv requirements",,,,cs.DS,http://creativecommons.org/licenses/by/4.0/,"  Given a graph with a source vertex $s$, the Single Source Replacement Paths
+(SSRP) problem is to compute, for every vertex $t$ and edge $e$, the length
+$d(s,t,e)$ of a shortest path from $s$ to $t$ that avoids $e$. A Single-Source
+Distance Sensitivity Oracle (Single-Source DSO) is a data structure that
+answers queries of the form $(t,e)$ by returning the distance $d(s,t,e)$. We
+show how to deterministically compress the output of the SSRP problem on
+$n$-vertex, $m$-edge graphs with integer edge weights in the range $[1,M]$ into
+a Single-Source DSO of size $O(M^{1/2}n^{3/2})$ with query time
+$\widetilde{O}(1)$. The space requirement is optimal (up to the word size) and
+our techniques can also handle vertex failures.
+  Chechik and Cohen [SODA 2019] presented a combinatorial, randomized
+$\widetilde{O}(m\sqrt{n}+n^2)$ time SSRP algorithm for undirected and
+unweighted graphs. Grandoni and Vassilevska Williams [FOCS 2012, TALG 2020]
+gave an algebraic, randomized $\widetilde{O}(Mn^\omega)$ time SSRP algorithm
+for graphs with integer edge weights in the range $[1,M]$, where $\omega<2.373$
+is the matrix multiplication exponent. We derandomize both algorithms for
+undirected graphs in the same asymptotic running time and apply our compression
+to obtain deterministic Single-Source DSOs. The $\widetilde{O}(m\sqrt{n}+n^2)$
+and $\widetilde{O}(Mn^\omega)$ preprocessing times are polynomial improvements
+over previous $o(n^2)$-space oracles.
+  On sparse graphs with $m=O(n^{5/4-\varepsilon}/M^{7/4})$ edges, for any
+constant $\varepsilon > 0$, we reduce the preprocessing to randomized
+$\widetilde{O}(M^{7/8}m^{1/2}n^{11/8})=O(n^{2-\varepsilon/2})$ time. This is
+the first truly subquadratic time algorithm for building Single-Source DSOs on
+sparse graphs.
+","[{'version': 'v1', 'created': 'Tue, 29 Jun 2021 21:37:51 GMT'}]",2021-07-01,"[['Bilò', 'Davide', ''], ['Cohen', 'Sarel', ''], ['Friedrich', 'Tobias', ''], ['Schirneck', 'Martin', '']]"
+2105.07881,Benjamin Rech,"Benjamin Rech, Matthias Meyer","Plattformen und neue Technologien im Journalismus: Ergebnisse einer
+  Online-Befragung von Journalistinnen und Journalisten in Deutschland",in German,,,,cs.CY,http://creativecommons.org/licenses/by/4.0/,"  In an online survey in December 2020, 385 journalists in Germany were
+surveyed about platforms in journalism and about their frequency of use and
+willingness to adopt emerging technologies. Journalists have a commitment to
+publish on a journalism platform on a full-time basis. Freelancers have a
+higher commitment than employed journalists. A platform subscription model is
+rated more attractive than advertising for a platform. Employed journalists on
+the other hand consider advertising more attractive than freelance journalists.
+For German journalists it is important that the platform is developed in Europe
+or Germany and that it sets high standards on data protection. Multimedia forms
+and interactive elements are used occasionally, often or always. Stories or
+Reels are predominantly not used. AI software as well as editorial analytics
+are rarely or never used. Apart from stories or reels, journalists intend to
+use multimedia forms and interactive elements more often in the future. They
+are receptive to software for research process documentation as well as to the
+analysis of indicators of their own publications. Software as a support for
+text production, image selection or headline suggestions is mostly rejected.
+","[{'version': 'v1', 'created': 'Thu, 13 May 2021 10:05:56 GMT'}]",2021-05-18,"[['Rech', 'Benjamin', ''], ['Meyer', 'Matthias', '']]"
+2102.06363,Yasutada Oohama,Yasutada Oohama and Bagus Santoso,Distributed Source Coding with Encryption Using Correlated Keys,"7 pages, 3 figure. The short version was submitted to ITW 2021. arXiv
+  admin note: text overlap with arXiv:1801.04920",,,,cs.IT math.IT,http://creativecommons.org/licenses/by/4.0/,"  We pose and investigate the distributed secure source coding based on the
+common key cryptosystem. This cryptosystem includes the secrecy amplification
+problem for distributed encrypted sources with correlated keys using
+post-encryption-compression, which was posed investigated by Santoso and
+Oohama. In this paper we propose another new security criterion which is
+generally more strict compared to the commonly used security criterion which is
+based on the upper-bound of mutual information between the plaintext and the
+ciphertext. Under this criterion, we establish the necessary and sufficient
+condition for the secure transmission of correlated sources.
+","[{'version': 'v1', 'created': 'Fri, 12 Feb 2021 06:43:10 GMT'}, {'version': 'v2', 'created': 'Wed, 14 Apr 2021 17:38:22 GMT'}, {'version': 'v3', 'created': 'Thu, 15 Apr 2021 17:06:58 GMT'}, {'version': 'v4', 'created': 'Wed, 12 May 2021 13:17:06 GMT'}]",2021-05-13,"[['Oohama', 'Yasutada', ''], ['Santoso', 'Bagus', '']]"
+2102.03531,Zhian Kuang,"Zhian Kuang, Xiang Zhang, Liting Sun, Huijun Gao, Masayoshi Tomizuka","Feedback-based Digital Higher-order Terminal Sliding Mode for 6-DOF
+  Industrial Manipulators",This paper has been accepted by American Control Conference 2021,,,,cs.RO cs.SY eess.SY,http://creativecommons.org/licenses/by/4.0/,"  The precise motion control of a multi-degree of freedom~(DOF) robot
+manipulator is always challenging due to its nonlinear dynamics, disturbances,
+and uncertainties. Because most manipulators are controlled by digital signals,
+a novel higher-order sliding mode controller in the discrete-time form with
+time delay estimation is proposed in this paper. The dynamic model of the
+manipulator used in the design allows proper handling of nonlinearities,
+uncertainties and disturbances involved in the problem. Specifically,
+parametric uncertainties and disturbances are handled by the time delay
+estimation and the nonlinearity of the manipulator is addressed by the feedback
+structure of the controller. The combination of terminal sliding mode surface
+and higher-order control scheme in the controller guarantees a fast response
+with a small chattering amplitude. Moreover, the controller is designed with a
+modified sliding mode surface and variable-gain structure, so that the
+performance of the controller is further enhanced. We also analyze the
+condition to guarantee the stability of the closed-loop system in this paper.
+Finally, the simulation and experimental results prove that the proposed
+control scheme has a precise performance in a robot manipulator system.
+","[{'version': 'v1', 'created': 'Sat, 6 Feb 2021 07:42:54 GMT'}]",2021-02-09,"[['Kuang', 'Zhian', ''], ['Zhang', 'Xiang', ''], ['Sun', 'Liting', ''], ['Gao', 'Huijun', ''], ['Tomizuka', 'Masayoshi', '']]"
+2201.10257,Patrick Ruediger-Flore,"Patrick Ruediger, Felix Claus, Viktor Leonhardt, Hans Hagen, Jan C.
+  Aurich, Christoph Garth","PREVIS -- A Combined Machine Learning and Visual Interpolation Approach
+  for Interactive Reverse Engineering in Assembly Quality Control",,,,,cs.HC cs.LG,http://creativecommons.org/licenses/by/4.0/,"  We present PREVIS, a visual analytics tool, enhancing machine learning
+performance analysis in engineering applications. The presented toolchain
+allows for a direct comparison of regression models. In addition, we provide a
+methodology to visualize the impact of regression errors on the underlying
+field of interest in the original domain, the part geometry, via exploiting
+standard interpolation methods. Further, we allow a real-time preview of
+user-driven parameter changes in the displacement field via visual
+interpolation. This allows for fast and accountable online change management.
+We demonstrate the effectiveness with an ex-ante optimization of an automotive
+engine hood.
+","[{'version': 'v1', 'created': 'Tue, 25 Jan 2022 11:56:27 GMT'}]",2022-01-26,"[['Ruediger', 'Patrick', ''], ['Claus', 'Felix', ''], ['Leonhardt', 'Viktor', ''], ['Hagen', 'Hans', ''], ['Aurich', 'Jan C.', ''], ['Garth', 'Christoph', '']]"
+1807.10528,Stefano Angieri,"Stefano Angieri, Alberto Garc\'ia-Mart\'inez, Bingyang Liu, Zhiwei
+  Yan, Chuang Wang and Marcelo Bagnulo","An experiment in distributed Internet address management using
+  blockchains",,,,,cs.NI cs.CR,http://creativecommons.org/licenses/by/4.0/,"  The current system to manage the global pool of IP addresses is centralized
+in five transnational organizations, the Regional Internet Registries (RIRs).
+Each of these RIRs manage the address pool for a large number of countries.
+Because the RIRs are private organizations, they are subject to the legal
+framework of the country where they are based. This configuration results in a
+jurisdictional overflow from the legal framework of the countries where the RIR
+is based to all the countries that the RIRs are serving (the countries served
+by the RIRs de facto become subjects of the legal system of the country where
+the RIR is hosted). The situation is aggravated by the deployment of new
+security techniques such as the RPKI and BGPsec, that enable enforcement of
+allocations by the RIRs. In this paper we present InBlock, a blockchain-based
+distributed governance body aimed to provide de-centralized management of IP
+addresses. InBlock also aims to fulfil the same objectives as the current IP
+address allocation system, namely, uniqueness, fairness, conservation,
+aggregation, registration and minimized overhead. InBlock is implemented as a
+Decentralized Autonomous Organization, i.e., as a set of blockchain's smart
+contracts in Ethereum. Any entity may request an allocation of addresses to the
+InBlock registry by solely performing a (crypto)currency transfer to the
+InBlock. The fee required, along with the annual renewal fee, serves as a
+mechanism to deter stockpiling and other wasteful practices. As with any novel
+technology, there are many open questions about the usage of blockchains to
+build an IP address registry. For this reason, we believe that practical
+experimentation is required in order to have hands-on experiences about such a
+system. We propose to conduct an experiment on distributed address management
+using InBlock as a starting point to inform future directions in this area.
+","[{'version': 'v1', 'created': 'Fri, 27 Jul 2018 10:51:15 GMT'}]",2018-07-30,"[['Angieri', 'Stefano', ''], ['García-Martínez', 'Alberto', ''], ['Liu', 'Bingyang', ''], ['Yan', 'Zhiwei', ''], ['Wang', 'Chuang', ''], ['Bagnulo', 'Marcelo', '']]"
+2107.13249,Bang Xiang Yong,"Bang Xiang Yong, Yasmin Fathy, Alexandra Brintrup",Bayesian Autoencoders for Drift Detection in Industrial Environments,"Published in 2020 IEEE International Workshop on Metrology for
+  Industry 4.0 & IoT",,10.1109/MetroInd4.0IoT48571.2020.9138306,,cs.LG,http://creativecommons.org/licenses/by/4.0/,"  Autoencoders are unsupervised models which have been used for detecting
+anomalies in multi-sensor environments. A typical use includes training a
+predictive model with data from sensors operating under normal conditions and
+using the model to detect anomalies. Anomalies can come either from real
+changes in the environment (real drift) or from faulty sensory devices (virtual
+drift); however, the use of Autoencoders to distinguish between different
+anomalies has not yet been considered. To this end, we first propose the
+development of Bayesian Autoencoders to quantify epistemic and aleatoric
+uncertainties. We then test the Bayesian Autoencoder using a real-world
+industrial dataset for hydraulic condition monitoring. The system is injected
+with noise and drifts, and we have found the epistemic uncertainty to be less
+sensitive to sensor perturbations as compared to the reconstruction loss. By
+observing the reconstructed signals with the uncertainties, we gain
+interpretable insights, and these uncertainties offer a potential avenue for
+distinguishing real and virtual drifts.
+","[{'version': 'v1', 'created': 'Wed, 28 Jul 2021 10:19:58 GMT'}]",2021-07-29,"[['Yong', 'Bang Xiang', ''], ['Fathy', 'Yasmin', ''], ['Brintrup', 'Alexandra', '']]"
+2012.02404,Charles Martin,Charles Patrick Martin and Alexander Refsum Jensenius and Jim Torresen,Composing an Ensemble Standstill Work for Myo and Bela,,"Proceedings of the International Conference on New Interfaces for
+  Musical Expression, 2018, pp. 196-197",10.5281/zenodo.1302543,,cs.HC cs.SD,http://creativecommons.org/licenses/by/4.0/,"  This paper describes the process of developing a standstill performance work
+using the Myo gesture control armband and the Bela embedded computing platform.
+The combination of Myo and Bela allows a portable and extensible version of the
+standstill performance concept while introducing muscle tension as an
+additional control parameter. We describe the technical details of our setup
+and introduce Myo-to-Bela and Myo-to-OSC software bridges that assist with
+prototyping compositions using the Myo controller.
+","[{'version': 'v1', 'created': 'Fri, 4 Dec 2020 05:03:58 GMT'}]",2020-12-07,"[['Martin', 'Charles Patrick', ''], ['Jensenius', 'Alexander Refsum', ''], ['Torresen', 'Jim', '']]"
+2201.05654,Frank Sommer,Jaroslav Garvardt and Christian Komusiewicz and Frank Sommer,"The Parameterized Complexity of s-Club with Triangle and Seed
+  Constraints",,,,,cs.DS,http://creativecommons.org/licenses/by/4.0/,"  The s-Club problem asks, for a given undirected graph $G$, whether $G$
+contains a vertex set $S$ of size at least $k$ such that $G[S]$, the subgraph
+of $G$ induced by $S$, has diameter at most $s$. We consider variants of
+$s$-Club where one additionally demands that each vertex of $G[S]$ is contained
+in at least $\ell$ triangles in $G[S]$, that each edge of $G[S]$ is contained
+in at least $\ell$~triangles in $G[S]$, or that $S$ contains a given set $W$ of
+seed vertices. We show that in general these variants are W[1]-hard when
+parameterized by the solution size $k$, making them significantly harder than
+the unconstrained $s$-Club problem. On the positive side, we obtain some FPT
+algorithms for the case when $\ell=1$ and for the case when $G[W]$, the graph
+induced by the set of seed vertices, is a clique.
+","[{'version': 'v1', 'created': 'Fri, 14 Jan 2022 20:10:37 GMT'}]",2022-01-19,"[['Garvardt', 'Jaroslav', ''], ['Komusiewicz', 'Christian', ''], ['Sommer', 'Frank', '']]"
+2108.03757,Kumar Saurabh,"Kumar Saurabh, Masado Ishii, Milinda Fernando, Boshun Gao, Kendrick
+  Tan, Ming-Chen Hsu, Adarsh Krishnamurthy, Hari Sundar, Baskar
+  Ganapathysubramanian",Scalable adaptive PDE solvers in arbitrary domains,"16 pages. Accepted for publication at Supercomputing '21: The
+  International Conference for High Performance Computing, Networking, Storage,
+  and Analysis",,10.1145/3458817.3476220,,math.NA cs.DS cs.NA,http://creativecommons.org/licenses/by/4.0/,"  Efficiently and accurately simulating partial differential equations (PDEs)
+in and around arbitrarily defined geometries, especially with high levels of
+adaptivity, has significant implications for different application domains. A
+key bottleneck in the above process is the fast construction of a `good'
+adaptively-refined mesh. In this work, we present an efficient novel
+octree-based adaptive discretization approach capable of carving out
+arbitrarily shaped void regions from the parent domain: an essential
+requirement for fluid simulations around complex objects. Carving out objects
+produces an $\textit{incomplete}$ octree. We develop efficient top-down and
+bottom-up traversal methods to perform finite element computations on
+$\textit{incomplete}$ octrees. We validate the framework by (a) showing
+appropriate convergence analysis and (b) computing the drag coefficient for
+flow past a sphere for a wide range of Reynolds numbers ($\mathcal{O}(1-10^6)$)
+encompassing the drag crisis regime. Finally, we deploy the framework on a
+realistic geometry on a current project to evaluate COVID-19 transmission risk
+in classrooms.
+","[{'version': 'v1', 'created': 'Sun, 8 Aug 2021 22:57:37 GMT'}]",2021-11-02,"[['Saurabh', 'Kumar', ''], ['Ishii', 'Masado', ''], ['Fernando', 'Milinda', ''], ['Gao', 'Boshun', ''], ['Tan', 'Kendrick', ''], ['Hsu', 'Ming-Chen', ''], ['Krishnamurthy', 'Adarsh', ''], ['Sundar', 'Hari', ''], ['Ganapathysubramanian', 'Baskar', '']]"
+2106.02233,Jason Li,"Jason Li, Debmalya Panigrahi, Thatchaphol Saranurak",A Nearly Optimal All-Pairs Min-Cuts Algorithm in Simple Graphs,"FOCS 2021, 23 pages",,,,cs.DS,http://creativecommons.org/licenses/by/4.0/,"  We give an $n^{2+o(1)}$-time algorithm for finding $s$-$t$ min-cuts for all
+pairs of vertices $s$ and $t$ in a simple, undirected graph on $n$ vertices. We
+do so by constructing a Gomory-Hu tree (or cut equivalent tree) in the same
+running time, thereby improving on the recent bound of $\tilde{O}(n^{2.5})$ by
+Abboud et al. (STOC 2021). Our running time is nearly optimal as a function of
+$n$.
+","[{'version': 'v1', 'created': 'Fri, 4 Jun 2021 03:17:50 GMT'}, {'version': 'v2', 'created': 'Wed, 3 Nov 2021 08:49:17 GMT'}]",2021-11-04,"[['Li', 'Jason', ''], ['Panigrahi', 'Debmalya', ''], ['Saranurak', 'Thatchaphol', '']]"
+2202.05488,Kang Zhang,"Chaoning Zhang, Kang Zhang, Axi Niu, Chenshuang Zhang, Jiu Feng, Chang
+  D. Yoo, In So Kweon","Noise Augmentation Is All You Need For FGSM Fast Adversarial Training:
+  Catastrophic Overfitting And Robust Overfitting Require Different
+  Augmentation",,,,,cs.LG cs.AI,http://creativecommons.org/licenses/by/4.0/,"  Adversarial training (AT) and its variants are the most effective approaches
+for obtaining adversarially robust models. A unique characteristic of AT is
+that an inner maximization problem needs to be solved repeatedly before the
+model weights can be updated, which makes the training slow. FGSM AT
+significantly improves its efficiency but it fails when the step size grows.
+The SOTA GradAlign makes FGSM AT compatible with a higher step size, however,
+its regularization on input gradient makes it 3 to 4 times slower than FGSM AT.
+Our proposed NoiseAug removes the extra computation overhead by directly
+regularizing on the input itself. The key contribution of this work lies in an
+empirical finding that single-step FGSM AT is not as hard as suggested in the
+past line of work: noise augmentation is all you need for (FGSM) fast AT.
+Towards understanding the success of our NoiseAug, we perform an extensive
+analysis and find that mitigating Catastrophic Overfitting (CO) and Robust
+Overfitting (RO) need different augmentations. Instead of more samples caused
+by data augmentation, we identify what makes NoiseAug effective for preventing
+CO might lie in its improved local linearity.
+","[{'version': 'v1', 'created': 'Fri, 11 Feb 2022 07:37:55 GMT'}]",2022-02-14,"[['Zhang', 'Chaoning', ''], ['Zhang', 'Kang', ''], ['Niu', 'Axi', ''], ['Zhang', 'Chenshuang', ''], ['Feng', 'Jiu', ''], ['Yoo', 'Chang D.', ''], ['Kweon', 'In So', '']]"
+1711.05683,Antonio Augusto  Alves Jr,A. A. Alves Jr and M. D. Sokoloff,"Hydra: a C++11 framework for data analysis in massively parallel
+  platforms",ACAT 2017 Proceedings,,,,cs.MS hep-ex physics.comp-ph physics.data-an,http://creativecommons.org/licenses/by/4.0/,"  Hydra is a header-only, templated and C++11-compliant framework designed to
+perform the typical bottleneck calculations found in common HEP data analyses
+on massively parallel platforms. The framework is implemented on top of the
+C++11 Standard Library and a variadic version of the Thrust library and is
+designed to run on Linux systems, using OpenMP, CUDA and TBB enabled devices.
+This contribution summarizes the main features of Hydra. A basic description of
+the overall design, functionality and user interface is provided, along with
+some code examples and measurements of performance.
+","[{'version': 'v1', 'created': 'Wed, 15 Nov 2017 17:19:29 GMT'}, {'version': 'v2', 'created': 'Thu, 16 Nov 2017 01:44:12 GMT'}]",2017-11-17,"[['Alves', 'A. A.', 'Jr'], ['Sokoloff', 'M. D.', '']]"
+2111.06604,Vlad-Florin Dr\u{a}goi,Gabriela Cristescu and Vlad-Florin Dragoi and Sorin-Horatiu Hoara,"Generalized Convexity Properties and Shape Based Approximation in
+  Networks Reliability","22 pages, 5 figures, 5 tables",Mathematics 2021,10.3390/math9243182,,cs.DM,http://creativecommons.org/licenses/by/4.0/,"  Some properties of generalized convexity for sets and for functions are
+identified in case of the reliability polynomials of two dual minimal networks.
+A method of approximating the reliability polynomials of two dual minimal
+network is developed based on their mutual complementarity properties. The
+approximating objects are from the class of quadratic spline functions,
+constructed based both on interpolation conditions and on shape knowledge. It
+is proved that the approximant objects preserve the shape properties of the
+exact reliability polynomials. Numerical examples and simulations show the
+performance of the algorithm, both in terms of low complexity, small error and
+shape preserving. Possibilities of increasing the accuracy of approximation are
+discussed.
+","[{'version': 'v1', 'created': 'Fri, 12 Nov 2021 08:34:14 GMT'}]",2021-12-14,"[['Cristescu', 'Gabriela', ''], ['Dragoi', 'Vlad-Florin', ''], ['Hoara', 'Sorin-Horatiu', '']]"
+2104.04380,Marcia Ferreira,"Marcia Ferreira, Juan Pablo Bascur, Rodrigo Costas","Scholars mobility and its impact on the knowledge producers' workforce
+  of European regions","Research in Progress Paper in ISSI conference 2019 (Rome), 6 pages",,,,cs.DL physics.soc-ph,http://creativecommons.org/licenses/by/4.0/,"  Knowledge production increasingly relies on mobility. However, its role as a
+mechanism for knowledge recombination and dissemination remains largely
+unknown. Based on 1,244,080 Web of Science publications from 1,435,729 authors
+that we used to construct a panel dataset, we study the impact of
+inter-regional publishing and scientists' mobility in fostering the workforce
+composition of European countries during 2008-2017. Specifically, we collect
+information on scientists who have published in one region and then published
+elsewhere, and explore some determinants of regional and international
+mobility. Preliminary findings suggest that while talent pools of researchers
+are increasingly international, their movements seem to be steered by
+geographical structures. Future research will investigate the impact of
+mobility on the regional structure of scientific fields by accounting for the
+appearance and disappearance of research topics over time.
+","[{'version': 'v1', 'created': 'Fri, 9 Apr 2021 14:09:41 GMT'}]",2021-04-12,"[['Ferreira', 'Marcia', ''], ['Bascur', 'Juan Pablo', ''], ['Costas', 'Rodrigo', '']]"
+2109.04144,Prasetya Ajie Utama,"Prasetya Ajie Utama, Nafise Sadat Moosavi, Victor Sanh, Iryna Gurevych",Avoiding Inference Heuristics in Few-shot Prompt-based Finetuning,Accepted at EMNLP 2021,,,,cs.CL cs.AI,http://creativecommons.org/licenses/by/4.0/,"  Recent prompt-based approaches allow pretrained language models to achieve
+strong performances on few-shot finetuning by reformulating downstream tasks as
+a language modeling problem. In this work, we demonstrate that, despite its
+advantages on low data regimes, finetuned prompt-based models for sentence pair
+classification tasks still suffer from a common pitfall of adopting inference
+heuristics based on lexical overlap, e.g., models incorrectly assuming a
+sentence pair is of the same meaning because they consist of the same set of
+words. Interestingly, we find that this particular inference heuristic is
+significantly less present in the zero-shot evaluation of the prompt-based
+model, indicating how finetuning can be destructive to useful knowledge learned
+during the pretraining. We then show that adding a regularization that
+preserves pretraining weights is effective in mitigating this destructive
+tendency of few-shot finetuning. Our evaluation on three datasets demonstrates
+promising improvements on the three corresponding challenge datasets used to
+diagnose the inference heuristics.
+","[{'version': 'v1', 'created': 'Thu, 9 Sep 2021 10:10:29 GMT'}]",2021-09-10,"[['Utama', 'Prasetya Ajie', ''], ['Moosavi', 'Nafise Sadat', ''], ['Sanh', 'Victor', ''], ['Gurevych', 'Iryna', '']]"
+1711.10605,Tomoyuki Morimae,"Tomoyuki Morimae, Yuki Takeuchi, Harumichi Nishimura","Merlin-Arthur with efficient quantum Merlin and quantum supremacy for
+  the second level of the Fourier hierarchy","30 pages, 4 figures","Quantum 2, 106 (2018)",10.22331/q-2018-11-15-106,YITP-18-05,quant-ph cs.CC,http://creativecommons.org/licenses/by/4.0/,"  We introduce a simple sub-universal quantum computing model, which we call
+the Hadamard-classical circuit with one-qubit (HC1Q) model. It consists of a
+classical reversible circuit sandwiched by two layers of Hadamard gates, and
+therefore it is in the second level of the Fourier hierarchy. We show that
+output probability distributions of the HC1Q model cannot be classically
+efficiently sampled within a multiplicative error unless the polynomial-time
+hierarchy collapses to the second level. The proof technique is different from
+those used for previous sub-universal models, such as IQP, Boson Sampling, and
+DQC1, and therefore the technique itself might be useful for finding other
+sub-universal models that are hard to classically simulate. We also study the
+classical verification of quantum computing in the second level of the Fourier
+hierarchy. To this end, we define a promise problem, which we call the
+probability distribution distinguishability with maximum norm (PDD-Max). It is
+a promise problem to decide whether output probability distributions of two
+quantum circuits are far apart or close. We show that PDD-Max is BQP-complete,
+but if the two circuits are restricted to some types in the second level of the
+Fourier hierarchy, such as the HC1Q model or the IQP model, PDD-Max has a
+Merlin-Arthur system with quantum polynomial-time Merlin and classical
+probabilistic polynomial-time Arthur.
+","[{'version': 'v1', 'created': 'Tue, 28 Nov 2017 23:05:52 GMT'}, {'version': 'v2', 'created': 'Wed, 10 Jan 2018 01:27:47 GMT'}, {'version': 'v3', 'created': 'Mon, 12 Nov 2018 11:35:05 GMT'}]",2018-11-19,"[['Morimae', 'Tomoyuki', ''], ['Takeuchi', 'Yuki', ''], ['Nishimura', 'Harumichi', '']]"
+2012.04418,Yanqing Wang,"Andreas Prohl, Yanqing Wang","Strong Error Estimates for a Space-Time Discretization of the
+  Linear-Quadratic Control Problem with the Stochastic Heat Equation with
+  Linear Noise",,,,,math.OC cs.NA math.NA,http://creativecommons.org/licenses/by/4.0/,"  We propose a time-implicit, finite-element based space-time discretization of
+the necessary and sufficient optimality conditions for the stochastic
+linear-quadratic optimal control problem with the stochastic heat equation
+driven by linear noise of type $[X(t)+\sigma(t)]dW(t)$, and prove optimal
+convergence w.r.t. both, space and time discretization parameters. In
+particular, we employ the stochastic Riccati equation as a proper analytical
+tool to handle the linear noise, and thus extend the applicability of the
+earlier work [16], where the error analysis was restricted to additive noise.
+","[{'version': 'v1', 'created': 'Tue, 8 Dec 2020 13:30:27 GMT'}]",2020-12-09,"[['Prohl', 'Andreas', ''], ['Wang', 'Yanqing', '']]"
+2103.08878,Gabriel Silva,"Vivek Kurien George, Vikash Morar, Weiwei Yang, Jonathan Larson, Bryan
+  Tower, Shweti Mahajan, Arkin Gupta, Christopher White, Gabriel A. Silva","Learning without gradient descent encoded by the dynamics of a
+  neurobiological model","Version 2 includes a new subsection 4.1 and associated table and
+  figure benchmarking our biologically-inspired neural network against a
+  traditional ANN",,,,cs.LG cs.AI cs.NE,http://creativecommons.org/licenses/by/4.0/,"  The success of state-of-the-art machine learning is essentially all based on
+different variations of gradient descent algorithms that minimize some version
+of a cost or loss function. A fundamental limitation, however, is the need to
+train these systems in either supervised or unsupervised ways by exposing them
+to typically large numbers of training examples. Here, we introduce a
+fundamentally novel conceptual approach to machine learning that takes
+advantage of a neurobiologically derived model of dynamic signaling,
+constrained by the geometric structure of a network. We show that MNIST images
+can be uniquely encoded and classified by the dynamics of geometric networks
+with nearly state-of-the-art accuracy in an unsupervised way, and without the
+need for any training.
+","[{'version': 'v1', 'created': 'Tue, 16 Mar 2021 07:03:04 GMT'}, {'version': 'v2', 'created': 'Tue, 23 Mar 2021 20:55:19 GMT'}]",2021-03-25,"[['George', 'Vivek Kurien', ''], ['Morar', 'Vikash', ''], ['Yang', 'Weiwei', ''], ['Larson', 'Jonathan', ''], ['Tower', 'Bryan', ''], ['Mahajan', 'Shweti', ''], ['Gupta', 'Arkin', ''], ['White', 'Christopher', ''], ['Silva', 'Gabriel A.', '']]"
+1908.06637,Bernadette Spieler,"Bernadette Spieler and Maria Grandl and Martin Ebner and Wolfgang
+  Slany","""Computer Science for all"": Concepts to engage teenagers and non-CS
+  students in technology","9 pages, 4 figures, ECGBL 2019, Odense, Denmark",,,,cs.CY,http://creativecommons.org/licenses/by/4.0/,"  Knowledge in Computer Science (CS) is essential, and companies have increased
+their demands for CS professionals. Despite this, many jobs remain unfilled.
+Furthermore, employees with computational thinking (CT) skills are required,
+even if they are not actual technicians. Moreover, the gender disparity in
+technology related fields is a serious problem. Even if companies want to hire
+women in technology, the number of women who enter these fields is remarkably
+low. In high schools, most teenagers acquire only low-level skills in CS. Thus,
+they may never understand the fundamental concepts of CS, have unrealistic
+expectations or preconceptions, and are influenced by stereotype-based
+expectations. Consequently, many teenagers exclude computing as a career path.
+In this research study, we present two promising concepts to overcome these
+challenges. First, we consider alternative paths to enter the field of CS. In
+2018, a voluntary lecture ""Design your own app"" at the University of Graz for
+students of all degree programs was introduced. In total, 202 students
+participated. We applied a Game Development-Based Learning (GDBL) approach with
+the visual coding tool Pocket Code, a mobile app developed at Graz University
+of Technology. The students were supposed to create simple games directly on
+smartphones. The course received positive evaluations and led to our second
+concept; In January 2019, we started to design a MOOC (Massive Open Online
+Course) with the title ""Get FIT in Computer Science"". First, this course can be
+used to encourage young women who have little to no previous knowledge in CS.
+Second, it should help all teenagers to get a more realistic picture of CS to
+its basic concepts. Third, teachers can use the course materials to lead high
+school classes (Open Educational Resources). Finally, the MOOC can be accessed
+by everyone interested in this topic.
+","[{'version': 'v1', 'created': 'Mon, 19 Aug 2019 08:16:41 GMT'}, {'version': 'v2', 'created': 'Tue, 29 Oct 2019 07:38:06 GMT'}]",2019-10-30,"[['Spieler', 'Bernadette', ''], ['Grandl', 'Maria', ''], ['Ebner', 'Martin', ''], ['Slany', 'Wolfgang', '']]"
+1905.10934,Yu Yang,"Yu Yang, Guoqiang Hu, and Costas J. Spanos","HVAC Energy Cost Optimization for a Multi-zone Building via a
+  Decentralized Approach","13 pages, 8 figures",,,,cs.SY math.OC,http://creativecommons.org/licenses/by/4.0/,"  It has been well acknowledged that buildings account for a large proportion
+of the world's energy consumption. However, the energy use of buildings,
+especially the heating, ventilation and air-conditioning (HVAC), is far from
+being efficient. There still exists a dramatic potential to save energy through
+improving building energy efficiency. Therefore, this paper studies the control
+of HVAC system for multi-zone buildings with the objective to reduce energy
+consumption cost while satisfying thermal comfort. In particular, the thermal
+couplings due to the heat transfer between the adjacent zones are incorporated
+in the optimization. Considering that a centralized method is generally
+computationally prohibitive for large buildings, an efficient decentralized
+approach is developed, based on the Accelerated Distributed Augmented
+Lagrangian (ADAL) method [1]. To evaluate the performance of the proposed
+method, we first compare it with a centralized method, in which the optimal
+solution of a small-scale problem can be obtained. We find that this
+decentralized approach can almost approach the optimal solution of the problem.
+Further, this decentralized approach is compared with the Distributed
+Token-Based Scheduling Strategy (DTBSS) [2]. The numeric results reveal that
+when the number of zones is relatively small (less than 20), the two
+decentralized methods can achieve a comparable performance regarding the cost
+of the HVAC system. However, with an increase of the number of zones in the
+building, the proposed decentralized approach demonstrates better performance
+with a considerable reduction of the total cost. Moreover, the decentralized
+approach proposed in this paper demonstrate better scalability with less
+average computation required.
+","[{'version': 'v1', 'created': 'Tue, 21 May 2019 04:44:36 GMT'}]",2019-05-28,"[['Yang', 'Yu', ''], ['Hu', 'Guoqiang', ''], ['Spanos', 'Costas J.', '']]"
+2001.01982,Guido Schillaci,"Guido Schillaci, Antonio Pico Villalpando, Verena Vanessa Hafner,
+  Peter Hanappe, David Colliaux, Timoth\'ee Wintz","Intrinsic Motivation and Episodic Memories for Robot Exploration of
+  High-Dimensional Sensory Spaces","This manuscript has been submitted for consideration for publication
+  in the Adaptive Behaviour Sage Journal, edited by Tom Froese",Adaptive behaviour 2020,10.1177/1059712320922916,,cs.AI cs.LG cs.RO,http://creativecommons.org/licenses/by/4.0/,"  This work presents an architecture that generates curiosity-driven
+goal-directed exploration behaviours for an image sensor of a microfarming
+robot. A combination of deep neural networks for offline unsupervised learning
+of low-dimensional features from images, and of online learning of shallow
+neural networks representing the inverse and forward kinematics of the system
+have been used. The artificial curiosity system assigns interest values to a
+set of pre-defined goals, and drives the exploration towards those that are
+expected to maximise the learning progress. We propose the integration of an
+episodic memory in intrinsic motivation systems to face catastrophic forgetting
+issues, typically experienced when performing online updates of artificial
+neural networks. Our results show that adopting an episodic memory system not
+only prevents the computational models from quickly forgetting knowledge that
+has been previously acquired, but also provides new avenues for modulating the
+balance between plasticity and stability of the models.
+","[{'version': 'v1', 'created': 'Tue, 7 Jan 2020 11:39:20 GMT'}]",2020-06-09,"[['Schillaci', 'Guido', ''], ['Villalpando', 'Antonio Pico', ''], ['Hafner', 'Verena Vanessa', ''], ['Hanappe', 'Peter', ''], ['Colliaux', 'David', ''], ['Wintz', 'Timothée', '']]"
+2107.07246,David Angwenyi Dr.,David Angwenyi,"Estimation of spatially varying parameters with application to
+  hyperbolic SPDEs",,,,,stat.ME cs.NA math.NA,http://creativecommons.org/licenses/by/4.0/,"  More often than not, we encounter problems with varying parameters as opposed
+to those that are static. In this paper, we treat the estimation of parameters
+which vary with space. We use Metropolis-Hastings algorithm as a selection
+criteria for the maximum filter likelihood. Comparisons are made with the use
+of joint estimation of both the spatially varying parameters and the state. We
+illustrate the procedures employed in this paper by means of two hyperbolic
+SPDEs: the advection and the wave equation. The Metropolis-Hastings procedure
+registers better estimates.
+","[{'version': 'v1', 'created': 'Thu, 15 Jul 2021 11:09:22 GMT'}]",2021-07-16,"[['Angwenyi', 'David', '']]"
+2112.14811,Ruoyu Wang,Ruoyu Wang,Active Learning-Based Optimization of Scientific Experimental Design,"2021 2nd International Conference on Artificial Intelligence and
+  Computer Engineering (ICAICE 2021)",,,,cs.LG cs.AI,http://creativecommons.org/licenses/by/4.0/,"  Active learning (AL) is a machine learning algorithm that can achieve greater
+accuracy with fewer labeled training instances, for having the ability to ask
+oracles to label the most valuable unlabeled data chosen iteratively and
+heuristically by query strategies. Scientific experiments nowadays, though
+becoming increasingly automated, are still suffering from human involvement in
+the designing process and the exhaustive search in the experimental space. This
+article performs a retrospective study on a drug response dataset using the
+proposed AL scheme comprised of the matrix factorization method of alternating
+least square (ALS) and deep neural networks (DNN). This article also proposes
+an AL query strategy based on expected loss minimization. As a result, the
+retrospective study demonstrates that scientific experimental design, instead
+of being manually set, can be optimized by AL, and the proposed query strategy
+ELM sampling shows better experimental performance than other ones such as
+random sampling and uncertainty sampling.
+","[{'version': 'v1', 'created': 'Wed, 29 Dec 2021 20:02:35 GMT'}]",2022-01-03,"[['Wang', 'Ruoyu', '']]"
+1812.07699,Thomas Hollis,"Thomas Hollis, Antoine Viscardi, Seung Eun Yi","A Comparison of LSTMs and Attention Mechanisms for Forecasting Financial
+  Time Series",,,,,cs.LG stat.ML,http://creativecommons.org/licenses/by/4.0/,"  While LSTMs show increasingly promising results for forecasting Financial
+Time Series (FTS), this paper seeks to assess if attention mechanisms can
+further improve performance. The hypothesis is that attention can help prevent
+long-term dependencies experienced by LSTM models. To test this hypothesis, the
+main contribution of this paper is the implementation of an LSTM with
+attention. Both the benchmark LSTM and the LSTM with attention were compared
+and both achieved reasonable performances of up to 60% on five stocks from
+Kaggle's Two Sigma dataset. This comparative analysis demonstrates that an LSTM
+with attention can indeed outperform standalone LSTMs but further investigation
+is required as issues do arise with such model architectures.
+","[{'version': 'v1', 'created': 'Tue, 18 Dec 2018 23:43:48 GMT'}]",2018-12-20,"[['Hollis', 'Thomas', ''], ['Viscardi', 'Antoine', ''], ['Yi', 'Seung Eun', '']]"
+2010.15597,Hamid Radmard Rahmani,"Hamid Radmard Rahmani, Carsten Koenke, Marco A. Wiering","Enhancing reinforcement learning by a finite reward response filter with
+  a case study in intelligent structural control","16 pages, 16 figures",,,,cs.LG cs.AI,http://creativecommons.org/licenses/by/4.0/,"  In many reinforcement learning (RL) problems, it takes some time until a
+taken action by the agent reaches its maximum effect on the environment and
+consequently the agent receives the reward corresponding to that action by a
+delay called action-effect delay. Such delays reduce the performance of the
+learning algorithm and increase the computational costs, as the reinforcement
+learning agent values the immediate rewards more than the future reward that is
+more related to the taken action. This paper addresses this issue by
+introducing an applicable enhanced Q-learning method in which at the beginning
+of the learning phase, the agent takes a single action and builds a function
+that reflects the environments response to that action, called the reflexive
+$\gamma$ - function. During the training phase, the agent utilizes the created
+reflexive $\gamma$- function to update the Q-values. We have applied the
+developed method to a structural control problem in which the goal of the agent
+is to reduce the vibrations of a building subjected to earthquake excitations
+with a specified delay. Seismic control problems are considered as a complex
+task in structural engineering because of the stochastic and unpredictable
+nature of earthquakes and the complex behavior of the structure. Three
+scenarios are presented to study the effects of zero, medium, and long
+action-effect delays and the performance of the Enhanced method is compared to
+the standard Q-learning method. Both RL methods use neural network to learn to
+estimate the state-action value function that is used to control the structure.
+The results show that the enhanced method significantly outperforms the
+performance of the original method in all cases, and also improves the
+stability of the algorithm in dealing with action-effect delays.
+","[{'version': 'v1', 'created': 'Sun, 25 Oct 2020 19:28:35 GMT'}]",2020-10-30,"[['Rahmani', 'Hamid Radmard', ''], ['Koenke', 'Carsten', ''], ['Wiering', 'Marco A.', '']]"
+2103.16146,Jong Chul Ye,"Gihyun Kwon, Jong Chul Ye","Diagonal Attention and Style-based GAN for Content-Style Disentanglement
+  in Image Generation and Translation",ICCV 2021,,,,cs.CV,http://creativecommons.org/licenses/by/4.0/,"  One of the important research topics in image generative models is to
+disentangle the spatial contents and styles for their separate control.
+Although StyleGAN can generate content feature vectors from random noises, the
+resulting spatial content control is primarily intended for minor spatial
+variations, and the disentanglement of global content and styles is by no means
+complete. Inspired by a mathematical understanding of normalization and
+attention, here we present a novel hierarchical adaptive Diagonal spatial
+ATtention (DAT) layers to separately manipulate the spatial contents from
+styles in a hierarchical manner. Using DAT and AdaIN, our method enables
+coarse-to-fine level disentanglement of spatial contents and styles. In
+addition, our generator can be easily integrated into the GAN inversion
+framework so that the content and style of translated images from multi-domain
+image translation tasks can be flexibly controlled. By using various datasets,
+we confirm that the proposed method not only outperforms the existing models in
+disentanglement scores, but also provides more flexible control over spatial
+features in the generated images.
+","[{'version': 'v1', 'created': 'Tue, 30 Mar 2021 08:00:13 GMT'}, {'version': 'v2', 'created': 'Fri, 23 Jul 2021 16:28:42 GMT'}]",2021-07-26,"[['Kwon', 'Gihyun', ''], ['Ye', 'Jong Chul', '']]"
+2106.02520,Sunghwan Hong,"Seokju Cho, Sunghwan Hong, Sangryul Jeon, Yunsung Lee, Kwanghoon Sohn
+  and Seungryong Kim",CATs: Cost Aggregation Transformers for Visual Correspondence,"Code and trained models are available at
+  https://sunghwanhong.github.io/CATs/","Annual Conference on Neural Information Processing Systems,
+  NeurIPS, 2021",,,cs.CV,http://creativecommons.org/licenses/by/4.0/,"  We propose a novel cost aggregation network, called Cost Aggregation
+Transformers (CATs), to find dense correspondences between semantically similar
+images with additional challenges posed by large intra-class appearance and
+geometric variations. Cost aggregation is a highly important process in
+matching tasks, which the matching accuracy depends on the quality of its
+output. Compared to hand-crafted or CNN-based methods addressing the cost
+aggregation, in that either lacks robustness to severe deformations or inherit
+the limitation of CNNs that fail to discriminate incorrect matches due to
+limited receptive fields, CATs explore global consensus among initial
+correlation map with the help of some architectural designs that allow us to
+fully leverage self-attention mechanism. Specifically, we include appearance
+affinity modeling to aid the cost aggregation process in order to disambiguate
+the noisy initial correlation maps and propose multi-level aggregation to
+efficiently capture different semantics from hierarchical feature
+representations. We then combine with swapping self-attention technique and
+residual connections not only to enforce consistent matching but also to ease
+the learning process, which we find that these result in an apparent
+performance boost. We conduct experiments to demonstrate the effectiveness of
+the proposed model over the latest methods and provide extensive ablation
+studies. Project page is available at : https://sunghwanhong.github.io/CATs/.
+","[{'version': 'v1', 'created': 'Fri, 4 Jun 2021 14:39:03 GMT'}, {'version': 'v2', 'created': 'Tue, 26 Oct 2021 12:22:41 GMT'}, {'version': 'v3', 'created': 'Fri, 3 Dec 2021 02:02:59 GMT'}, {'version': 'v4', 'created': 'Wed, 15 Dec 2021 07:53:40 GMT'}]",2021-12-16,"[['Cho', 'Seokju', ''], ['Hong', 'Sunghwan', ''], ['Jeon', 'Sangryul', ''], ['Lee', 'Yunsung', ''], ['Sohn', 'Kwanghoon', ''], ['Kim', 'Seungryong', '']]"
+2105.01030,Jonathan F. MacArt,"Jonathan F. MacArt, Justin Sirignano, Jonathan B. Freund",Embedded training of neural-network sub-grid-scale turbulence models,,,,,physics.flu-dyn cs.CE cs.LG,http://creativecommons.org/licenses/by/4.0/,"  The weights of a deep neural network model are optimized in conjunction with
+the governing flow equations to provide a model for sub-grid-scale stresses in
+a temporally developing plane turbulent jet at Reynolds number $Re_0=6\,000$.
+The objective function for training is first based on the instantaneous
+filtered velocity fields from a corresponding direct numerical simulation, and
+the training is by a stochastic gradient descent method, which uses the adjoint
+Navier--Stokes equations to provide the end-to-end sensitivities of the model
+weights to the velocity fields. In-sample and out-of-sample testing on multiple
+dual-jet configurations show that its required mesh density in each coordinate
+direction for prediction of mean flow, Reynolds stresses, and spectra is half
+that needed by the dynamic Smagorinsky model for comparable accuracy. The same
+neural-network model trained directly to match filtered sub-grid-scale stresses
+-- without the constraint of being embedded within the flow equations during
+the training -- fails to provide a qualitatively correct prediction. The
+coupled formulation is generalized to train based only on mean-flow and
+Reynolds stresses, which are more readily available in experiments. The
+mean-flow training provides a robust model, which is important, though a
+somewhat less accurate prediction for the same coarse meshes, as might be
+anticipated due to the reduced information available for training in this case.
+The anticipated advantage of the formulation is that the inclusion of resolved
+physics in the training increases its capacity to extrapolate. This is assessed
+for the case of passive scalar transport, for which it outperforms established
+models due to improved mixing predictions.
+","[{'version': 'v1', 'created': 'Mon, 3 May 2021 17:28:39 GMT'}]",2021-05-04,"[['MacArt', 'Jonathan F.', ''], ['Sirignano', 'Justin', ''], ['Freund', 'Jonathan B.', '']]"
+2103.10309,Changpeng Shao,Changpeng Shao and Ashley Montanaro,Faster quantum-inspired algorithms for solving linear systems,23 pages,,,,quant-ph cs.NA math.NA,http://creativecommons.org/licenses/by/4.0/,"  We establish an improved classical algorithm for solving linear systems in a
+model analogous to the QRAM that is used by quantum linear solvers. Precisely,
+for the linear system $A\x = \b$, we show that there is a classical algorithm
+that outputs a data structure for $\x$ allowing sampling and querying to the
+entries, where $\x$ is such that $\|\x - A^{-1}\b\|\leq \epsilon \|A^{-1}\b\|$.
+This output can be viewed as a classical analogue to the output of quantum
+linear solvers. The complexity of our algorithm is $\widetilde{O}(\kappa_F^6
+\kappa^2/\epsilon^2 )$, where $\kappa_F = \|A\|_F\|A^{-1}\|$ and $\kappa =
+\|A\|\|A^{-1}\|$. This improves the previous best algorithm [Gily{\'e}n, Song
+and Tang, arXiv:2009.07268] of complexity $\widetilde{O}(\kappa_F^6
+\kappa^6/\epsilon^4)$. Our algorithm is based on the randomized Kaczmarz
+method, which is a particular case of stochastic gradient descent. We also find
+that when $A$ is row sparse, this method already returns an approximate
+solution $\x$ in time $\widetilde{O}(\kappa_F^2)$, while the best quantum
+algorithm known returns $\ket{\x}$ in time $\widetilde{O}(\kappa_F)$ when $A$
+is stored in the QRAM data structure. As a result, assuming access to QRAM and
+if $A$ is row sparse, the speedup based on current quantum algorithms is
+quadratic.
+","[{'version': 'v1', 'created': 'Thu, 18 Mar 2021 15:12:44 GMT'}]",2021-03-19,"[['Shao', 'Changpeng', ''], ['Montanaro', 'Ashley', '']]"
+2011.05504,Antoine Nzeyimana,Antoine Nzeyimana,Morphological Disambiguation from Stemming Data,,,10.18653/v1/2020.coling-main.409,,cs.CL,http://creativecommons.org/licenses/by/4.0/,"  Morphological analysis and disambiguation is an important task and a crucial
+preprocessing step in natural language processing of morphologically rich
+languages. Kinyarwanda, a morphologically rich language, currently lacks tools
+for automated morphological analysis. While linguistically curated finite state
+tools can be easily developed for morphological analysis, the morphological
+richness of the language allows many ambiguous analyses to be produced,
+requiring effective disambiguation. In this paper, we propose learning to
+morphologically disambiguate Kinyarwanda verbal forms from a new stemming
+dataset collected through crowd-sourcing. Using feature engineering and a
+feed-forward neural network based classifier, we achieve about 89%
+non-contextualized disambiguation accuracy. Our experiments reveal that
+inflectional properties of stems and morpheme association rules are the most
+discriminative features for disambiguation.
+","[{'version': 'v1', 'created': 'Wed, 11 Nov 2020 01:44:09 GMT'}]",2022-03-18,"[['Nzeyimana', 'Antoine', '']]"
+2007.00595,Zach Moshe Mr.,"Zach Moshe (1), Asher Metzger (1), Gal Elidan (1 and 2), Frederik
+  Kratzert (4), Sella Nevo (1), Ran El-Yaniv (1 and 3) ((1) Google Research,
+  (2) The Hebrew University of Jerusalem, (3) Technion - Israel Institute of
+  Technology, (4) LIT AI Lab & Institute for Machine Learning, Johannes Kepler
+  University Linz)",HydroNets: Leveraging River Structure for Hydrologic Modeling,"Presented in the ""AI for physical sciences"" workshop, ICLR2020
+  (https://ai4earthscience.github.io/iclr-2020-workshop/)",,,,cs.LG stat.ML,http://creativecommons.org/licenses/by/4.0/,"  Accurate and scalable hydrologic models are essential building blocks of
+several important applications, from water resource management to timely flood
+warnings. However, as the climate changes, precipitation and rainfall-runoff
+pattern variations become more extreme, and accurate training data that can
+account for the resulting distributional shifts become more scarce. In this
+work we present a novel family of hydrologic models, called HydroNets, which
+leverages river network structure. HydroNets are deep neural network models
+designed to exploit both basin specific rainfall-runoff signals, and upstream
+network dynamics, which can lead to improved predictions at longer horizons.
+The injection of the river structure prior knowledge reduces sample complexity
+and allows for scalable and more accurate hydrologic modeling even with only a
+few years of data. We present an empirical study over two large basins in India
+that convincingly support the proposed model and its advantages.
+","[{'version': 'v1', 'created': 'Wed, 1 Jul 2020 16:32:07 GMT'}]",2020-07-02,"[['Moshe', 'Zach', '', '1 and 2'], ['Metzger', 'Asher', '', '1 and 2'], ['Elidan', 'Gal', '', '1 and 2'], ['Kratzert', 'Frederik', '', '1 and 3'], ['Nevo', 'Sella', '', '1 and 3'], ['El-Yaniv', 'Ran', '', '1 and 3']]"
+2109.11808,Peter Loxley,Peter N. Loxley and Ka Wai Cheung,"A dynamic programming algorithm for finding an optimal sequence of
+  informative measurements",,,,,cs.LG cs.AI cs.RO math.OC,http://creativecommons.org/licenses/by/4.0/,"  An informative measurement is the most efficient way to gain information
+about an unknown state. We give a first-principles derivation of a
+general-purpose dynamic programming algorithm that returns an optimal sequence
+of informative measurements by sequentially maximizing the entropy of possible
+measurement outcomes. This algorithm can be used by an autonomous agent or
+robot to decide where best to measure next, planning a path corresponding to an
+optimal sequence of informative measurements. The algorithm is applicable to
+states and controls that are continuous or discrete, and agent dynamics that is
+either stochastic or deterministic; including Markov decision processes and
+Gaussian processes. Recent results from approximate dynamic programming and
+reinforcement learning, including on-line approximations such as rollout and
+Monte Carlo tree search, allow the measurement task to be solved in real-time.
+The resulting solutions include non-myopic paths and measurement sequences that
+can generally outperform, sometimes substantially, commonly used greedy
+approaches. This is demonstrated for a global search problem, where on-line
+planning with an extended local search is found to reduce the number of
+measurements in the search by approximately half. A variant of the algorithm is
+derived for Gaussian processes for active sensing.
+","[{'version': 'v1', 'created': 'Fri, 24 Sep 2021 08:40:06 GMT'}, {'version': 'v2', 'created': 'Tue, 2 Nov 2021 06:03:10 GMT'}, {'version': 'v3', 'created': 'Thu, 20 Jan 2022 00:29:53 GMT'}]",2022-01-21,"[['Loxley', 'Peter N.', ''], ['Cheung', 'Ka Wai', '']]"
+2012.05684,Kostadin Cvejoski,"Kostadin Cvejoski, Ramses J. Sanchez, Bogdan Georgiev, Christian
+  Bauckhage and Cesar Ojeda",Recurrent Point Review Models,"8 pages, 6 figures, Published in: 2020 International Joint Conference
+  on Neural Networks (IJCNN)","2020 International Joint Conference on Neural Networks (IJCNN),
+  Glasgow, United Kingdom, 2020, pp. 1-8",10.1109/IJCNN48605.2020.9206768,,cs.LG cs.AI cs.CL,http://creativecommons.org/licenses/by/4.0/,"  Deep neural network models represent the state-of-the-art methodologies for
+natural language processing. Here we build on top of these methodologies to
+incorporate temporal information and model how to review data changes with
+time. Specifically, we use the dynamic representations of recurrent point
+process models, which encode the history of how business or service reviews are
+received in time, to generate instantaneous language models with improved
+prediction capabilities. Simultaneously, our methodologies enhance the
+predictive power of our point process models by incorporating summarized review
+content representations. We provide recurrent network and temporal convolution
+solutions for modeling the review content. We deploy our methodologies in the
+context of recommender systems, effectively characterizing the change in
+preference and taste of users as time evolves. Source code is available at [1].
+","[{'version': 'v1', 'created': 'Thu, 10 Dec 2020 14:11:42 GMT'}]",2020-12-11,"[['Cvejoski', 'Kostadin', ''], ['Sanchez', 'Ramses J.', ''], ['Georgiev', 'Bogdan', ''], ['Bauckhage', 'Christian', ''], ['Ojeda', 'Cesar', '']]"
+2012.15080,Vivek Nigam,"Yuri Gil Dantas, Vivek Nigam, Harald Ruess",Security Engineering for ISO 21434,"This is a White Paper. This is a preliminary version. Its figures and
+  template are to be finalized by our marketing department. V3 corrects a
+  number of typos",,,,cs.CR cs.LO,http://creativecommons.org/licenses/by/4.0/,"  The ISO 21434 is a new standard that has been proposed to address the future
+challenges of automotive cybersecurity. This white paper takes a closer look at
+the ISO 21434 helping engineers to understand the ISO 21434 parts, the key
+activities to be carried out and the main artefacts that shall be produced. As
+any certification, obtaining the ISO 21434 certification can be daunting at
+first sight. Engineers have to deploy processes that include several security
+risk assessment methods to produce security arguments and evidence supporting
+item security claims. In this white paper, we propose a security engineering
+approach that can ease this process by relying on Rigorous Security Assessments
+and Incremental Assessment Maintenance methods supported by automation. We
+demonstrate by example that the proposed approach can greatly increase the
+quality of the produced artefacts, the efficiency to produce them, as well as
+enable continuous security assessment. Finally, we point out some key research
+directions that we are investigating to fully realize the proposed approach.
+","[{'version': 'v1', 'created': 'Wed, 30 Dec 2020 08:36:45 GMT'}, {'version': 'v2', 'created': 'Sun, 10 Jan 2021 05:56:05 GMT'}, {'version': 'v3', 'created': 'Sun, 17 Jan 2021 08:51:18 GMT'}]",2021-01-19,"[['Dantas', 'Yuri Gil', ''], ['Nigam', 'Vivek', ''], ['Ruess', 'Harald', '']]"
+2105.11657,Xiangtai Li,"Chen Shi, Xiangtai Li, Yanran Wu, Yunhai Tong, Yi Xu",Dynamic Dual Sampling Module for Fine-Grained Semantic Segmentation,accepted by ICIP-2021,,,,cs.CV,http://creativecommons.org/licenses/by/4.0/,"  Representation of semantic context and local details is the essential issue
+for building modern semantic segmentation models. However, the
+interrelationship between semantic context and local details is not well
+explored in previous works. In this paper, we propose a Dynamic Dual Sampling
+Module (DDSM) to conduct dynamic affinity modeling and propagate semantic
+context to local details, which yields a more discriminative representation.
+Specifically, a dynamic sampling strategy is used to sparsely sample
+representative pixels and channels in the higher layer, forming adaptive
+compact support for each pixel and channel in the lower layer. The sampled
+features with high semantics are aggregated according to the affinities and
+then propagated to detailed lower-layer features, leading to a fine-grained
+segmentation result with well-preserved boundaries. Experiment results on both
+Cityscapes and Camvid datasets validate the effectiveness and efficiency of the
+proposed approach. Code and models will be available at
+\url{x3https://github.com/Fantasticarl/DDSM}.
+","[{'version': 'v1', 'created': 'Tue, 25 May 2021 04:25:47 GMT'}]",2021-05-26,"[['Shi', 'Chen', ''], ['Li', 'Xiangtai', ''], ['Wu', 'Yanran', ''], ['Tong', 'Yunhai', ''], ['Xu', 'Yi', '']]"
+1907.02005,Dongwei Zhao,"Dongwei Zhao, Hao Wang, Jianwei Huang, Xiaojun Lin",Virtual Energy Storage Sharing and Capacity Allocation,"This is the online appendix for the paper published in IEEE
+  Transactions on Smart Grid","IEEE Transactions on Smart Grid, Volume.11, Issue.2, March 2020",10.1109/TSG.2019.2932057,,eess.SY cs.GT cs.SY math.OC,http://creativecommons.org/licenses/by/4.0/,"  Energy storage can play an important role in energy management of end users.
+To promote an efficient utilization of energy storage, we develop a novel
+business model to enable virtual storage sharing among a group of users.
+Specifically, a storage aggregator invests and operates the central physical
+storage unit, by virtualizing it into separable virtual capacities and selling
+to users. Each user purchases the virtual capacity, and utilize it to reduce
+the energy cost. We formulate the interaction between the aggregator and users
+as a two-stage optimization problem. In Stage 1, over the investment horizon,
+the aggregator determines the investment and pricing decisions. In Stage 2, in
+each operational horizon, each user decides the virtual capacity to purchase
+together with the operation of the virtual storage. We characterize a stepwise
+form of the optimal solution of Stage-2 Problem and a piecewise linear
+structure of the optimal profit of Stage-1 Problem, both with respect to the
+virtual capacity price. Based on the solution structure, we design an algorithm
+to attain the optimal solution of the two-stage problem. In our simulation
+results, the proposed storage virtualization model can reduce the physical
+energy storage investment of the aggregator by 54.3% and reduce the users'
+total costs by 34.7%, compared to the case where users acquire their own
+physical storage.
+","[{'version': 'v1', 'created': 'Wed, 3 Jul 2019 16:00:47 GMT'}, {'version': 'v2', 'created': 'Sun, 7 Jul 2019 14:51:43 GMT'}, {'version': 'v3', 'created': 'Wed, 31 Jul 2019 08:58:30 GMT'}, {'version': 'v4', 'created': 'Mon, 1 Jun 2020 06:31:08 GMT'}, {'version': 'v5', 'created': 'Wed, 15 Dec 2021 14:56:23 GMT'}]",2021-12-16,"[['Zhao', 'Dongwei', ''], ['Wang', 'Hao', ''], ['Huang', 'Jianwei', ''], ['Lin', 'Xiaojun', '']]"
+1709.00588,Zhiheng Zhou,"Zhiheng Zhou, Congduan Li, Shenghao Yang and Xuan Guang","Practical Inner Codes for Batched Sparse Codes in Wireless Multihop
+  Networks","35 pages, 6 figures, Submitted to IEEE Transactions on Vehicular
+  Technology",,,,cs.IT math.IT,http://creativecommons.org/licenses/by/4.0/,"  Batched sparse (BATS) code is a promising technology for reliable data
+transmission in multi-hop wireless networks. As a BATS code consists of an
+outer code and an inner code that typically is a random linear network code,
+one main research topic for BATS codes is to design an inner code with good
+performance in transmission efficiency and complexity. In this paper, this
+issue is addressed with a focus on the problem of minimizing the total number
+of packets transmitted by the source and intermediate nodes. Subsequently, the
+problem is formulated as a mixed integer nonlinear programming (MINLP) problem
+that is NP-hard in general. By exploiting the properties of inner codes and the
+incomplete beta function, we construct a nonlinear programming (NLP) problem
+that gives a valid upper bound on the best performance that can be achieved by
+any feasible solutions. Moreover, both centralized and decentralized real-time
+optimization strategies are developed. In particular, the decentralized
+approach is performed independently by each node to find a feasible solution in
+linear time with the use of look-up tables. Numerical results show that the gap
+in performance between our proposed approaches and the upper bound is very
+small, which demonstrates that all feasible solutions developed in the paper
+are near-optimal with a guaranteed performance bound.
+","[{'version': 'v1', 'created': 'Sat, 2 Sep 2017 14:30:17 GMT'}]",2017-09-05,"[['Zhou', 'Zhiheng', ''], ['Li', 'Congduan', ''], ['Yang', 'Shenghao', ''], ['Guang', 'Xuan', '']]"
+2110.04541,Yoav Levine,"Yoav Levine, Noam Wies, Daniel Jannai, Dan Navon, Yedid Hoshen, Amnon
+  Shashua","The Inductive Bias of In-Context Learning: Rethinking Pretraining
+  Example Design",,,,,cs.CL cs.LG,http://creativecommons.org/licenses/by/4.0/,"  Pretraining Neural Language Models (NLMs) over a large corpus involves
+chunking the text into training examples, which are contiguous text segments of
+sizes processable by the neural architecture. We highlight a bias introduced by
+this common practice: we prove that the pretrained NLM can model much stronger
+dependencies between text segments that appeared in the same training example,
+than it can between text segments that appeared in different training examples.
+This intuitive result has a twofold role. First, it formalizes the motivation
+behind a broad line of recent successful NLM training heuristics, proposed for
+the pretraining and fine-tuning stages, which do not necessarily appear related
+at first glance. Second, our result clearly indicates further improvements to
+be made in NLM pretraining for the benefit of Natural Language Understanding
+tasks. As an example, we propose ""kNN-Pretraining"": we show that including
+semantically related non-neighboring sentences in the same pretraining example
+yields improved sentence representations and open domain question answering
+abilities. This theoretically motivated degree of freedom for ""pretraining
+example design"" indicates new training schemes for self-improving
+representations.
+","[{'version': 'v1', 'created': 'Sat, 9 Oct 2021 11:05:16 GMT'}, {'version': 'v2', 'created': 'Mon, 25 Oct 2021 15:51:31 GMT'}]",2021-10-26,"[['Levine', 'Yoav', ''], ['Wies', 'Noam', ''], ['Jannai', 'Daniel', ''], ['Navon', 'Dan', ''], ['Hoshen', 'Yedid', ''], ['Shashua', 'Amnon', '']]"
+2106.15157,Paul Ledger,A.A.S. Amad and P.D. Ledger and T. Betcke and D. Praetorius,"Accurate Benchmark Computations of the Polarizability Tensor for
+  Characterising Small Conducting Inclusions",,,,,math.NA cs.NA,http://creativecommons.org/licenses/by/4.0/,"  The characterisation of small conducting inclusions with low conductivities
+in an otherwise uniform background from low-frequency electrical field
+measurements has important applications in medical imaging using electrical
+impedance tomography as well as in geological imaging using electrical
+resistivity tomography. It is known that such objects can be characterised by a
+P\'oyla-Szeg\""o polarizability tensor. The coefficients of this tensor for
+different shapes and contrasts involves the solution of a transmission problem,
+which in general must be done numerically. With a dictionary classification
+algorithm in mind, we provide a series of accurate tensor characterisations of
+objects that can be used as benchmarks for developers of software tools for
+solving the transmission problem. To this end, we apply adaptive the boundary
+element method to achieve our accurate solutions.
+","[{'version': 'v1', 'created': 'Tue, 29 Jun 2021 08:21:12 GMT'}]",2021-06-30,"[['Amad', 'A. A. S.', ''], ['Ledger', 'P. D.', ''], ['Betcke', 'T.', ''], ['Praetorius', 'D.', '']]"
+2109.01483,Dale Miller,Dale Miller,A Survey of the Proof-Theoretic Foundations of Logic Programming,To appear in Theory and Practice of Logic Programming (TPLP),,,,cs.LO cs.PL,http://creativecommons.org/licenses/by/4.0/,"  Several formal systems, such as resolution and minimal model semantics,
+provide a framework for logic programming. In this paper, we will survey the
+use of structural proof theory as an alternative foundation. Researchers have
+been using this foundation for the past 35 years to elevate logic programming
+from its roots in first-order classical logic into higher-order versions of
+intuitionistic and linear logic. These more expressive logic programming
+languages allow for capturing stateful computations and rich forms of
+abstractions, including higher-order programming, modularity, and abstract data
+types. Term-level bindings are another kind of abstraction, and these are given
+an elegant and direct treatment within both proof theory and these extended
+logic programming languages. Logic programming has also inspired new results in
+proof theory, such as those involving polarity and focused proofs. These recent
+results provide a high-level means for presenting the differences between
+forward-chaining and backward-chaining style inferences. Anchoring logic
+programming in proof theory has also helped identify its connections and
+differences with functional programming, deductive databases, and model
+checking.
+","[{'version': 'v1', 'created': 'Fri, 3 Sep 2021 12:55:34 GMT'}, {'version': 'v2', 'created': 'Sat, 30 Oct 2021 19:06:47 GMT'}]",2021-11-02,"[['Miller', 'Dale', '']]"
+2108.10205,Hacene Mellah,"Bouchaoui Lahcene, Kamel Eddine Hemsas, Hacene Mellah, saad eddine
+  benlahneche","Power transformer faults diagnosis using undestructive methods (Roger
+  and IEC) and artificial neural network for dissolved gas analysis applied on
+  the functional transformer in the Algerian north-eastern: a comparative study",,Electrical Engineering an Electromechanics 4 (2021) 3-11,10.20998/2074-272X.2021.4.01,,eess.SP cs.LG cs.SY eess.SY,http://creativecommons.org/licenses/by/4.0/,"  Nowadays, power transformer aging and failures are viewed with great
+attention in power transmission industry. Dissolved gas analysis (DGA) is
+classified among the biggest widely used methods used within the context of
+asset management policy to detect the incipient faults in their earlier stage
+in power transformers. Up to now, several procedures have been employed for the
+lecture of DGA results. Among these useful means, we find Key Gases, Rogers
+Ratios, IEC Ratios, the historical technique less used today Doernenburg
+Ratios, the two types of Duval Pentagons methods, several versions of the Duval
+Triangles method and Logarithmic Nomograph. Problem. DGA data extracted from
+different units in service served to verify the ability and reliability of
+these methods in assessing the state of health of the power transformer. Aim.
+An improving the quality of diagnostics of electrical power transformer by
+artificial neural network tools based on two conventional methods in the case
+of a functional power transformer at S\'etif province in East North of Algeria.
+Methodology. Design an inelegant tool for power transformer diagnosis using
+neural networks based on traditional methods IEC and Rogers, which allows to
+early detection faults, to increase the reliability, of the entire electrical
+energy system from transport to consumers and improve a continuity and quality
+of service. Results. The solution of the problem was carried out by using
+feed-forward back-propagation neural networks implemented in MATLAB-Simulink
+environment. Four real power transformers working under different environment
+and climate conditions such as: desert, humid, cold were taken into account.
+The practical results of the diagnosis of these power transformers by the DGA
+are presented. Practical value.....
+","[{'version': 'v1', 'created': 'Mon, 2 Aug 2021 13:09:53 GMT'}]",2021-08-24,"[['Lahcene', 'Bouchaoui', ''], ['Hemsas', 'Kamel Eddine', ''], ['Mellah', 'Hacene', ''], ['benlahneche', 'saad eddine', '']]"
+1803.05820,Alexander Panchenko,"Alexander Panchenko, Natalia Loukachevitch, Dmitry Ustalov, Denis
+  Paperno, Christian Meyer, Natalia Konstantinova",RUSSE: The First Workshop on Russian Semantic Similarity,"In Proceedings of the 21st International Conference on Computational
+  Linguistics and Intellectual Technologies (Dialogue'2015)",,,,cs.CL,http://creativecommons.org/licenses/by/4.0/,"  The paper gives an overview of the Russian Semantic Similarity Evaluation
+(RUSSE) shared task held in conjunction with the Dialogue 2015 conference.
+There exist a lot of comparative studies on semantic similarity, yet no
+analysis of such measures was ever performed for the Russian language.
+Exploring this problem for the Russian language is even more interesting,
+because this language has features, such as rich morphology and free word
+order, which make it significantly different from English, German, and other
+well-studied languages. We attempt to bridge this gap by proposing a shared
+task on the semantic similarity of Russian nouns. Our key contribution is an
+evaluation methodology based on four novel benchmark datasets for the Russian
+language. Our analysis of the 105 submissions from 19 teams reveals that
+successful approaches for English, such as distributional and skip-gram models,
+are directly applicable to Russian as well. On the one hand, the best results
+in the contest were obtained by sophisticated supervised models that combine
+evidence from different sources. On the other hand, completely unsupervised
+approaches, such as a skip-gram model estimated on a large-scale corpus, were
+able score among the top 5 systems.
+","[{'version': 'v1', 'created': 'Thu, 15 Mar 2018 15:50:58 GMT'}]",2018-03-16,"[['Panchenko', 'Alexander', ''], ['Loukachevitch', 'Natalia', ''], ['Ustalov', 'Dmitry', ''], ['Paperno', 'Denis', ''], ['Meyer', 'Christian', ''], ['Konstantinova', 'Natalia', '']]"
+2202.03149,Franck Galpin,"Franck Galpin, Philippe Bordes, Thierry Dumas, Pavel Nikitin, Fabrice
+  Le Leannec",Neural Network based Inter bi-prediction Blending,,VCIP 2021,,,eess.IV cs.LG,http://creativecommons.org/licenses/by/4.0/,"  This paper presents a learning-based method to improve bi-prediction in video
+coding. In conventional video coding solutions, the motion compensation of
+blocks from already decoded reference pictures stands out as the principal tool
+used to predict the current frame. Especially, the bi-prediction, in which a
+block is obtained by averaging two different motion-compensated prediction
+blocks, significantly improves the final temporal prediction accuracy. In this
+context, we introduce a simple neural network that further improves the
+blending operation. A complexity balance, both in terms of network size and
+encoder mode selection, is carried out. Extensive tests on top of the recently
+standardized VVC codec are performed and show a BD-rate improvement of -1.4% in
+random access configuration for a network size of fewer than 10k parameters. We
+also propose a simple CPU-based implementation and direct network quantization
+to assess the complexity/gains tradeoff in a conventional codec framework.
+","[{'version': 'v1', 'created': 'Wed, 26 Jan 2022 13:57:48 GMT'}]",2022-02-08,"[['Galpin', 'Franck', ''], ['Bordes', 'Philippe', ''], ['Dumas', 'Thierry', ''], ['Nikitin', 'Pavel', ''], ['Leannec', 'Fabrice Le', '']]"
+2107.04058,Barbara Kaltenbacher,Barbara Kaltenbacher and William Rundell,Determining the nonlinearity in an acoustic wave equation,,,,,math.NA cs.NA math.AP,http://creativecommons.org/licenses/by/4.0/,"  We consider an undetermined coefficient inverse problem for a nonlinear
+partial differential equation describing high intensity ultrasound propagation
+as widely used in medical imaging and therapy. The usual nonlinear term in the
+standard model using the Westervelt equation in pressure formulation is of the
+form $p p_t$. However, this should be considered as a low order approximation
+to a more complex physical model where higher order terms will be required.
+Here we assume a more general case where the form taken is $f(p)\,p_t$ and $f$
+is unknown and must be recovered from data measurements. Corresponding to the
+typical measurement setup, the overposed data consists of time trace
+observations of the acoustic pressure at a single point or on a one dimensional
+set $\Sigma$ representing the receiving transducer array at a fixed time.
+Additionally to an analysis of well-posedness of the resulting {\sc pde}, we
+show injectivity of the linearized forward map from $f$ to the overposed data
+and use this as motivation for several iterative schemes to recover $f$.
+Numerical simulations will also be shown to illustrate the efficiency of the
+methods.
+","[{'version': 'v1', 'created': 'Thu, 8 Jul 2021 18:18:03 GMT'}]",2021-07-12,"[['Kaltenbacher', 'Barbara', ''], ['Rundell', 'William', '']]"
+2105.07688,Yuejia Xiang,"Yuejia Xiang, Ziheng Zhang, Jiaoyan Chen, Xi Chen, Zhenxi Lin, Yefeng
+  Zheng","OntoEA: Ontology-guided Entity Alignment via Joint Knowledge Graph
+  Embedding",Accepted by Findings of ACL 2021,,,,cs.CL cs.AI cs.LG,http://creativecommons.org/licenses/by/4.0/,"  Semantic embedding has been widely investigated for aligning knowledge graph
+(KG) entities. Current methods have explored and utilized the graph structure,
+the entity names and attributes, but ignore the ontology (or ontological
+schema) which contains critical meta information such as classes and their
+membership relationships with entities. In this paper, we propose an
+ontology-guided entity alignment method named OntoEA, where both KGs and their
+ontologies are jointly embedded, and the class hierarchy and the class
+disjointness are utilized to avoid false mappings. Extensive experiments on
+seven public and industrial benchmarks have demonstrated the state-of-the-art
+performance of OntoEA and the effectiveness of the ontologies.
+","[{'version': 'v1', 'created': 'Mon, 17 May 2021 09:18:56 GMT'}, {'version': 'v2', 'created': 'Mon, 24 May 2021 08:45:26 GMT'}]",2021-05-25,"[['Xiang', 'Yuejia', ''], ['Zhang', 'Ziheng', ''], ['Chen', 'Jiaoyan', ''], ['Chen', 'Xi', ''], ['Lin', 'Zhenxi', ''], ['Zheng', 'Yefeng', '']]"
+2202.01908,Yunbum Kook,"Yunbum Kook, Yin Tat Lee, Ruoqi Shen, Santosh S. Vempala",Sampling with Riemannian Hamiltonian Monte Carlo in a Constrained Space,31 pages,,,,cs.LG cs.DS,http://creativecommons.org/licenses/by/4.0/,"  We demonstrate for the first time that ill-conditioned, non-smooth,
+constrained distributions in very high dimension, upwards of 100,000, can be
+sampled efficiently $\textit{in practice}$. Our algorithm incorporates
+constraints into the Riemannian version of Hamiltonian Monte Carlo and
+maintains sparsity. This allows us to achieve a mixing rate independent of
+smoothness and condition numbers.
+  On benchmark data sets in systems biology and linear programming, our
+algorithm outperforms existing packages by orders of magnitude. In particular,
+we achieve a 1,000-fold speed-up for sampling from the largest published human
+metabolic network (RECON3D). Our package has been incorporated into the COBRA
+toolbox.
+","[{'version': 'v1', 'created': 'Thu, 3 Feb 2022 23:39:15 GMT'}]",2022-02-07,"[['Kook', 'Yunbum', ''], ['Lee', 'Yin Tat', ''], ['Shen', 'Ruoqi', ''], ['Vempala', 'Santosh S.', '']]"
+2103.05573,Kiarash Rahmani,"Kia Rahmani, Kartik Nagar, Benjamin Delaware, Suresh Jagannathan","Repairing Serializability Bugs in Distributed Database Programs via
+  Automated Schema Refactoring","20 pages, to appear in 42nd ACM SIGPLAN Conference on Programming
+  Language Design and Implementation (PLDI 2021)",,10.1145/3453483.3454028,,cs.PL,http://creativecommons.org/licenses/by/4.0/,"  Serializability is a well-understood concurrency control mechanism that eases
+reasoning about highly-concurrent database programs. Unfortunately, enforcing
+serializability has a high-performance cost, especially on geographically
+distributed database clusters. Consequently, many databases allow programmers
+to choose when a transaction must be executed under serializability, with the
+expectation that transactions would only be so marked when necessary to avoid
+serious concurrency bugs. However, this is a significant burden to impose on
+developers, requiring them to (a) reason about subtle concurrent interactions
+among potentially interfering transactions, (b) determine when such
+interactions would violate desired invariants, and (c) then identify the
+minimum number of transactions whose executions should be serialized to prevent
+these violations. To mitigate this burden, in this paper we present a sound and
+fully automated schema refactoring procedure that transforms a program's data
+layout -- rather than its concurrency control logic -- to eliminate statically
+identified concurrency bugs, allowing more transactions to be safely executed
+under weaker and more performant database guarantees. Experimental results over
+a range of database benchmarks indicate that our approach is highly effective
+in eliminating concurrency bugs, with safe refactored programs showing an
+average of 120% higher throughput and 45% lower latency compared to the
+baselines.
+","[{'version': 'v1', 'created': 'Tue, 9 Mar 2021 17:25:58 GMT'}]",2021-03-10,"[['Rahmani', 'Kia', ''], ['Nagar', 'Kartik', ''], ['Delaware', 'Benjamin', ''], ['Jagannathan', 'Suresh', '']]"
+2109.14797,Hongyi Sun,"Hongyi Sun, Xinyi Liu, Kecheng Xu, Jinghao Miao, Qi Luo","Emergency Vehicles Audio Detection and Localization in Autonomous
+  Driving",,,,,cs.SD cs.AI cs.RO eess.AS,http://creativecommons.org/licenses/by/4.0/,"  Emergency vehicles in service have right-of-way over all other vehicles.
+Hence, all other vehicles are supposed to take proper actions to yield
+emergency vehicles with active sirens. As this task requires the cooperation
+between ears and eyes for human drivers, it also needs audio detection as a
+supplement to vision-based algorithms for fully autonomous driving vehicles. In
+urban driving scenarios, we need to know both the existence of emergency
+vehicles and their relative positions to us to decide the proper actions. We
+present a novel system from collecting the real-world siren data to the
+deployment of models using only two cost-efficient microphones. We are able to
+achieve promising performance for each task separately, especially within the
+crucial 10m to 50m distance range to react (the size of our ego vehicle is
+around 5m in length and 2m in width). The recall rate to determine the
+existence of sirens is 99.16% , the median and mean angle absolute error is
+9.64{\deg} and 19.18{\deg} respectively, and the median and mean distance
+absolute error of 9.30m and 10.58m respectively within that range. We also
+benchmark various machine learning approaches that can determine the siren
+existence and sound source localization which includes direction and distance
+simultaneously within 50ms of latency.
+","[{'version': 'v1', 'created': 'Thu, 30 Sep 2021 01:54:44 GMT'}, {'version': 'v2', 'created': 'Sat, 2 Oct 2021 00:05:08 GMT'}]",2021-10-05,"[['Sun', 'Hongyi', ''], ['Liu', 'Xinyi', ''], ['Xu', 'Kecheng', ''], ['Miao', 'Jinghao', ''], ['Luo', 'Qi', '']]"
