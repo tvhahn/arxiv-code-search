@@ -353,7 +353,7 @@ def main(file_list, index_no):
         old_save_path = save_dir / old_save_name
 
         # check if old_save_path exists
-        if old_save_path.exists():
+        if (save_dir / save_name).exists():
             # use shutil to copy the file and rename it to old_save_name
             shutil.copy(save_dir / save_name, old_save_path)
         
@@ -389,7 +389,6 @@ if __name__ == "__main__":
 
     parser.add_argument(
         "--index_file_no",
-        default=8,
         type=int,
         help="Index number of the index file to use. Will only search in this folder for txts.",
     )

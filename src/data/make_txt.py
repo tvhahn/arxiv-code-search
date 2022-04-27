@@ -125,7 +125,7 @@ if __name__ == "__main__":
     parser.add_argument(
         "--index_file_no",
         type=int,
-        help="Index number of the index file to use. Will only search in this file for pdfs.",
+        help="Index number of the index file to use. Will only search in this folder for pdfs.",
     )
 
 

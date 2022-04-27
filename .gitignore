@@ -91,3 +91,5 @@ target/
 
 # pycache
 *__pycache__*
+
+*.out
