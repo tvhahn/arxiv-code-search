@@ -397,6 +397,14 @@ if __name__ == "__main__":
     )
 
     parser.add_argument(
+        "--max_token_len",
+        type=int,
+        default=400,
+        help="Maximum token length (approximate).",
+    )
+
+
+    parser.add_argument(
         "--overwrite",
         default=False,
         action="store_true",
