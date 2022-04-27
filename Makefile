@@ -63,7 +63,7 @@ download_papers:
 ifeq (True,$(HAS_CONDA)) # assume on local
 	$(PYTHON_INTERPRETER) src/data/download_papers.py --index_file_no 2
 else # assume on HPC
-	sbatch src/data/parse_json.sh
+	$(PYTHON_INTERPRETER) src/data/download_papers.py --index_file_no 3
 endif
 
 

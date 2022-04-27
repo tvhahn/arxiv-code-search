@@ -1,11 +1,11 @@
 #!/bin/bash
-DIR="~/scratch/doi-scrape"
+DIR="~/scratch/arxiv-code-search"
 if [ ! -d "$DIR" ]; then
-    echo "doi-scrape folder in scratch does not exist"
-    mkdir ~/scratch/doi-scrape
+    echo "arxiv-code-search folder in scratch does not exist"
+    mkdir ~/scratch/arxiv-code-search
 fi
 
 cd ..
 cd ..
 
-cp -r ./data/raw ~/scratch/doi-scrape
+cp -r ./data/raw ~/scratch/arxiv-code-search
