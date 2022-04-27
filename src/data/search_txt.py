@@ -59,10 +59,13 @@ def get_paragraph(sub_str, rel_ind):
             return s.strip()
 
 
-def create_chunks_of_text(text, init_token_length=400, max_token_length=500):
+def create_chunks_of_text(text, init_token_len, max_token_len):
     token_count = len(nltk.word_tokenize(text))
 
-    n_splits = int(np.ceil(token_count / init_token_length))
+    if init_token_len is None:
+        init_token_len = int(max_token_len * 0.85)
+
+    n_splits = int(np.ceil(token_count / init_token_len))
 
     sent = np.array(nltk.sent_tokenize(text))
 
@@ -83,7 +86,7 @@ def create_chunks_of_text(text, init_token_length=400, max_token_length=500):
                     )
             # f_l: forward lenghts, f_i: forward indices
             for f_l, f_i in forwards:
-                if chunk_lengths + f_l <= max_token_length:
+                if chunk_lengths + f_l <= max_token_len:
                     chunk_lengths += f_l
                     chunk_indices = chunk_indices + [f_i]
                 else:
@@ -102,11 +105,11 @@ def create_chunks_of_text(text, init_token_length=400, max_token_length=500):
                 zip(np.hstack(np.array(sent_split_lengths[:i], dtype=object))[::-1], 
                     np.hstack(np.array(sent_split_indices[:i], dtype=object))[::-1]))
 
-            for k in range(max_token_length):
+            for k in range(max_token_len):
                 if k % 2 == 0:
                     f_l = forwards[0][0]
                     f_i = forwards[0][1]
-                    if chunk_lengths + f_l <= max_token_length:
+                    if chunk_lengths + f_l <= max_token_len:
                         chunk_lengths += f_l
                         chunk_indices = chunk_indices + [f_i]
                         forwards.pop(0)
@@ -115,7 +118,7 @@ def create_chunks_of_text(text, init_token_length=400, max_token_length=500):
                 else:
                     b_l = backwards[0][0]
                     b_i = backwards[0][1]
-                    if chunk_lengths + b_l <= max_token_length:
+                    if chunk_lengths + b_l <= max_token_len:
                         chunk_lengths += b_l
                         chunk_indices = [b_i] + chunk_indices
                         backwards.pop(0)
@@ -132,7 +135,7 @@ def create_chunks_of_text(text, init_token_length=400, max_token_length=500):
                     np.hstack(np.array(sent_split_indices[:i], dtype=object))[::-1]))
 
             for b_l, b_i in backwards:
-                if chunk_lengths + b_l <= max_token_length:
+                if chunk_lengths + b_l <= max_token_len:
                     chunk_lengths += b_l
                     chunk_indices = [b_i] + chunk_indices
                 else:
@@ -144,7 +147,7 @@ def create_chunks_of_text(text, init_token_length=400, max_token_length=500):
     return split_dict
 
 
-def extract_matches_as_paragraphs(match_indices, text, id, save_str_width=4000, init_token_length=400, max_token_length=500):
+def extract_matches_as_paragraphs(match_indices, text, id, init_token_len=None, max_token_len=400, save_str_width=4000):
     para_list = []
     token_count_list = []
 
@@ -166,9 +169,9 @@ def extract_matches_as_paragraphs(match_indices, text, id, save_str_width=4000, 
         matched_para = get_paragraph(text[start:end], rel_ind)      
         token_count = len(nltk.word_tokenize(matched_para))
 
-        if token_count > max_token_length:
+        if token_count > max_token_len:
             try:
-                split_dict = create_chunks_of_text(matched_para, init_token_length, max_token_length)
+                split_dict = create_chunks_of_text(matched_para, init_token_len, max_token_len)
                 for k, v in split_dict.items():
                     para_list.append(v[0])
                     token_count_list.append(v[1])
