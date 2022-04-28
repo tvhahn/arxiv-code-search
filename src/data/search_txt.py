@@ -296,7 +296,7 @@ def main(file_list, index_no):
             else:
 
                 temp_para_list, temp_token_count_list = extract_matches_as_paragraphs(
-                    match_index, txt, id, save_str_width=save_str_width
+                    match_index, txt, id, save_str_width=save_str_width, max_token_len=args.max_token_len
                 )
 
                 para_list.extend(temp_para_list)
