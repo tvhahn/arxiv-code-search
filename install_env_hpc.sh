@@ -5,7 +5,7 @@ source ~/arxiv/bin/activate
 pip install --upgrade pip setuptools wheel
 pip install --no-index pandas scipy scikit_learn matplotlib seaborn torch torchvision torchtext torchaudio transformers
 pip install --no-index jupyterlab requests beautifulsoup4 lxml black tqdm nltk ipywidgets
-pip install pdfminer.six kaggle
+pip install pdfminer.six kaggle odfpy
 pip install -e .
 
 # create bash script for opening jupyter notebooks https://stackoverflow.com/a/4879146/9214620
