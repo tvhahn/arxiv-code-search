@@ -86,7 +86,7 @@ endif
 ## Compile the labels from all the individual search csvs
 labels: requirements
 ifeq (True,$(HAS_CONDA)) # assume on local
-	$(PYTHON_INTERPRETER) src/data/search_txt.py --index_file_no 2 --overwrite --keep_old_files --max_token_len 350
+	$(PYTHON_INTERPRETER) src/data/make_labels.py --path_data_folder $(PROJECT_DIR)/data/ --n_cores 2 --file_type ods
 else # assume on HPC
 	sbatch src/data/search_txt_hpc.sh
 endif
