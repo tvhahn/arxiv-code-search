@@ -93,3 +93,5 @@ target/
 *__pycache__*
 
 *.out
+
+notebooks/scratch/best_model_state.bin

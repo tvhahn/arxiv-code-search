@@ -5,10 +5,11 @@ channels:
 dependencies:
   - python=3.8
   - jupyterlab
-  - pytorch
+  - torch
   - torchvision
   - torchtext
   - torchaudio
+  - torchmetrics
   - cudatoolkit=10.2
   - scipy
   - kaggle 

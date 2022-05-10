@@ -3,8 +3,8 @@ module load python/3.8
 virtualenv ~/arxiv
 source ~/arxiv/bin/activate
 pip install --upgrade pip setuptools wheel
-pip install --no-index pandas scipy scikit_learn matplotlib seaborn torch torchvision torchtext torchaudio transformers
-pip install --no-index jupyterlab requests beautifulsoup4 lxml black tqdm nltk ipywidgets
+pip install --no-index pandas scipy scikit_learn matplotlib seaborn torch torchvision torchtext torchaudio transformers torchmetrics
+pip install --no-index jupyterlab requests beautifulsoup4 lxml black tqdm nltk ipywidgets 
 pip install pdfminer.six kaggle odfpy
 pip install -e .
 
