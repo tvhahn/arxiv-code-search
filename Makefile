@@ -91,6 +91,14 @@ else # assume on HPC
 	sbatch src/data/search_txt_hpc.sh
 endif
 
+## Copy labels from project_dir to scratch (only on HPC)
+copy_labels: requirements
+ifeq (True,$(HAS_CONDA)) # assume on local
+	echo "On local compute."
+else # assume on HPC
+	bash src/data/copy_labels_to_scratch.sh
+endif
+
 
 
 ## Make Features
