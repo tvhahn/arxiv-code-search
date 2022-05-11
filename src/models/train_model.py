@@ -159,7 +159,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
 
     parser.add_argument(
-        "--path_data", dest="path_data", type=str, help="Path to the data (contains the raw/interim/processed folders)"
+        "--path_data_dir", dest="path_data_dir", type=str, help="Path to the data (contains the raw/interim/processed folders)"
     )
 
     parser.add_argument(
@@ -168,6 +168,20 @@ if __name__ == "__main__":
         dest="proj_dir",
         type=str,
         help="Location of project folder",
+    )
+
+    parser.add_argument(
+        "--path_model_dir",
+        dest="path_model_dir",
+        type=str,
+        help="Location of models folder (where interim/final models are kept).",
+    )
+
+    parser.add_argument(
+        "--path_label_dir",
+        dest="path_label_dir",
+        type=str,
+        help="Location of label folder (where final labels.csv is kept).",
     )
 
     parser.add_argument(
@@ -183,14 +197,6 @@ if __name__ == "__main__":
         dest="model_time_suffix",
         type=str,
         help="Optional suffix string to append at the end of the model start time identifier",
-    )
-
-    parser.add_argument(
-        "-p",
-        "--proj_dir",
-        dest="proj_dir",
-        type=str,
-        help="Location of project folder",
     )
 
     parser.add_argument(
