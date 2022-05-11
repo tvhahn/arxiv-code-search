@@ -17,7 +17,7 @@ source ~/arxiv/bin/activate
 # copy processed data from scratch to the temporary directory used for batch job
 # this will be faster as the train_model.py can access the training data faster
 mkdir -p $SLURM_TMPDIR/data
-cp -r $SCRATCH_DIR/processed $SLURM_TMPDIR/data
+cp -r $SCRATCH_DIR/data/processed $SLURM_TMPDIR/data
 
 # load tensorboard
 # cd
