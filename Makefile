@@ -100,6 +100,14 @@ else # assume on HPC
 endif
 
 
+## Train
+train_dummy: requirements
+ifeq (True,$(HAS_CONDA)) # assume on local
+	echo "On local compute."
+else # assume on HPC
+	sbatch src/models/train_model_hpc_dummy.sh $(PROJECT_DIR)
+endif
+
 
 ## Make Features
 features: requirements

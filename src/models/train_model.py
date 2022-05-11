@@ -159,7 +159,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
 
     parser.add_argument(
-        "--path_data", dest="path_data", type=str, help="Path to processed data"
+        "--path_data", dest="path_data", type=str, help="Path to the data (contains the raw/interim/processed folders)"
     )
 
     parser.add_argument(
@@ -202,12 +202,6 @@ if __name__ == "__main__":
     )
 
     parser.add_argument(
-        "--cat_noise",
-        action="store_true",
-        help="Will concatenate noise if argument used (sets cat_noise=True).",
-    )
-
-    parser.add_argument(
         "--learning_rate",
         dest="learning_rate",
         type=float,
@@ -221,22 +215,6 @@ if __name__ == "__main__":
         type=int,
         default=500,
         help="Number of epochs",
-    )
-
-    parser.add_argument(
-        "--lambda_gp",
-        dest="lambda_gp",
-        type=int,
-        default=10,
-        help="Lambda modifier for gradient penalty",
-    )
-
-    parser.add_argument(
-        "--gen_pretrain_epochs",
-        dest="gen_pretrain_epochs",
-        type=int,
-        default=5,
-        help="Epochs to train generator alone at the beginning",
     )
 
     args = parser.parse_args()
