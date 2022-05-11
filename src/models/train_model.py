@@ -1,5 +1,11 @@
 import torch
-from transformers import BertModel, BertTokenizer, AdamW, get_linear_schedule_with_warmup, BertForSequenceClassification
+from transformers import (
+    BertModel,
+    BertTokenizer,
+    AdamW,
+    get_linear_schedule_with_warmup,
+    BertForSequenceClassification,
+)
 from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
 from pathlib import Path
@@ -17,6 +23,7 @@ import shutil
 import logging
 import re
 import argparse
+import datetime
 
 
 def find_most_recent_checkpoint(path_prev_checkpoint):
@@ -31,39 +38,7 @@ def find_most_recent_checkpoint(path_prev_checkpoint):
     return Path(path_prev_checkpoint / f"train_{max_epoch}.pt")
 
 
-def find_most_recent_checkpoint(path_prev_checkpoint):
-    """Finds the most recent checkpoint in a checkpoint folder
-    and returns the path to that .pt file.
-    """
-
-    ckpt_list = list(path_prev_checkpoint.rglob("*.pt"))
-    max_epoch = sorted(list(int(re.findall("[0-9]+", str(i))[-1]) for i in ckpt_list))[
-        -1
-    ]
-    return Path(path_prev_checkpoint / f"train_{max_epoch}.pt")
-
-
-def set_directories():
-    """Sets the directory paths used for data, checkpoints, etc."""
-
-    # check if "scratch" path exists in the home directory
-    # if it does, assume we are on HPC
-    scratch_path = Path.home() / "scratch"
-    if scratch_path.exists():
-        print("Assume on HPC")
-    else:
-        print("Assume on local compute")
-
-    path_processed_data = Path(args.path_data)
-
-    # if loading the model from a checkpoint, a checkpoint folder name
-    # should be passed as an argument, like: -c 2021_07_14_185903
-    # the various .pt files will be inside the checkpoint folder
-    if args.ckpt_name:
-        prev_checkpoint_folder_name = args.ckpt_name
-    else:
-        # set dummy name for path_prev_checkpoint
-        path_prev_checkpoint = Path("no_prev_checkpoint_needed")
+def set_directories(args):
 
     if args.proj_dir:
         proj_dir = Path(args.proj_dir)
@@ -71,86 +46,83 @@ def set_directories():
         # proj_dir assumed to be cwd
         proj_dir = Path.cwd()
 
+    # check if "scratch" path exists in the home directory
+    # if it does, assume we are on HPC
+    scratch_path = Path.home() / "scratch"
+
+    if args.path_data_dir:
+        path_data_dir = Path(args.path_data_dir)
+    elif scratch_path.exists():
+        path_data_dir = scratch_path / "arxiv-code-search/data"
+    else:
+        path_data_dir = proj_dir / "data"
+
+    if args.path_model_dir:
+        path_model_dir = Path(args.path_model_dir)
+    elif scratch_path.exists():
+        path_model_dir = scratch_path / "arxiv-code-search/models"
+    else:
+        path_model_dir = proj_dir / "models"
+
+    Path(path_model_dir).mkdir(parents=True, exist_ok=True)
+
+    if args.path_label_dir:
+        path_label_dir = Path(args.path_label_dir)
+    else:  # default to proj_dir
+        path_label_dir = proj_dir / "processed" / "labels" / "labels_complete"
+
+    Path(path_label_dir).mkdir(parents=True, exist_ok=True)
+
     # set time
     if args.model_time_suffix:
-        model_start_time = datetime.datetime.now().strftime("%Y_%m_%d_%H%M%S") + "_" + args.model_time_suffix
+        model_start_time = (
+            datetime.datetime.now().strftime("%Y_%m_%d_%H%M%S")
+            + "_"
+            + args.model_time_suffix
+        )
     else:
         model_start_time = datetime.datetime.now().strftime("%Y_%m_%d_%H%M%S")
 
-    if scratch_path.exists():
-        # for HPC
-        root_dir = scratch_path / "earth-mantle-surrogate"
-        print(root_dir)
-
-        if args.ckpt_name:
-            path_prev_checkpoint = (
-                root_dir / "models/interim/checkpoints" / prev_checkpoint_folder_name
-            )
-            if Path(path_prev_checkpoint).exists():
-                print(
-                    "Previous checkpoints exist. Training from most recent checkpoint."
-                )
-
-                path_prev_checkpoint = find_most_recent_checkpoint(path_prev_checkpoint)
-
-            else:
-                print(
-                    "Could not find previous checkpoint folder. Training from beginning."
-                )
-
-        path_input_folder = path_processed_data / "input"
-        path_truth_folder = path_processed_data / "truth"
-        path_checkpoint_folder = (
-            root_dir / "models/interim/checkpoints" / model_start_time
+    # set checkpoint directory
+    # if loading the model from a checkpoint, a checkpoint folder name
+    # should be passed as an argument, like: -c 2021_07_14_185903
+    # the various .pt files will be inside the checkpoint folder
+    # and the latest one will be loaded
+    if args.ckpt_name:
+        prev_checkpoint_dir_name = args.ckpt_name
+        path_prev_checkpoint_dir = (
+            path_model_dir / "interim/checkpoints" / prev_checkpoint_dir_name
         )
-        Path(path_checkpoint_folder).mkdir(parents=True, exist_ok=True)
+        if Path(path_prev_checkpoint_dir).exists():
+            print("Previous checkpoints exist. Training from most recent checkpoint.")
 
+            path_prev_checkpoint_dir = find_most_recent_checkpoint(
+                path_prev_checkpoint_dir
+            )
+
+        else:
+            print("Could not find previous checkpoint folder. Training from beginning.")
     else:
+        # set dummy name for path_prev_checkpoint
+        path_prev_checkpoint_dir = Path("no_prev_checkpoint_needed")
 
-        # for local compute
-        root_dir = Path.cwd()  # set the root directory as a Pathlib path
-        print(root_dir)
+    path_checkpoint_dir = path_model_dir / "interim/checkpoints" / model_start_time
 
-        if args.ckpt_name:
-            path_prev_checkpoint = (
-                root_dir / "models/interim/checkpoints" / prev_checkpoint_folder_name
-            )
-            if Path(path_prev_checkpoint).exists():
-                print(
-                    "Previous checkpoints exist. Training from most recent checkpoint."
-                )
-
-                path_prev_checkpoint = find_most_recent_checkpoint(path_prev_checkpoint)
-
-            else:
-                print(
-                    "Could not find previous checkpoint folder. Training from beginning."
-                )
-
-        path_input_folder = path_processed_data / "input"
-        path_truth_folder = path_processed_data / "truth"
-        path_checkpoint_folder = (
-            root_dir / "models/interim/checkpoints" / model_start_time
-        )
-        Path(path_checkpoint_folder).mkdir(parents=True, exist_ok=True)
+    Path(path_checkpoint_dir).mkdir(parents=True, exist_ok=True)
 
     # save src directory as a zip into the checkpoint folder
     shutil.make_archive(
-        path_checkpoint_folder / f"src_files_{model_start_time}",
+        path_checkpoint_dir / f"src_files_{model_start_time}",
         "zip",
         proj_dir / "src",
     )
-    shutil.copy(
-        proj_dir / "bash_scripts/train_model_hpc.sh",
-        path_checkpoint_folder / "train_model_hpc.sh",
-    )
 
     return (
-        root_dir,
-        path_input_folder,
-        path_truth_folder,
-        path_checkpoint_folder,
-        path_prev_checkpoint,
+        path_data_dir,
+        path_model_dir,
+        path_label_dir,
+        path_checkpoint_dir,
+        path_prev_checkpoint_dir,
         model_start_time,
     )
 
@@ -170,7 +142,14 @@ def save_checkpoint(epoch, path_checkpoint_folder, gen, critic, opt_gen, opt_cri
 
 def main(args):
     # set directories
-    root_dir, path_input_folder, path_truth_folder, path_checkpoint_folder, path_prev_checkpoint, model_start_time = set_directories()
+    (
+        path_data_dir,
+        path_model_dir,
+        path_label_dir,
+        path_checkpoint_dir,
+        path_prev_checkpoint_dir,
+        model_start_time,
+    ) = set_directories(args)
 
 
 if __name__ == "__main__":
@@ -181,6 +160,14 @@ if __name__ == "__main__":
 
     parser.add_argument(
         "--path_data", dest="path_data", type=str, help="Path to processed data"
+    )
+
+    parser.add_argument(
+        "-p",
+        "--proj_dir",
+        dest="proj_dir",
+        type=str,
+        help="Location of project folder",
     )
 
     parser.add_argument(
@@ -206,17 +193,6 @@ if __name__ == "__main__":
         help="Location of project folder",
     )
 
-
-    parser.add_argument(
-        "--var_to_include",
-        dest="var_to_include",
-        type=int,
-        default=1,
-        help="Number of variables to be trained on. var_to_include=1 \
-            is only the temperature data. \
-            var_to_include=4 is the temperature, vx, vy, and vz.",
-    )
-
     parser.add_argument(
         "--batch_size",
         dest="batch_size",
@@ -240,16 +216,8 @@ if __name__ == "__main__":
     )
 
     parser.add_argument(
-        "--critic_iterations",
-        dest="critic_iterations",
-        type=int,
-        default=5,
-        help="Number of critic iterations for every 1 generator iteration",
-    )
-
-    parser.add_argument(
-        "--num_epochs",
-        dest="num_epochs",
+        "--n_epochs",
+        dest="n_epochs",
         type=int,
         default=500,
         help="Number of epochs",
@@ -272,15 +240,5 @@ if __name__ == "__main__":
     )
 
     args = parser.parse_args()
-
-
-    (
-        root_dir,
-        path_input_folder,
-        path_truth_folder,
-        path_checkpoint_folder,
-        path_prev_checkpoint,
-        model_start_time,
-    ) = set_directories()
 
     main(args)
