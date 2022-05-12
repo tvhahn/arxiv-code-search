@@ -219,9 +219,12 @@ def main(args):
     PRE_TRAINED_MODEL_NAME = 'allenai/scibert_scivocab_uncased'
     MAX_LEN = 512 # maximum number of tokens
     N_LABELS = 4 # number of labels
+    EARLY_STOP_DELAY = 5 # number of epochs to wait before monitoring for early stopping
+    PATIENCE = 3 # number of epochs to wait before early stopping to see if the model is improving
 
     # other args
     batch_size = args.batch_size
+    n_epochs = args.n_epochs
 
     # set directories
     (
@@ -249,22 +252,82 @@ def main(args):
     train_data_loader = create_data_loader(df_train, tokenizer, MAX_LEN, batch_size)
     val_data_loader = create_data_loader(df_val, tokenizer, MAX_LEN, batch_size)
 
+    # model and model parameters
     model = ArxivClassifier(4, PRE_TRAINED_MODEL_NAME)
     model = model.to(device)
 
+    optimizer = AdamW(model.parameters(), lr=2e-5, correct_bias=False)
+    total_steps = len(train_data_loader) * n_epochs
+
+    scheduler = get_linear_schedule_with_warmup(
+                optimizer,
+                num_warmup_steps=0,
+                num_training_steps=total_steps
+            )
+
+    loss_fn = nn.CrossEntropyLoss().to(device)
+
     # load from checkpoint if wanted
-        # load from checkpoint if wanted
     if path_prev_checkpoint.exists():
         print("Loading from previous checkpoint")
         checkpoint = torch.load(path_prev_checkpoint)
+        model.load_state_dict(checkpoint["model"])
         epoch_start = checkpoint["epoch"] + 1
-        gen.load_state_dict(checkpoint["gen"])
-        critic.load_state_dict(checkpoint["critic"])
-        opt_gen.load_state_dict(checkpoint["opt_gen"])
-        opt_critic.load_state_dict(checkpoint["opt_critic"])
-
     else:
         epoch_start = 0
+
+    #################
+    # TRAINING LOOP #
+    #################
+    history = defaultdict(list)
+    best_accuracy = 0
+
+    # initialize the early_stopping object
+    early_stopping = EarlyStopping(
+        patience=PATIENCE,
+        verbose=False,
+        early_stop_delay=EARLY_STOP_DELAY,
+        path=path_checkpoint_dir / "checkpoint.pt",
+        delta=0.0001,
+        )
+
+    for epoch in range(epoch_start, epoch_start + n_epochs):
+        print(f'Epoch {epoch + 1}/{n_epochs}')
+        print('-' * 10)
+        train_acc, train_loss = train_epoch(
+                                    model,
+                                    train_data_loader,    
+                                    loss_fn, 
+                                    optimizer, 
+                                    device, 
+                                    scheduler, 
+                                    len(df_train)
+                                )
+
+        print(f'Train loss {train_loss} accuracy {train_acc}')
+
+        val_acc, val_loss = eval_model(
+                                model,
+                                val_data_loader,
+                                loss_fn, 
+                                device, 
+                                len(df_val)
+                            )
+
+        print(f'Val   loss {val_loss} accuracy {val_acc}')
+        print()
+
+        history['train_acc'].append(train_acc)
+        history['train_loss'].append(train_loss)
+        history['val_acc'].append(val_acc)
+        history['val_loss'].append(val_loss)
+
+        early_stopping(val_loss, model)
+        if early_stopping.early_stop:
+            print("Early stopping")
+            break
+
+
 
 if __name__ == "__main__":
     log_fmt = "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
@@ -333,7 +396,7 @@ if __name__ == "__main__":
         "--n_epochs",
         dest="n_epochs",
         type=int,
-        default=500,
+        default=10,
         help="Number of epochs",
     )
 
