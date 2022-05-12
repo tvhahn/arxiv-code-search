@@ -101,6 +101,15 @@ endif
 
 
 ## Train
+train: requirements
+ifeq (True,$(HAS_CONDA)) # assume on local
+	$(PYTHON_INTERPRETER) $(PROJECT_DIR)/src/models/train_model.py
+else # assume on HPC
+	sbatch src/models/train_model_hpc.sh $(PROJECT_DIR)
+endif
+
+
+## Train
 train_dummy: requirements
 ifeq (True,$(HAS_CONDA)) # assume on local
 	$(PYTHON_INTERPRETER) $(PROJECT_DIR)/src/models/train_model.py
