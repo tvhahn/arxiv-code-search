@@ -100,6 +100,13 @@ else # assume on HPC
 endif
 
 
+download_pretrained_bert: requirements
+ifeq (True,$(HAS_CONDA)) # assume on local
+	$(PYTHON_INTERPRETER) $(PROJECT_DIR)/src/models/download_pretrained_bert.py
+else # assume on HPC
+	$(PYTHON_INTERPRETER) $(PROJECT_DIR)/src/models/download_pretrained_bert.py
+endif
+
 ## Train
 train: requirements
 ifeq (True,$(HAS_CONDA)) # assume on local
