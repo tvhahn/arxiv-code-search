@@ -83,6 +83,8 @@ def set_directories(args):
 
     if args.path_label_dir:
         path_label_dir = Path(args.path_label_dir)
+    elif scratch_path.exists():
+        path_label_dir = scratch_path / "arxiv-code-search" / "data" / "processed" / "labels" / "labels_complete"
     else:  # default to proj_dir
         path_label_dir = proj_dir / "processed" / "labels" / "labels_complete"
 
@@ -116,6 +118,7 @@ def set_directories(args):
 
         else:
             print("Could not find previous checkpoint folder. Training from beginning.")
+            path_prev_checkpoint = Path("prev_checkpoint_not_found")
     else:
         # set dummy name for path_prev_checkpoint
         path_prev_checkpoint = Path("no_prev_checkpoint_needed")
@@ -132,6 +135,7 @@ def set_directories(args):
     )
 
     return (
+        proj_dir,
         path_data_dir,
         path_model_dir,
         path_label_dir,
@@ -221,7 +225,7 @@ def main(args):
     MAX_LEN = 512 # maximum number of tokens
     N_LABELS = 4 # number of labels
     EARLY_STOP_DELAY = 5 # number of epochs to wait before monitoring for early stopping
-    PATIENCE = 3 # number of epochs to wait before early stopping to see if the model is improving
+    PATIENCE = 100 # number of epochs to wait before early stopping to see if the model is improving
 
     # other args
     batch_size = args.batch_size
@@ -229,6 +233,7 @@ def main(args):
 
     # set directories
     (
+        proj_dir,
         path_data_dir,
         path_model_dir,
         path_label_dir,
@@ -236,6 +241,8 @@ def main(args):
         path_prev_checkpoint,
         model_start_time,
     ) = set_directories(args)
+
+    print("path_label_dir:", path_label_dir)
 
     writer = SummaryWriter(path_model_dir / "logs" / model_start_time) # tensorboard
 
@@ -245,18 +252,19 @@ def main(args):
     
     # build model
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-    if device == "cuda":
-        print("device:", torch.cuda.get_device_name(0))
-    else:
-        print("device: cpu")
+    # if device == "cuda":
+    #     print("device:", torch.cuda.get_device_name(0))
+    # else:
+    #     print("device: cpu")
+    print(device)
 
-    tokenizer = BertTokenizer.from_pretrained('allenai/scibert_scivocab_uncased') 
+    tokenizer = BertTokenizer.from_pretrained(proj_dir / "bert_cache_dir") 
     
     train_data_loader = create_data_loader(df_train, tokenizer, MAX_LEN, batch_size)
     val_data_loader = create_data_loader(df_val, tokenizer, MAX_LEN, batch_size)
 
     # model and model parameters
-    model = ArxivClassifier(4, PRE_TRAINED_MODEL_NAME)
+    model = ArxivClassifier(4, proj_dir / "bert_cache_dir")
     model = model.to(device)
 
     optimizer = AdamW(model.parameters(), lr=2e-5, correct_bias=False)

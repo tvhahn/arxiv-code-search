@@ -124,7 +124,7 @@ class EarlyStopping:
                     )
                 if self.counter >= self.patience:
                     self.early_stop = True
-            elif torch.isnan(score).item():
+            elif torch.isnan(torch.tensor(score)).item():
                 self.counter += 1
                 if self.counter >= self.patience:
                     self.early_stop = True
