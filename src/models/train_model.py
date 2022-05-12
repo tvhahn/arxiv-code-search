@@ -18,6 +18,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 from collections import defaultdict
 from torchmetrics import PrecisionRecallCurve
+from torch.utils.tensorboard import SummaryWriter
 import argparse
 import shutil
 import logging
@@ -236,6 +237,8 @@ def main(args):
         model_start_time,
     ) = set_directories(args)
 
+    writer = SummaryWriter(path_model_dir / "logs" / model_start_time) # tensorboard
+
     # prepare data
     df = pd.read_csv(path_label_dir / "labels.csv", dtype={"id": str})
     df_train, df_val = train_test_split(df, test_size=0.4, random_state=12) # TO-DO: add stratification, and select by date
@@ -305,6 +308,7 @@ def main(args):
                                 )
 
         print(f'Train loss {train_loss} accuracy {train_acc}')
+        writer.add_scalar("Loss/train", train_loss, epoch)
 
         val_acc, val_loss = eval_model(
                                 model,
@@ -314,8 +318,11 @@ def main(args):
                                 len(df_val)
                             )
 
+
+
         print(f'Val   loss {val_loss} accuracy {val_acc}')
         print()
+        writer.add_scalar("Loss/val", val_loss, epoch)
 
         history['train_acc'].append(train_acc)
         history['train_loss'].append(train_loss)
@@ -326,7 +333,6 @@ def main(args):
         if early_stopping.early_stop:
             print("Early stopping")
             break
-
 
 
 if __name__ == "__main__":
