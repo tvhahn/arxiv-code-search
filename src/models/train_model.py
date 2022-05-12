@@ -211,6 +211,14 @@ def main(args):
         model_start_time,
     ) = set_directories(args)
 
+    # set device
+    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+
+    pre_trained_model_name = 'allenai/scibert_scivocab_uncased'
+    batch_size = args.batch_size
+    max_len = 512 # maximum number of tokens
+    num_labels = 4 # number of labels
+
 
 if __name__ == "__main__":
     log_fmt = "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
@@ -263,8 +271,8 @@ if __name__ == "__main__":
         "--batch_size",
         dest="batch_size",
         type=int,
-        default=1,
-        help="Mini-batch size for each GPU",
+        default=4,
+        help="Mini-batch size to send to GPU",
     )
 
     parser.add_argument(
