@@ -24,18 +24,32 @@ import logging
 import re
 import argparse
 import datetime
+from src.models.utils import (create_data_loader, EarlyStopping)
+from src.models.model import ArxivClassifier
 
 
-def find_most_recent_checkpoint(path_prev_checkpoint):
+def find_most_recent_checkpoint(path_prev_checkpoint_dir):
     """Finds the most recent checkpoint in a checkpoint folder
     and returns the path to that .pt file.
     """
 
-    ckpt_list = list(path_prev_checkpoint.rglob("*.pt"))
-    max_epoch = sorted(list(int(re.findall("[0-9]+", str(i))[-1]) for i in ckpt_list))[
-        -1
-    ]
-    return Path(path_prev_checkpoint / f"train_{max_epoch}.pt")
+    ckpt_list = list(path_prev_checkpoint_dir.rglob("*.pt"))
+    if len(ckpt_list) == 1:
+        print("Previous checkpoints exist. Training from most recent checkpoint.")
+        return Path(path_prev_checkpoint_dir / ckpt_list[0])
+    elif len(ckpt_list) > 1:
+        print("Previous checkpoints exist. Training from most recent checkpoint.")
+        try:
+            max_epoch = sorted(list(int(re.findall("[0-9]+", str(i))[-1]) for i in ckpt_list))[
+                -1
+            ]
+            return Path(path_prev_checkpoint_dir / f"train_{max_epoch}.pt")
+
+        except:
+            pass
+    else:
+        print("No checkpoints found in the specified checkpoint directory.")
+        return Path("no_prev_checkpoint_found")
 
 
 def set_directories(args):
@@ -94,9 +108,8 @@ def set_directories(args):
             path_model_dir / "interim/checkpoints" / prev_checkpoint_dir_name
         )
         if Path(path_prev_checkpoint_dir).exists():
-            print("Previous checkpoints exist. Training from most recent checkpoint.")
-
-            path_prev_checkpoint_dir = find_most_recent_checkpoint(
+        
+            path_prev_checkpoint = find_most_recent_checkpoint(
                 path_prev_checkpoint_dir
             )
 
@@ -104,12 +117,12 @@ def set_directories(args):
             print("Could not find previous checkpoint folder. Training from beginning.")
     else:
         # set dummy name for path_prev_checkpoint
-        path_prev_checkpoint_dir = Path("no_prev_checkpoint_needed")
+        path_prev_checkpoint = Path("no_prev_checkpoint_needed")
 
     path_checkpoint_dir = path_model_dir / "interim/checkpoints" / model_start_time
 
     Path(path_checkpoint_dir).mkdir(parents=True, exist_ok=True)
-
+    
     # save src directory as a zip into the checkpoint folder
     shutil.make_archive(
         path_checkpoint_dir / f"src_files_{model_start_time}",
@@ -122,7 +135,7 @@ def set_directories(args):
         path_model_dir,
         path_label_dir,
         path_checkpoint_dir,
-        path_prev_checkpoint_dir,
+        path_prev_checkpoint,
         model_start_time,
     )
 
@@ -201,24 +214,57 @@ def eval_model(model, data_loader, loss_fn, device, n_examples):
 
 
 def main(args):
+
+    # modifiable parameters not defined with argparse
+    PRE_TRAINED_MODEL_NAME = 'allenai/scibert_scivocab_uncased'
+    MAX_LEN = 512 # maximum number of tokens
+    N_LABELS = 4 # number of labels
+
+    # other args
+    batch_size = args.batch_size
+
     # set directories
     (
         path_data_dir,
         path_model_dir,
         path_label_dir,
         path_checkpoint_dir,
-        path_prev_checkpoint_dir,
+        path_prev_checkpoint,
         model_start_time,
     ) = set_directories(args)
 
-    # set device
+    # prepare data
+    df = pd.read_csv(path_label_dir / "labels.csv", dtype={"id": str})
+    df_train, df_val = train_test_split(df, test_size=0.4, random_state=12) # TO-DO: add stratification, and select by date
+    
+    # build model
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    if device == "cuda":
+        print("device:", torch.cuda.get_device_name(0))
+    else:
+        print("device: cpu")
 
-    pre_trained_model_name = 'allenai/scibert_scivocab_uncased'
-    batch_size = args.batch_size
-    max_len = 512 # maximum number of tokens
-    num_labels = 4 # number of labels
+    tokenizer = BertTokenizer.from_pretrained('allenai/scibert_scivocab_uncased') 
+    
+    train_data_loader = create_data_loader(df_train, tokenizer, MAX_LEN, batch_size)
+    val_data_loader = create_data_loader(df_val, tokenizer, MAX_LEN, batch_size)
 
+    model = ArxivClassifier(4, PRE_TRAINED_MODEL_NAME)
+    model = model.to(device)
+
+    # load from checkpoint if wanted
+        # load from checkpoint if wanted
+    if path_prev_checkpoint.exists():
+        print("Loading from previous checkpoint")
+        checkpoint = torch.load(path_prev_checkpoint)
+        epoch_start = checkpoint["epoch"] + 1
+        gen.load_state_dict(checkpoint["gen"])
+        critic.load_state_dict(checkpoint["critic"])
+        opt_gen.load_state_dict(checkpoint["opt_gen"])
+        opt_critic.load_state_dict(checkpoint["opt_critic"])
+
+    else:
+        epoch_start = 0
 
 if __name__ == "__main__":
     log_fmt = "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
