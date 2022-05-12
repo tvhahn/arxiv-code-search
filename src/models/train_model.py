@@ -127,17 +127,77 @@ def set_directories(args):
     )
 
 
-def save_checkpoint(epoch, path_checkpoint_folder, gen, critic, opt_gen, opt_critic):
+def save_checkpoint(model, path_checkpoint_dir, model_name="model_checkpoint.pt"):
     torch.save(
         {
-            "gen": gen.state_dict(),
-            "critic": critic.state_dict(),
-            "opt_gen": opt_gen.state_dict(),
-            "opt_critic": opt_critic.state_dict(),
-            "epoch": epoch,
+            "model": model.state_dict(),
         },
-        path_checkpoint_folder / f"train_{epoch}.pt",
+        path_checkpoint_dir / model_name,
     )
+
+def train_epoch(
+  model, 
+  data_loader, 
+  loss_fn, 
+  optimizer, 
+  device, 
+  scheduler, 
+  n_examples
+):
+    model = model.train()
+
+    losses = []
+    correct_predictions = 0
+  
+    for d in data_loader:
+        input_ids = d["input_ids"].to(device)
+        attention_mask = d["attention_mask"].to(device)
+        labels = d["labels"].to(device)
+
+        outputs = model(
+        input_ids=input_ids,
+        attention_mask=attention_mask
+        )
+
+        _, preds = torch.max(outputs, dim=1)
+        loss = loss_fn(outputs, labels)
+
+        correct_predictions += torch.sum(preds == labels)
+        losses.append(loss.item())
+
+        loss.backward()
+        nn.utils.clip_grad_norm_(model.parameters(), max_norm=1.0)
+        optimizer.step()
+        scheduler.step()
+        optimizer.zero_grad()
+
+    return correct_predictions.double() / n_examples, np.mean(losses)
+
+
+def eval_model(model, data_loader, loss_fn, device, n_examples):
+    model = model.eval()
+
+    losses = []
+    correct_predictions = 0
+
+    with torch.no_grad():
+        for d in data_loader:
+            input_ids = d["input_ids"].to(device)
+            attention_mask = d["attention_mask"].to(device)
+            labels = d["labels"].to(device)
+
+            outputs = model(
+                input_ids=input_ids,
+                attention_mask=attention_mask
+            )
+            _, preds = torch.max(outputs, dim=1)
+
+            loss = loss_fn(outputs, labels)
+
+            correct_predictions += torch.sum(preds == labels)
+            losses.append(loss.item())
+
+    return correct_predictions.double() / n_examples, np.mean(losses)
 
 
 def main(args):
