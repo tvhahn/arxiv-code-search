@@ -30,7 +30,7 @@ python $PROJECT_DIR/src/models/train_model.py \
     --proj_dir $PROJECT_DIR \
     --path_data_dir $SLURM_TMPDIR/data \
     --path_model_dir $SCRATCH_DIR/models \
-    --batch_size 1 \
+    --batch_size 16 \
     --n_epochs 1000 \
-    --model_time_suffix var4 \
-    --checkpoint  2021_11_18_103508_var4 \
+    # --model_time_suffix var4 \
+    # --checkpoint  2021_11_18_103508_var4 \

@@ -244,7 +244,9 @@ def main(args):
 
     print("path_label_dir:", path_label_dir)
 
-    writer = SummaryWriter(path_model_dir / "logs" / model_start_time) # tensorboard
+    # setup TensorBoard
+    # writer_train = SummaryWriter(path_model_dir / "logs" / model_start_time)
+    writer = SummaryWriter(path_model_dir / "logs" / model_start_time) 
 
     # prepare data
     df = pd.read_csv(path_label_dir / "labels.csv", dtype={"id": str})
@@ -252,11 +254,7 @@ def main(args):
     
     # build model
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-    # if device == "cuda":
-    #     print("device:", torch.cuda.get_device_name(0))
-    # else:
-    #     print("device: cpu")
-    print(device)
+    print("device name:", device)
 
     tokenizer = BertTokenizer.from_pretrained(proj_dir / "bert_cache_dir") 
     
@@ -316,7 +314,7 @@ def main(args):
                                 )
 
         print(f'Train loss {train_loss} accuracy {train_acc}')
-        writer.add_scalar("Loss/train", train_loss, epoch)
+        # writer_train.add_scalar("Loss/train", train_loss, epoch)
 
         val_acc, val_loss = eval_model(
                                 model,
@@ -330,7 +328,7 @@ def main(args):
 
         print(f'Val   loss {val_loss} accuracy {val_acc}')
         print()
-        writer.add_scalar("Loss/val", val_loss, epoch)
+        writer.add_scalars(model_start_time, {"train_loss": train_loss, "val_loss": val_loss}, epoch)
 
         history['train_acc'].append(train_acc)
         history['train_loss'].append(train_loss)
