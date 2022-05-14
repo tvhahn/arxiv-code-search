@@ -246,7 +246,8 @@ def main(args):
 
     # setup TensorBoard
     # writer_train = SummaryWriter(path_model_dir / "logs" / model_start_time)
-    writer = SummaryWriter(path_model_dir / "logs" / model_start_time) 
+    writer = SummaryWriter(path_model_dir / "logs" / model_start_time)
+    writer_acc = SummaryWriter(path_model_dir / "logs" / model_start_time) 
 
     # prepare data
     df = pd.read_csv(path_label_dir / "labels.csv", dtype={"id": str})
@@ -329,6 +330,7 @@ def main(args):
         print(f'Val   loss {val_loss} accuracy {val_acc}')
         print()
         writer.add_scalars(model_start_time, {"train_loss": train_loss, "val_loss": val_loss}, epoch)
+        writer_acc.add_scalars(model_start_time, {"train_acc": train_acc, "val_acc": val_acc}, epoch)
 
         history['train_acc'].append(train_acc)
         history['train_loss'].append(train_loss)
