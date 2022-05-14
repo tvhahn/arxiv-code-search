@@ -5,4 +5,5 @@ if [ ! -d ~/scratch/arxiv-code-search ]; then
 fi
 
 echo "copying data/processed to scratch"
+mkdir -p ~/scratch/arxiv-code-search/data/processed
 cp -r ./data/processed ~/scratch/arxiv-code-search/data
