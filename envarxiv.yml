@@ -28,5 +28,6 @@ dependencies:
   - transformers
   - odfpy
   - tensorboard
+  - imbalanced-learn
 
 
