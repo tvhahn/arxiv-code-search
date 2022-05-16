@@ -278,6 +278,10 @@ def main(args):
     df_train, _ = under_over_sampler(df_train, df_train['y'], method="random_under", ratio=0.6)
     counts = df_train["y"].value_counts()
     print(f"df_train counts afer under sampling: {counts[0]}, {counts[1]}")
+
+    # get percentages of each class in each split
+    print(df_train["y"].value_counts() / len(df_train) * 100)
+    print(df_val["y"].value_counts() / len(df_val) * 100)
     
     train_data_loader = create_data_loader(df_train, tokenizer, MAX_LEN, batch_size, label_column)
     val_data_loader = create_data_loader(df_val, tokenizer, MAX_LEN, batch_size, label_column)
