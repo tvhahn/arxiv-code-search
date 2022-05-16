@@ -32,5 +32,6 @@ python $PROJECT_DIR/src/models/train_model.py \
     --path_model_dir $SCRATCH_DIR/models \
     --batch_size 8 \
     --n_epochs 1000 \
+    --n_classes 4 \
     # --model_time_suffix var4 \
     # --checkpoint  2021_11_18_103508_var4 \
