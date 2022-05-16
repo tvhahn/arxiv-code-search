@@ -230,6 +230,7 @@ def main(args):
     # other args
     batch_size = args.batch_size
     n_epochs = args.n_epochs
+    n_classes = args.n_classes
 
     # set directories
     (
@@ -263,7 +264,7 @@ def main(args):
     val_data_loader = create_data_loader(df_val, tokenizer, MAX_LEN, batch_size)
 
     # model and model parameters
-    model = ArxivClassifier(4, proj_dir / "bert_cache_dir")
+    model = ArxivClassifier(n_classes, proj_dir / "bert_cache_dir")
     model = model.to(device)
 
     optimizer = AdamW(model.parameters(), lr=2e-5, correct_bias=False)
@@ -413,6 +414,15 @@ if __name__ == "__main__":
         default=10,
         help="Number of epochs",
     )
+
+    parser.add_argument(
+        "--n_classes",
+        dest="n_classes",
+        type=int,
+        default=2,
+        help="Number of classes",
+    )
+
 
     args = parser.parse_args()
 
