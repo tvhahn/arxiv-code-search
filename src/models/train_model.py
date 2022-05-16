@@ -25,7 +25,7 @@ import logging
 import re
 import argparse
 import datetime
-from src.models.utils import (create_data_loader, EarlyStopping)
+from src.models.utils import (create_data_loader, EarlyStopping, under_over_sampler)
 from src.models.model import ArxivClassifier
 
 
@@ -270,6 +270,10 @@ def main(args):
         label_column = "label"
     else:
         label_column = "y" # binary label
+
+    # over/under sampling (not performed on validation set)
+    df_train, _ = under_over_sampler(df_train, df_train['y'], method="random_over", ratio=0.3)
+    df_train, _ = under_over_sampler(df_train, df_train['y'], method="random_under", ratio=0.6)
     
     train_data_loader = create_data_loader(df_train, tokenizer, MAX_LEN, batch_size, label_column)
     val_data_loader = create_data_loader(df_val, tokenizer, MAX_LEN, batch_size, label_column)
