@@ -18,6 +18,8 @@ import matplotlib.pyplot as plt
 import numpy as np
 from collections import defaultdict
 from torchmetrics import PrecisionRecallCurve
+from imblearn.over_sampling import RandomOverSampler
+from imblearn.under_sampling import RandomUnderSampler
 
 
 # create data loader -- inspired by https://curiousily.com/posts/sentiment-analysis-with-bert-and-hugging-face-using-pytorch-and-python/
@@ -63,6 +65,32 @@ def create_data_loader(df, tokenizer, max_len, batch_size, label_column="label")
     )
 
     return DataLoader(ds, batch_size=batch_size, num_workers=4)
+
+
+def under_over_sampler(x, y, method=None, ratio=0.5):
+    """
+    Returns an undersampled or oversampled data set. Implemented using imbalanced-learn package.
+    ['random_over','random_under']
+    """
+
+    if method == None:
+        return x, y
+
+    # oversample methods: https://imbalanced-learn.readthedocs.io/en/stable/over_sampling.html
+    elif method == "random_over":
+        # print('before:',sorted(Counter(y).items()))
+        ros = RandomOverSampler(sampling_strategy=ratio, random_state=0)
+        x_resampled, y_resampled = ros.fit_resample(x, y)
+        # print('after:',sorted(Counter(y_resampled).items()))
+        return x_resampled, y_resampled
+
+    elif method == "random_under":
+        rus = RandomUnderSampler(sampling_strategy=ratio, random_state=0)
+        x_resampled, y_resampled = rus.fit_resample(x, y)
+        return x_resampled, y_resampled
+
+    else:
+        return x, y
 
 
 class EarlyStopping:

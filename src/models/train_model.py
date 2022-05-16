@@ -252,16 +252,27 @@ def main(args):
 
     # prepare data
     df = pd.read_csv(path_label_dir / "labels.csv", dtype={"id": str})
-    df_train, df_val = train_test_split(df, test_size=0.4, random_state=12) # TO-DO: add stratification, and select by date
+    df["y"] = df["label"].apply(lambda x: 1 if x > 0 else 0) # binary labels
+    ids = df["id"].unique() # get all the arxiv paper ids
+    
+    train_ids, val_ids = train_test_split(ids, test_size=0.4, random_state=13,)
+
+    df_train = df[df['id'].isin(train_ids)]
+    df_val = df[df['id'].isin(val_ids)]
     
     # build model
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     print("device name:", device)
 
-    tokenizer = BertTokenizer.from_pretrained(proj_dir / "bert_cache_dir") 
+    tokenizer = BertTokenizer.from_pretrained(proj_dir / "bert_cache_dir")
+
+    if n_classes > 2:
+        label_column = "label"
+    else:
+        label_column = "y" # binary label
     
-    train_data_loader = create_data_loader(df_train, tokenizer, MAX_LEN, batch_size)
-    val_data_loader = create_data_loader(df_val, tokenizer, MAX_LEN, batch_size)
+    train_data_loader = create_data_loader(df_train, tokenizer, MAX_LEN, batch_size, label_column)
+    val_data_loader = create_data_loader(df_val, tokenizer, MAX_LEN, batch_size, label_column)
 
     # model and model parameters
     model = ArxivClassifier(n_classes, proj_dir / "bert_cache_dir")
