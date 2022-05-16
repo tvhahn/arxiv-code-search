@@ -224,6 +224,9 @@ def main(file_list, index_no):
         "code open-source": re.compile(
             r"\b(code)(?:\W+\w+){0,9}?\W+(open-source|open source)\b"
         ),
+        "source code": re.compile(
+            r"\b(source code|source-code|source codes|source-codes)\b"
+        ),
         "github": re.compile(r"\b(github|gitlab)\b"),
         "retrieve": re.compile(r"(retreived|retrieved)"),
         "data repos": re.compile(r"(mendeley|phm data challenge|nasa ames)"),
