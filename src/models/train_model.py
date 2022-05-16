@@ -160,7 +160,7 @@ def train_epoch(
   optimizer, 
   device, 
   scheduler, 
-  n_examples
+  n_examples,
 ):
     model = model.train()
 
