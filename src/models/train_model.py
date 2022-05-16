@@ -273,7 +273,11 @@ def main(args):
 
     # over/under sampling (not performed on validation set)
     df_train, _ = under_over_sampler(df_train, df_train['y'], method="random_over", ratio=0.3)
+    counts = df_train["y"].value_counts()
+    print(f"df_train counts after over sampling: {counts[0]}, {counts[1]}")
     df_train, _ = under_over_sampler(df_train, df_train['y'], method="random_under", ratio=0.6)
+    counts = df_train["y"].value_counts()
+    print(f"df_train counts afer under sampling: {counts[0]}, {counts[1]}")
     
     train_data_loader = create_data_loader(df_train, tokenizer, MAX_LEN, batch_size, label_column)
     val_data_loader = create_data_loader(df_val, tokenizer, MAX_LEN, batch_size, label_column)
