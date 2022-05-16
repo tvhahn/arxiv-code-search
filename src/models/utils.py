@@ -57,7 +57,7 @@ class ArxivDataset(Dataset):
 def create_data_loader(df, tokenizer, max_len, batch_size, label_column="label"):
     ds = ArxivDataset(
         texts=df.para.to_numpy(),
-        labels=df["label_column"].to_numpy(),
+        labels=df[label_column].to_numpy(),
         tokenizer=tokenizer,
         max_len=max_len,
     )
