@@ -209,7 +209,7 @@ def main(file_list, index_no):
     pattern_dict = {
         "open-source": re.compile(r"\b(open-source|open source)\b"),
         "open-source data": re.compile(
-            r"\b(open-source|open source)(?:\W+\w+){0,9}?\W+(data|dataset|data set)\b"
+            r"\b(open-source|open source|open)(?:\W+\w+){0,9}?\W+(data|dataset|data set)\b"
         ),
         "data open-source ": re.compile(
             r"\b(data|dataset|data set)(?:\W+\w+){0,9}?\W+(open-source|open source)\b"
@@ -234,6 +234,7 @@ def main(file_list, index_no):
             r"\b(data|dataset|data set)(?:\W+\w+){0,9}?\W+(repository|repo)\b"
         ),
         "repo": re.compile(r"\b(repo)\b"),
+        "benchmark": re.compile(r"\b(benchmark)\b"),
         "used dataset": re.compile(
             r"\b(used|use)(?:\W+\w+){0,5}?\W+(dataset|data set)\b"
         ),
@@ -263,7 +264,7 @@ def main(file_list, index_no):
             r"\b(data|dataset|data set)(?:\W+\w+){0,9}?\W+(https|http|online)"
         ),
         "dataset provided": re.compile(
-            r"\b(data|dataset|data set)(?:\W+\w+){0,9}?\W+(provide|provided|supplied)\b"
+            r"\b(data|dataset|data set)(?:\W+\w+){0,9}?\W+(provide|provided|supplied|public)\b"
         ),
         "publicly available": re.compile(
             r"\b(publicly|public)(?:\W+\w+){0,9}?\W+(available|access|download|package|accessible|dataset|data set|data)\b"
