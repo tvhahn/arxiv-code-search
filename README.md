@@ -1,9 +1,10 @@
-doi-junk
+arxiv-code-search
 ==============================
 
-Get list of DOIs from various scientific publications.
+Searching through arxiv papers to see if they include code and data to reproduce the work. 
 
-`python -m pip install -e .` to install package on local machine in editable mode.
+### Alpha Notice
+This is active and preliminary research. **Stay tuned!**
 
 Project Organization
 ------------
@@ -55,5 +56,3 @@ Project Organization
 
 
 --------
-
-<p><small>Project based on the <a target="_blank" href="https://drivendata.github.io/cookiecutter-data-science/">cookiecutter data science project template</a>. #cookiecutterdatascience</small></p>
