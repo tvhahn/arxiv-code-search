@@ -6,6 +6,8 @@ Searching through arxiv papers to see if they include code and data to reproduce
 ### Alpha Notice
 This is active and preliminary research. **Stay tuned!**
 
+Run tests: `python -m unittest discover -s tests`
+
 Project Organization
 ------------
 
