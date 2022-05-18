@@ -238,6 +238,9 @@ def main(file_list, index_no):
         "used dataset": re.compile(
             r"\b(used|use)(?:\W+\w+){0,5}?\W+(dataset|data set)\b"
         ),
+        "case study data": re.compile(
+            r"\b(case study|benchmark)(?:\W+\w+){0,9}?\W+(data|data set|dataset)\b"
+        ),
         "dataset": re.compile(r"\b(dataset|data set|datasets|data-sets)\b"),
         "download": re.compile(r"\b(download|download)\b"),
         "data": re.compile(r"\b(data)\b"),
