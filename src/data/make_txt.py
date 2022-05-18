@@ -29,20 +29,7 @@ def convert_pdf_to_txt(path):
 
         # get the .txt save name
         save_name = path.stem + ".txt"
-
-        # make sure it's a mssp article
-        pattern = re.compile(r'\b(mechanical)(?:\W+\w+){0,9}?\W+(systems)\b')
-        if pattern.search(text_lower) in [None, False]:
-            d = {}
-        
-        # some of the pdf downloads are blank and contain latin text
-        # if this is the case, we won't save the file
-        pattern = re.compile(r'\b(faucibus|convallis|aspernatur)(?:\W+\w+){0,6}?\W+(maximus|sagittis|odit)\b')
-        if pattern.search(text_lower) not in [None, False]:
-            d =  {}
-
-        else:
-            d = {save_name: text}
+        d = {save_name: text}
     
     # save full traceback in exception
     except Exception as e:
