@@ -231,7 +231,7 @@ def main(file_list, index_no):
         "retrieve": re.compile(r"(retreived|retrieved)"),
         "data repos": re.compile(r"(mendeley|phm data challenge|nasa ames)"),
         "data repository": re.compile(
-            r"\b(data|dataset|data set)(?:\W+\w+){0,9}?\W+(repository|repo)\b"
+            r"\b(data|dataset|data set)(?:\W+\w+){0,9}?\W+(repository|repo|catalogue)\b"
         ),
         "repo": re.compile(r"\b(repo)\b"),
         "benchmark": re.compile(r"\b(benchmark)\b"),
