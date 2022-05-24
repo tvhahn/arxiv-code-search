@@ -70,7 +70,7 @@ endif
 ## Make Dataset
 txt: requirements
 ifeq (True,$(HAS_CONDA)) # assume on local
-	$(PYTHON_INTERPRETER) src/data/make_txt.py --n_cores 6 --pdf_root_dir $(PROJECT_DIR)/data/raw/pdfs/ --index_file_no 99
+	$(PYTHON_INTERPRETER) src/data/make_txt.py --n_cores 6 --pdf_root_dir $(PROJECT_DIR)/data/raw/pdfs/ --index_file_no 98
 else # assume on HPC
 	sbatch src/data/make_txt_hpc.sh
 endif
@@ -78,7 +78,7 @@ endif
 ## Perform search of keywords in papers
 search: requirements
 ifeq (True,$(HAS_CONDA)) # assume on local
-	$(PYTHON_INTERPRETER) src/data/search_txt.py --index_file_no 99 --overwrite --keep_old_files --max_token_len 350
+	$(PYTHON_INTERPRETER) src/data/search_txt.py --index_file_no 98 --overwrite --keep_old_files --max_token_len 350
 else # assume on HPC
 	sbatch src/data/search_txt_hpc.sh
 endif
