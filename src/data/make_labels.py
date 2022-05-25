@@ -22,9 +22,8 @@ def read_ods(filename):
         filename,
         parse_dates=["update_date"],
         engine="odf",
-        names=["id", "pattern", "token_count", "update_date", "label", "para"],
-    )
-    return df
+        )
+    return df[["id", "pattern", "token_count", "update_date", "label", "para"]]
 
 
 def set_directories(args):
