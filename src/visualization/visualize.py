@@ -1,7 +1,6 @@
 import pandas as pd
 import numpy as np
 from pathlib import Path
-import matplotlib
 import matplotlib.pyplot as plt
 import seaborn as sns
 import logging
@@ -13,12 +12,15 @@ def summarize_final_label_file(file_path, sample_size, publisher_name):
     file_name = file_path.stem
 
     if file_name.endswith(".csv"):
-        df = pd.read_csv(file_path, parse_dates=['update_date'])
+        df = pd.read_csv(file_path, parse_dates=["update_date"])
     else:
-        df = pd.read_excel(file_path, parse_dates=['update_date'], 
-                            engine='odf',)
+        df = pd.read_excel(
+            file_path,
+            parse_dates=["update_date"],
+            engine="odf",
+        )
         df = df[["id", "pattern", "token_count", "update_date", "label", "para"]]
-    
+
     # group id and aggregate by max label
     dfr = df.groupby(["id"]).agg({"label": "max"}).reset_index()
 
@@ -28,12 +30,12 @@ def summarize_final_label_file(file_path, sample_size, publisher_name):
     # the number of articles may have been more than what is contained in the file (because no keywords may have been found)
     sample_size_df = len(dfr)
 
-    df_label_count = dfr.groupby('label').count().reset_index().astype(int)
-    df_label_count = df_label_count.iloc[:,:2]
-    df_label_count.columns = ['label', 'count']
+    df_label_count = dfr.groupby("label").count().reset_index().astype(int)
+    df_label_count = df_label_count.iloc[:, :2]
+    df_label_count.columns = ["label", "count"]
 
     # the difference between sample_size and sample_size_df is the number of articles that had no keywords in the search
-    df_label_count.loc[0, 'count'] += sample_size - sample_size_df
+    df_label_count.loc[0, "count"] += sample_size - sample_size_df
 
     missing_category = set(range(4)).difference(df_label_count.label.unique())
 
@@ -54,29 +56,39 @@ def summarize_final_label_file(file_path, sample_size, publisher_name):
         else:
             return "Data and Code\nNot Available"
 
-    df_label_count_all['label_name'] = df_label_count_all.label.apply(label_name)
-    df_label_count_all['percentage'] = df_label_count_all['count'] / df_label_count_all['count'].sum() * 100
-    df_label_count_all = df_label_count_all[['label_name', 'label', 'count', 'percentage']].sort_values(by='label')
-    df_label_count_all['publisher'] = publisher_name
-    df_label_count_all['sample_size'] = sample_size
+    df_label_count_all["label_name"] = df_label_count_all.label.apply(label_name)
+    df_label_count_all["percentage"] = (
+        df_label_count_all["count"] / df_label_count_all["count"].sum() * 100
+    )
+    df_label_count_all = df_label_count_all[
+        ["label_name", "label", "count", "percentage"]
+    ].sort_values(by="label")
+    df_label_count_all["publisher"] = publisher_name
+    df_label_count_all["sample_size"] = sample_size
 
     # create new column called "label_name" where the value is 0 if the label is 0, 1 if the label is greater than 0
-    df_label_count['label_name'] = df_label_count.label.apply(
-        lambda x: "Data and Code Not Available" if x == 0 else "Data or Code Publicly Available"
-        )
-    df_label_count['label'] = df_label_count.label.apply(
-        lambda x: 0 if x == 0 else 1
-        )
-    df_label_count = df_label_count.groupby(["label_name", "label"]).agg({"count": "sum"}).reset_index()
-    df_label_count['percentage'] = df_label_count['count'] / df_label_count['count'].sum() * 100
-    df_label_count['publisher'] = publisher_name
-    df_label_count['sample_size'] = sample_size
+    df_label_count["label_name"] = df_label_count.label.apply(
+        lambda x: "Data and Code Not Available"
+        if x == 0
+        else "Data or Code Publicly Available"
+    )
+    df_label_count["label"] = df_label_count.label.apply(lambda x: 0 if x == 0 else 1)
+    df_label_count = (
+        df_label_count.groupby(["label_name", "label"])
+        .agg({"count": "sum"})
+        .reset_index()
+    )
+    df_label_count["percentage"] = (
+        df_label_count["count"] / df_label_count["count"].sum() * 100
+    )
+    df_label_count["publisher"] = publisher_name
+    df_label_count["sample_size"] = sample_size
 
     return df_label_count, df_label_count_all
 
 
-def plot_percent_articles_by_venue(
-    df, path_save_dir=None, save_name="article_pcts_by_venue", dpi=300, save_plot=True
+def plot_percent_articles_by_publisher(
+    df, path_save_dir=None, save_name="article_pcts_by_publisher", dpi=300, save_plot=True
 ):
     df = df[df["label"] == 1].sort_values(by="percentage", ascending=False)
 
@@ -154,7 +166,7 @@ def plot_percent_articles_by_venue(
         plt.show()
 
 
-def plot_individual_venue(
+def plot_individual_publisher(
     df,
     publisher_name="PHM Conf.",
     path_save_dir=None,
@@ -270,15 +282,15 @@ def main():
     df = pd.concat(df_list)
 
     # plot
-    plot_percent_articles_by_venue(
+    plot_percent_articles_by_publisher(
         df,
         path_save_dir=path_save_dir,
-        save_name="article_pcts_by_venue",
+        save_name="article_pcts_by_publisher",
         dpi=300,
         save_plot=True,
     )
 
-    plot_individual_venue(
+    plot_individual_publisher(
         df_all,
         publisher_name="PHM Conf.",
         path_save_dir=path_save_dir,
