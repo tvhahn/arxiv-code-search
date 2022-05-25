@@ -125,6 +125,15 @@ else # assume on HPC
 endif
 
 
+## Make the various figures
+figures: requirements
+ifeq (True,$(HAS_CONDA)) # assume on local
+	$(PYTHON_INTERPRETER) src/visualization/visualize.py
+else # assume on HPC
+	sbatch src/data/make_hpc_data.sh
+endif
+
+
 ## Delete all compiled Python files
 clean:
 	find . -type f -name "*.py[co]" -delete

@@ -5,7 +5,7 @@ channels:
 dependencies:
   - python=3.8
   - jupyterlab
-  - torch
+  - pytorch
   - torchvision
   - torchtext
   - torchaudio
@@ -16,8 +16,8 @@ dependencies:
   - requests
   - beautifulsoup4
   - lxml
-  - matplotlib
-  - seaborn
+  - matplotlib=3.4.2
+  - seaborn=0.11.1
   - pandas
   - black
   - tensorboard
