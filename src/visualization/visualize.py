@@ -95,6 +95,7 @@ def plot_percent_articles_by_publisher(
     dpi=300,
     save_plot=True,
 ):
+    df["publisher_size"] = df.publisher + "\n(n=" + df.sample_size.astype(str) + ")"
     df = df[df["label"] == 1].sort_values(by="percentage", ascending=False)
 
     fig, ax = plt.subplots(
@@ -118,7 +119,7 @@ def plot_percent_articles_by_publisher(
 
     ax = sns.barplot(
         x="percentage",
-        y="publisher",
+        y="publisher_size",
         data=df,
         palette=custom_pal,
     )
@@ -283,7 +284,7 @@ def main():
         "labels_mssp_99_0-100.ods",
         "labels_1.ods",
     ]
-    publisher_names_list = ["PHM Conf.", "Energies", "MSSP", "arxiv"]
+    publisher_names_list = ["PHM Conf.", "Energies", "MSSP", "arXiv"]
     sample_size_list = [150, 124, 100, 100]
 
     df_all_list = []
@@ -300,7 +301,7 @@ def main():
     df_all = pd.concat(df_all_list)
     df = pd.concat(df_list)
 
-    # plot
+    # All publications
     plot_percent_articles_by_publisher(
         df,
         title="Data and Code Availablility for Different\nPublications (articles from 2015-2021)",
@@ -310,12 +311,46 @@ def main():
         save_plot=True,
     )
 
+    # PHM Conf.
     plot_individual_publisher(
         df_all,
         publisher_name="PHM Conf.",
-        title="Data and Code Availablility at the\nPHM Conf. (articles from 2015-2021)",
+        title="PHM Conf. Data and Code Availablility\n(articles from 2015-2021)",
         path_save_dir=path_save_dir,
         save_name="article_pcts_phm_conf",
+        dpi=300,
+        save_plot=True,
+    )
+
+    # MSSP
+    plot_individual_publisher(
+        df_all,
+        publisher_name="MSSP",
+        title="MSSP Data and Code Availablility\n(articles from 2015-2021)",
+        path_save_dir=path_save_dir,
+        save_name="article_pcts_mssp",
+        dpi=300,
+        save_plot=True,
+    )
+
+    # Energies
+    plot_individual_publisher(
+        df_all,
+        publisher_name="Energies",
+        title="Energies Data and Code Availablility\n(articles from 2015-2021)",
+        path_save_dir=path_save_dir,
+        save_name="article_pcts_energies",
+        dpi=300,
+        save_plot=True,
+    )
+
+    # arXiv
+    plot_individual_publisher(
+        df_all,
+        publisher_name="arXiv",
+        title="arXiv Data and Code Availablility\n(articles from 2015-2021)",
+        path_save_dir=path_save_dir,
+        save_name="article_pcts_arxiv",
         dpi=300,
         save_plot=True,
     )
