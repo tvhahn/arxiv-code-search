@@ -8,7 +8,6 @@ import logging
 
 def summarize_final_label_file(file_path, sample_size, publisher_name):
 
-    # get file_name from file_path
     file_name = file_path.stem
 
     if file_name.endswith(".csv"):
@@ -187,6 +186,7 @@ def plot_individual_publisher(
     title="Data and Code Availablility for Articles\nat the PHM Conf. (from 2015-2021)",
     path_save_dir=None,
     save_name="article_pcts_phm_conf",
+    bar_color=None,
     dpi=300,
     save_plot=True,
 ):
@@ -202,11 +202,14 @@ def plot_individual_publisher(
     pal = sns.color_palette("Greys_r")
     font_size = 14
 
+    if bar_color is None:
+        bar_color = pal[2]
+
     ax = sns.barplot(
         x="percentage",
         y="label_name",
         data=df,
-        color="#bd0c0c",
+        color=bar_color,
     )
 
     for p in ax.patches:
@@ -318,6 +321,7 @@ def main():
         title="PHM Conf. Data and Code Availablility\n(articles from 2015-2021)",
         path_save_dir=path_save_dir,
         save_name="article_pcts_phm_conf",
+        bar_color="#bd0c0c", # red-ish color
         dpi=300,
         save_plot=True,
     )
