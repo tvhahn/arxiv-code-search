@@ -88,13 +88,16 @@ def summarize_final_label_file(file_path, sample_size, publisher_name):
 
 
 def plot_percent_articles_by_publisher(
-    df, path_save_dir=None, save_name="article_pcts_by_publisher", dpi=300, save_plot=True
+    df,
+    title="Data and Code Availablility for Articles\nat Various Venues (from 2015-2021)",
+    path_save_dir=None,
+    save_name="article_pcts_by_publisher",
+    dpi=300,
+    save_plot=True,
 ):
     df = df[df["label"] == 1].sort_values(by="percentage", ascending=False)
 
-    title = "Percentage of articles (by publishing venue)\nwith data or code publicly available"
-
-    fig, axes = plt.subplots(
+    fig, ax = plt.subplots(
         nrows=1,
         ncols=1,
         figsize=(4, 7),
@@ -143,7 +146,18 @@ def plot_percent_articles_by_publisher(
     ax.grid(alpha=0.7, linewidth=1, axis="x")
     ax.set_xticks([0])
     ax.set_xticklabels([])
-    ax.set_title(title, fontsize=font_size, loc="left", pad=20, x=-0.25)
+
+    ax.text(
+        0.35,
+        1.10,
+        title,
+        verticalalignment="top",
+        horizontalalignment="center",
+        transform=ax.transAxes,
+        fontsize=14,
+    )
+
+    # ax.set_title(title, fontsize=font_size, loc='right', pad=20, x=-0.25)
     ax.tick_params(axis="y", labelsize=font_size)
     plt.subplots_adjust(wspace=0.3)
     sns.despine(left=True, bottom=True)
@@ -169,14 +183,13 @@ def plot_percent_articles_by_publisher(
 def plot_individual_publisher(
     df,
     publisher_name="PHM Conf.",
+    title="Data and Code Availablility for Articles\nat the PHM Conf. (from 2015-2021)",
     path_save_dir=None,
     save_name="article_pcts_phm_conf",
     dpi=300,
     save_plot=True,
 ):
     df = df[df["publisher"] == publisher_name]
-
-    title = "Percentage of articles (by publishing venue)\nwith data or code publicly available"
 
     fig, ax = plt.subplots(
         nrows=1,
@@ -218,12 +231,18 @@ def plot_individual_publisher(
     ax.grid(alpha=0.7, linewidth=1, axis="x")
     ax.set_xticks([0])
     ax.set_xticklabels([])
-    #     ax.text(-0.4, 1.06, title,
-    #     verticalalignment='top', horizontalalignment='left',
-    #     transform=ax.transAxes,
-    #     color='black', fontsize=12)
 
-    ax.set_title(title, fontsize=font_size, loc="left", pad=20, x=-0.25)
+    ax.text(
+        0.2,
+        1.10,
+        title,
+        verticalalignment="top",
+        horizontalalignment="center",
+        transform=ax.transAxes,
+        fontsize=14,
+    )
+
+    # ax.set_title(title, fontsize=font_size, loc="center", pad=20, x=-0.05)
     ax.tick_params(axis="y", labelsize=font_size)
     plt.subplots_adjust(wspace=0.3)
     sns.despine(left=True, bottom=True)
@@ -284,6 +303,7 @@ def main():
     # plot
     plot_percent_articles_by_publisher(
         df,
+        title="Data and Code Availablility for Different\nPublications (articles from 2015-2021)",
         path_save_dir=path_save_dir,
         save_name="article_pcts_by_publisher",
         dpi=300,
@@ -293,6 +313,7 @@ def main():
     plot_individual_publisher(
         df_all,
         publisher_name="PHM Conf.",
+        title="Data and Code Availablility at the\nPHM Conf. (articles from 2015-2021)",
         path_save_dir=path_save_dir,
         save_name="article_pcts_phm_conf",
         dpi=300,
