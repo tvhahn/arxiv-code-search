@@ -29,8 +29,6 @@ Using the labeling system, we've manually labeled several thousand paragraphs (t
 &nbsp; &nbsp; &nbsp; &nbsp;
   <img alt="flank wear" src="./reports/figures/article_pcts_phm_conf.png" height="300px">
 &nbsp; &nbsp; &nbsp; &nbsp;
-  <img alt="cut signals" src="./reports/figures/article_pcts_arxiv.png" height="300px">
-&nbsp; &nbsp; &nbsp; &nbsp;
 </p>
 
 
