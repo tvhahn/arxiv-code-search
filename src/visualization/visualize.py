@@ -5,8 +5,29 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import logging
 
-
+# use numpy doc string formatting
 def summarize_final_label_file(file_path, sample_size, publisher_name):
+    """
+    Function to summarize the final label file.
+
+    Parameters
+    ----------
+    file_path : str
+        Path to the final label file.
+    sample_size : int
+        Number of articles in the sample.
+    publisher_name : str
+        Name of the publisher. Use nice formatting for eventual plotting.
+
+    Returns
+    -------
+    df_label_count : pandas.DataFrame
+        Dataframe with the summary of the final label file.
+    df_label_count_all : pandas.DataFrame
+        Dataframe with the summary of the final label file.
+
+
+    """
 
     file_name = file_path.stem
 
