@@ -9,7 +9,7 @@ Our goal is to build a system that can ingest arXiv papers, at scale, and automa
 
 * Download selected papers from arXiv ✔️ (complete)
 
-* System to manually label paragraphs from papers ✔️ (complete)
+* Label system to manually label paragraphs from papers ✔️ (complete)
 
   * Convert pdfs to text files.
   * Search text files for keywords and extract the paragraphs that contain the keywords
