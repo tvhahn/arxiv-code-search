@@ -113,7 +113,7 @@ def plot_percent_articles_by_publisher(
     path_save_dir=None,
     save_name="article_pcts_by_publisher",
     dpi=300,
-    save_plot=True,
+    save_plot=False,
 ):
     df["publisher_size"] = df.publisher + "\n(n=" + df.sample_size.astype(str) + ")"
     df = df[df["label"] == 1].sort_values(by="percentage", ascending=False)
@@ -209,7 +209,7 @@ def plot_individual_publisher(
     save_name="article_pcts_phm_conf",
     bar_color=None,
     dpi=300,
-    save_plot=True,
+    save_plot=False,
 ):
     df = df[df["publisher"] == publisher_name]
 
