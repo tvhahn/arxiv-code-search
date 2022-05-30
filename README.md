@@ -1,9 +1,9 @@
 arxiv-code-search
 ==============================
 
-Do papers on arXiv come with the code and data to reproduce the work? We're building tools to find out!
+Do authors on arXiv make their code and data available? We're using machine learning to find out!
 
-Our goal is to build a system that can ingest arXiv papers, at scale, and automatically determine if they come with publicly available code or data. The *planned* design is as follows:
+Our goal is to build a system that can ingest arXiv papers, at scale, and automatically determine if the papers come with publicly available code or data. The *planned* design is as follows:
 
 * Download paper meta-data from the [arXiv dataset](https://www.kaggle.com/datasets/Cornell-University/arxiv) and select papers by categories etc. ✔️ (complete)
 
@@ -22,7 +22,7 @@ Our goal is to build a system that can ingest arXiv papers, at scale, and automa
 This is active and preliminary research. **Stay tuned!**
 
 ### Preliminary Results
-Using the labeling system, we've manually labeled several thousand paragraphs (tedious work!). Here are some results from that.
+Using the labeling system, we've manually labeled several thousand paragraphs (tedious work!). Here are some results from that (reproduce the figures in Google Colab). [Colab notebook](https://colab.research.google.com/github/tvhahn/arxiv-code-search/blob/master/notebooks/summarize_manual_labels.ipynb)
 
 <p align="center">
   <img alt="face milling" src="./reports/figures/article_pcts_by_publisher.png" height="300px">
