@@ -22,7 +22,7 @@ Our goal is to build a system that can ingest arXiv papers, at scale, and automa
 This is active and preliminary research. **Stay tuned!**
 
 ### Preliminary Results
-Using the labeling system, we've manually labeled several thousand paragraphs (tedious work!). Here are some results from that (reproduce the figures in Google Colab). [Colab notebook](https://colab.research.google.com/github/tvhahn/arxiv-code-search/blob/master/notebooks/summarize_manual_labels.ipynb)
+Using the labeling system, we've manually labeled several thousand paragraphs (tedious work!). Here are some results from that (reproduce the figures in Google Colab). [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/tvhahn/arxiv-code-search/blob/master/notebooks/summarize_manual_labels.ipynb)
 
 <p align="center">
   <img alt="face milling" src="./reports/figures/article_pcts_by_publisher.png" height="300px">
