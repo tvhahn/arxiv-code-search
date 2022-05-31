@@ -1,7 +1,7 @@
 arxiv-code-search
 ==============================
 
-Do authors on arXiv make their code and data available? We're using machine learning to find out!
+Do authors on arXiv make their code and data available? We're building text mining and machine learning tools to find out!
 
 Our goal is to build a system that can ingest arXiv papers, at scale, and automatically determine if the papers come with publicly available code or data. The *planned* design is as follows:
 
