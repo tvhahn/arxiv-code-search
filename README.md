@@ -1,6 +1,6 @@
 arxiv-code-search
 ==============================
-[![Source code](https://img.shields.io/badge/code-PyTorch-009900.svg)](https://github.com/tvhahn/arxiv-code-search/blob/master/src/models/train_model.py) [![ci-cd]](https://github.com/tvhahn/arxiv-code-search/actions/workflows/main.yml/badge.svg)
+[![Source code](https://img.shields.io/badge/code-PyTorch-009900.svg)](https://github.com/tvhahn/arxiv-code-search/blob/master/src/models/train_model.py) ![example workflow](https://github.com/tvhahn/arxiv-code-search/actions/workflows/main.yml/badge.svg)
 
 Do authors on arXiv make their code and data available? We're building text mining and machine learning tools to find out!
 
