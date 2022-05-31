@@ -18,8 +18,13 @@ from random import randrange
 import unittest
 
 
+
+
 class TestSearch(unittest.TestCase):
     """Test search functions."""
+
+    def setUp(self):
+        nltk.download('punkt')
 
     def test_create_chunks_of_text(self):
 
