@@ -6,28 +6,18 @@ import random
 import argparse
 import logging
 import shutil
+import pickle
 from datetime import datetime
 from sklearn.base import clone
 from sklearn.model_selection import StratifiedKFold
-from src.models.utils import (
-    milling_add_y_label_anomaly,
+from src.models_classical.utils import (
     under_over_sampler,
     scale_data,
     calculate_scores,
     get_classifier_and_params,
     get_model_metrics_df,
 )
-from src.models.random_search_setup import general_params
-from src.models.classifiers import (
-    rf_classifier,
-    xgb_classifier,
-    knn_classifier,
-    lr_classifier,
-    sgd_classifier,
-    ridge_classifier,
-    svm_classifier,
-    nb_classifier,
-)
+from src.models_classical.random_search_setup import general_params
 
 from sklearn.metrics import (
     roc_auc_score,
@@ -39,16 +29,16 @@ from sklearn.metrics import (
     roc_curve,
 )
 
-from src.models.random_search_setup import (
-    rf_params,
-    xgb_params,
-    knn_params,
-    lr_params,
-    sgd_params,
-    ridge_params,
-    svm_params,
-    nb_params,
-)
+# from src.models_classical.random_search_setup import (
+#     rf_params,
+#     xgb_params,
+#     knn_params,
+#     lr_params,
+#     sgd_params,
+#     ridge_params,
+#     svm_params,
+#     nb_params,
+# )
 
 from src.visualization.visualize import plot_pr_roc_curves_kfolds
 
@@ -63,8 +53,6 @@ def kfold_cv(
     stratification_grouping_col=None,
     y_label_col="y",
     n_splits=5,
-    feat_selection=False,
-    feat_col_list=None,
 ):
 
     n_thresholds_list = []
@@ -110,50 +98,18 @@ def kfold_cv(
             y_train = df_train[y_label_col].values.astype(int)
             df_train = df_train.drop(meta_label_cols + [y_label_col], axis=1)
             x_train_cols = df_train.columns
-            x_train = df_train.values
+            x_train = np.array([e for e in df_train.values]) 
 
             # test
             df_test = df[df[stratification_grouping_col].isin(train_strat_vals)]
             y_test = df_test[y_label_col].values.astype(int)            
             df_test = df_test.drop(meta_label_cols + [y_label_col], axis=1)
             x_test_cols = df_test.columns
-            x_test = df_test.values
+            x_test = np.array([e for e in df_test.values])
             
 
             # scale the data
             x_train, x_test = scale_data(x_train, x_test, scaler_method)
-
-
-            # do feature selection if specified
-            if feat_selection and i==0 and feat_col_list is None:
-                from tsfresh import select_features # import in loop because it is a heavy package
-                print("Performing feature selection")
-
-                x_train = select_features(
-                    pd.DataFrame(x_train, columns=x_train_cols),
-                    y_train,
-                    n_jobs=5,
-                    chunksize=10, ml_task="classification", multiclass=False)
-                
-                feat_col_list = list(x_train.columns)
-
-                x_train = x_train.values
-                x_test = pd.DataFrame(x_test, columns=x_test_cols)[feat_col_list].values
-
-                print("min x_train", np.min(x_train))
-                print("max x_train", np.max(x_train))
-                print("min x_test", np.min(x_test))
-                print("max x_test", np.max(x_test))
-            elif feat_selection and feat_col_list is not None:
-                x_train = pd.DataFrame(x_train, columns=x_train_cols)[feat_col_list].values
-                x_test = pd.DataFrame(x_test, columns=x_test_cols)[feat_col_list].values
-                print("min x_train", np.min(x_train))
-                print("max x_train", np.max(x_train))
-                print("min x_test", np.min(x_test))
-                print("max x_test", np.max(x_test))
-            else:
-                pass  # no feature selection
-
 
             # under-over-sample the data
             x_train, y_train = under_over_sampler(
@@ -196,45 +152,15 @@ def kfold_cv(
             y_train = df_train[y_label_col].values.astype(int)
             df_train = df_train.drop(meta_label_cols + [y_label_col], axis=1)
             x_train_cols = df_train.columns
-            x_train = df_train.values
+            x_train = np.array([e for e in df_train["h"].values]) 
 
             y_test = df_test[y_label_col].values.astype(int)
             df_test = df_test.drop(meta_label_cols + [y_label_col], axis=1)
             x_test_cols = df_test.columns
-            x_test = df_test.values
+            x_test = np.array([e for e in df_test["h"].values])
 
             # scale the data
             x_train, x_test = scale_data(x_train, x_test, scaler_method)
-
-                        # do feature selection if specified
-            if feat_selection and i==0 and feat_col_list is None:
-                from tsfresh import select_features # import in loop because it is a heavy package
-                print("Performing feature selection")
-
-                x_train = select_features(
-                    pd.DataFrame(x_train, columns=x_train_cols),
-                    y_train,
-                    n_jobs=5,
-                    chunksize=10, ml_task="classification", multiclass=False)
-                
-                feat_col_list = list(x_train.columns)
-
-                x_train = x_train.values
-                print("min x_train", np.min(x_train))
-                print("max x_train", np.max(x_train))
-                x_test = pd.DataFrame(x_test, columns=x_test_cols)[feat_col_list].values
-                print("min x_test", np.min(x_test))
-                print("max x_test", np.max(x_test))
-            elif feat_selection and feat_col_list is not None:
-                x_train = pd.DataFrame(x_train, columns=x_train_cols)[feat_col_list].values
-                x_test = pd.DataFrame(x_test, columns=x_test_cols)[feat_col_list].values
-                print("min x_train", np.min(x_train))
-                print("max x_train", np.max(x_train))
-                print("min x_test", np.min(x_test))
-                print("max x_test", np.max(x_test))
-
-            else:
-                pass  # no feature selection
 
             # under-over-sample the data
             x_train, y_train = under_over_sampler(
@@ -287,11 +213,11 @@ def kfold_cv(
         "accuracy_array": accuracy_array,
     }
 
-    return trained_result_dict, feat_col_list
+    return trained_result_dict
 
 # TO-DO: need to add the general_params dictionary to the functions.
 def train_single_model(
-    df, sampler_seed, meta_label_cols, stratification_grouping_col=None, y_label_col="y", feat_selection=False, feat_col_list=None, general_params=None, params_clf=None
+    df, sampler_seed, meta_label_cols, stratification_grouping_col=None, y_label_col="y", general_params=None, params_clf=None
 ):
     # generate the list of parameters to sample over
     params_dict_train_setup = list(
@@ -318,7 +244,7 @@ def train_single_model(
     )
     print("\n", params_dict_clf_named)
 
-    model_metrics_dict, feat_col_list = kfold_cv(
+    model_metrics_dict = kfold_cv(
         df,
         clf,
         uo_method,
@@ -327,15 +253,13 @@ def train_single_model(
         meta_label_cols,
         stratification_grouping_col,
         y_label_col,
-        n_splits=5,
-        feat_selection=feat_selection,
-        feat_col_list=feat_col_list
+        n_splits=5
     )
 
     # added additional parameters to the training setup dictionary
     params_dict_train_setup["sampler_seed"] = sampler_seed
 
-    return model_metrics_dict, params_dict_clf_named, params_dict_train_setup, feat_col_list
+    return model_metrics_dict, params_dict_clf_named, params_dict_train_setup
 
 
 def random_search_runner(
@@ -345,12 +269,10 @@ def random_search_runner(
     stratification_grouping_col,
     proj_dir,
     path_save_dir,
-    feat_selection,
     dataset_name=None,
     y_label_col="y",
     save_freq=1,
     debug=False,
-    feat_col_list=None
 ):
 
     results_list = []
@@ -367,7 +289,7 @@ def random_search_runner(
                 pass
             else:
                 shutil.copy(
-                    proj_dir / "src/models/random_search_setup.py",
+                    proj_dir / "src/models_classical/random_search_setup.py",
                     path_save_dir / "setup_files" / "random_search_setup.py",
                 )
 
@@ -377,22 +299,19 @@ def random_search_runner(
                 model_metrics_dict,
                 params_dict_clf_named,
                 params_dict_train_setup,
-                feat_col_list
             ) = train_single_model(
                 df,
                 sample_seed,
                 meta_label_cols,
                 stratification_grouping_col,
                 y_label_col,
-                feat_selection,
-                feat_col_list,
                 general_params=general_params,
                 params_clf=None,
             )
 
             # train setup params
             df_t = pd.DataFrame.from_dict(params_dict_train_setup, orient="index").T
-            df_t["feat_col_list"] = str(feat_col_list)
+
 
             if args.date_time:
                 now_str = str(args.date_time)
@@ -453,7 +372,7 @@ def set_directories(args):
     if scratch_path.exists():
         print("Assume on HPC")
 
-        path_save_dir = scratch_path / "feat-store/models" / args.save_dir_name
+        path_save_dir = scratch_path / "arxiv-code-search/models" / args.save_dir_name
         Path(path_save_dir / "setup_files").mkdir(parents=True, exist_ok=True)
 
     else:
@@ -469,34 +388,28 @@ def main(args):
     # set directories
     proj_dir, path_data_dir, path_save_dir = set_directories(args)
 
-    folder_raw_data_milling = path_data_dir / "raw/milling"
-    folder_interim_data_milling = path_data_dir / "interim/milling"
-    folder_processed_data_milling = path_data_dir / "processed/milling"
-    folder_models = proj_dir / "models"
+    embedding_dir = path_data_dir / "processed/embeddings"
 
     RAND_SEARCH_ITER = args.rand_search_iter
 
     # set a seed for the parameter sampler
     # SAMPLER_SEED = random.randint(0, 2 ** 16)
 
-    # load feature dataframe
-    df = pd.read_csv(
-        folder_processed_data_milling / "milling_features.csv.gz", compression="gzip"
-    )
+    # load dfh.pickle
+    with open(embedding_dir / "dfh.pkl", "rb") as f:
+        df = pickle.load(f)
+    
 
-    # add y label
-    df = milling_add_y_label_anomaly(df)
-
-    Y_LABEL_COL = "y"
+    Y_LABEL_COL = "label"
 
     # identify if there is another column you want to
     # stratify on, besides the y label
-    STRATIFICATION_GROUPING_COL = "cut_no"
-    # STRATIFICATION_GROUPING_COL = None
+    # STRATIFICATION_GROUPING_COL = "cut_no"
+    STRATIFICATION_GROUPING_COL = None
 
     # list of the columns that are not features columns
     # (not including the y-label column)
-    META_LABEL_COLS = ["cut_id", "cut_no", "case", "tool_class"]
+    META_LABEL_COLS = ["para"]
 
     LOG_FILENAME = path_save_dir / "logging_example.out"
     logging.basicConfig(filename=LOG_FILENAME, level=logging.DEBUG)
@@ -508,9 +421,8 @@ def main(args):
         STRATIFICATION_GROUPING_COL,
         proj_dir,
         path_save_dir,
-        feat_selection=args.feat_selection,
-        dataset_name="milling",
-        y_label_col="y",
+        dataset_name="papers1",
+        y_label_col=Y_LABEL_COL,
         save_freq=1,
         debug=True,
     )
@@ -562,22 +474,6 @@ if __name__ == "__main__":
         type=str,
         help="Date and time that random search was executed.",
     )
-
-    parser.add_argument(
-        "--dataset",
-        default="milling",
-        type=str,
-        help="Date and time that random search was executed.",
-    )
-
-    parser.add_argument(
-        "--feat_selection",
-        default=False,
-        action="store_true",
-        help="Conduct feature selection on first iteration",
-    )
-
-
 
     args = parser.parse_args()
 

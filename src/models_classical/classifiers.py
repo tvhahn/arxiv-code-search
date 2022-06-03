@@ -11,7 +11,7 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.linear_model import LogisticRegression, SGDClassifier, RidgeClassifier
 from sklearn.svm import SVC
 from sklearn.naive_bayes import GaussianNB
-from xgboost import XGBClassifier
+# from xgboost import XGBClassifier
 # from src.models.random_search_setup import (
 #     rf_params,
 #     xgb_params,
@@ -53,20 +53,20 @@ def rf_classifier(sampler_seed, params):
 
 
 # XGBoost
-def xgb_classifier(sampler_seed, params):
+# def xgb_classifier(sampler_seed, params):
 
-    param_dict_raw = list(
-        ParameterSampler(params, n_iter=1, random_state=sampler_seed)
-    )[0]
+#     param_dict_raw = list(
+#         ParameterSampler(params, n_iter=1, random_state=sampler_seed)
+#     )[0]
 
-    # rebuild the parameter dict and append the classifier name onto each parameter
-    param_dict_named = {}
-    for k in param_dict_raw:
-        param_dict_named["XGB" + "_" + k] = param_dict_raw[k]
+#     # rebuild the parameter dict and append the classifier name onto each parameter
+#     param_dict_named = {}
+#     for k in param_dict_raw:
+#         param_dict_named["XGB" + "_" + k] = param_dict_raw[k]
 
-    clf = XGBClassifier(random_state=sampler_seed, use_label_encoder=False, **param_dict_raw)
+#     clf = XGBClassifier(random_state=sampler_seed, use_label_encoder=False, **param_dict_raw)
 
-    return clf, param_dict_raw, param_dict_named
+#     return clf, param_dict_raw, param_dict_named
 
 
 # knn

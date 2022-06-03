@@ -5,6 +5,7 @@
 #################################################################################
 
 PROJECT_DIR := $(shell dirname $(realpath $(lastword $(MAKEFILE_LIST))))
+NOW_TIME := $(shell date +"%Y-%m-%d-%H%M-%S")
 BUCKET = [OPTIONAL] your-bucket-for-syncing-data (do not include 's3://')
 PROFILE = default
 PROJECT_NAME = feat-store
@@ -113,6 +114,14 @@ ifeq (True,$(HAS_CONDA)) # assume on local
 	$(PYTHON_INTERPRETER) $(PROJECT_DIR)/src/models/train_model.py
 else # assume on HPC
 	sbatch src/models/train_model_hpc.sh $(PROJECT_DIR)
+endif
+
+
+train_classical: requirements
+ifeq (True,$(HAS_CONDA)) # assume on local
+	$(PYTHON_INTERPRETER) src/models_classical/train.py --save_dir_name interim_results_$(NOW_TIME) --rand_search_iter 2
+else # assume on HPC
+	sbatch src/models/train_hpc.sh $(PROJECT_DIR) $(NOW_TIME)
 endif
 
 

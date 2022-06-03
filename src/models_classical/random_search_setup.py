@@ -10,6 +10,7 @@ from scipy.stats import randint as sp_randint
 from scipy.stats import uniform
 import numpy as np
 import random
+
 # from src.models.classifiers import (
 #     rf_classifier,
 #     xgb_classifier,
@@ -27,24 +28,28 @@ import random
 ###############################################################################
 
 general_params = {
-    "scaler_method": ["standard", "minmax"],
+    "scaler_method": [
+        # "standard",
+        # "minmax",
+        None
+    ],
     "uo_method": [
         "random_over",
         "random_under",
-        "random_under_bootstrap",
-        "smote",
-        "adasyn",
+        # "random_under_bootstrap",
+        # "smote",
+        # "adasyn",
         None,
     ],
     "imbalance_ratio": [0.1, 0.3, 0.5, 0.7, 0.8, 1.0],
     "classifier": [
-        "rf",
-        "xgb",
-        "knn",
-        "lr",
-        "sgd",
-        "ridge",
-        "svm",
+        # "rf",
+        # "xgb",
+        # "knn",
+        # "lr",
+        # "sgd",
+        # "ridge",
+        # "svm",
         "nb",
     ],
 }
@@ -72,7 +77,7 @@ xgb_params = {
     "eta": [0.1, 0.3, 0.7],
     "objective": ["binary:logistic"],
     "eval_metric": ["error", "aucpr"],
-    "seed": sp_randint(1, 2 ** 16),
+    "seed": sp_randint(1, 2**16),
     "scale_pos_weight": sp_randint(1, 100),
     "lambda": [0.0, 0.5, 1, 1.5, 3],
     "alpha": [0, 0.5, 1, 1.5, 3],
@@ -128,7 +133,9 @@ ridge_params = {
 svm_params = {
     "kernel": ["linear", "poly", "rbf", "sigmoid"],
     "degree": sp_randint(2, 5),
-    "C":  np.round(np.arange(0.01, 3.0, 0.02), 2), # uniform(loc=0, scale=2), # [0.01, 0.1, 0.5, 0.7, 1.0, 1.3, 2.0, 5.0],
+    "C": np.round(
+        np.arange(0.01, 3.0, 0.02), 2
+    ),  # uniform(loc=0, scale=2), # [0.01, 0.1, 0.5, 0.7, 1.0, 1.3, 2.0, 5.0],
     "max_iter": [25000],
     "verbose": [False],
 }

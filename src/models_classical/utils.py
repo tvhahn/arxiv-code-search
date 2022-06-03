@@ -10,9 +10,9 @@ from sklearn.preprocessing import StandardScaler, MinMaxScaler
 import numpy as np
 import pandas as pd
 
-from src.models.random_search_setup import (
+from src.models_classical.random_search_setup import (
     rf_params,
-    xgb_params,
+    # xgb_params,
     knn_params,
     lr_params,
     sgd_params,
@@ -21,9 +21,9 @@ from src.models.random_search_setup import (
     nb_params,
 )
 
-from src.models.classifiers import (
+from src.models_classical.classifiers import (
     rf_classifier,
-    xgb_classifier,
+    # xgb_classifier,
     knn_classifier,
     lr_classifier,
     sgd_classifier,
@@ -215,27 +215,3 @@ def get_model_metrics_df(model_metrics_dict):
 
     return df_m
     
-
-
-###############################################################################
-# Milling data functions
-###############################################################################
-
-def milling_add_y_label_anomaly(df_feat):
-    """
-    Adds a y label to the features dataframe and setup
-    dataframe for use on milling_select_features function.
-
-    Label schema:
-
-    y = 0 if the tool is healthy (new-ish) or degraded
-    y =1 if the tool is worn out (failed) (an anomaly)
-
-    """
-    # set up the y label
-    df_feat["y"] = df_feat["tool_class"] > 1
-    df_feat["y"] = df_feat["y"].astype(int)
-
-    df_feat = df_feat.reset_index(drop=True)  # reset index just in case
-
-    return df_feat
