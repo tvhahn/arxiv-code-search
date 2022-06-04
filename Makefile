@@ -144,7 +144,7 @@ endif
 
 filter: requirements
 ifeq (True,$(HAS_CONDA)) # assume on local
-	$(PYTHON_INTERPRETER) src/models_classical/filter.py -p $(PROJECT_DIR) --save_n_figures 2 --path_data_dir $(PROJECT_DIR)/data/ --final_dir_name final_results_classical
+	$(PYTHON_INTERPRETER) src/models_classical/filter.py -p $(PROJECT_DIR) --save_n_figures 8 --path_data_dir $(PROJECT_DIR)/data/ --final_dir_name final_results_classical
 else # assume on HPC
 	sbatch src/models_classical/filter_hpc.sh $(PROJECT_DIR)
 endif

@@ -139,6 +139,11 @@ def main(args):
     if args.keep_top_n:
         df = df[:args.keep_top_n]
 
+    # use this is you want to only select the top models by model type (e.g. top SVM, RF, etc.)
+    sort_by = 'prauc_avg'
+    df = df.groupby(['classifier']).head(1).sort_values(by=sort_by, ascending=False)
+
+    # save the top models to a csv
     df.to_csv(path_final_dir / args.filtered_csv_name, index=False)
 
     # save a certain number of PR-AUC and ROC-AUC curves
