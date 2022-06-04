@@ -12,7 +12,7 @@ import pandas as pd
 
 from src.models_classical.random_search_setup import (
     rf_params,
-    # xgb_params,
+    xgb_params,
     knn_params,
     lr_params,
     sgd_params,
@@ -23,7 +23,7 @@ from src.models_classical.random_search_setup import (
 
 from src.models_classical.classifiers import (
     rf_classifier,
-    # xgb_classifier,
+    xgb_classifier,
     knn_classifier,
     lr_classifier,
     sgd_classifier,

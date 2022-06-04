@@ -9,19 +9,6 @@ This script will be saved in the model record folder.
 from scipy.stats import randint as sp_randint
 from scipy.stats import uniform
 import numpy as np
-import random
-
-# from src.models.classifiers import (
-#     rf_classifier,
-#     xgb_classifier,
-#     knn_classifier,
-#     lr_classifier,
-#     sgd_classifier,
-#     ridge_classifier,
-#     svm_classifier,
-#     nb_classifier,
-# )
-
 
 ###############################################################################
 # General random search parameters
@@ -36,15 +23,15 @@ general_params = {
     "uo_method": [
         "random_over",
         "random_under",
-        # "random_under_bootstrap",
-        # "smote",
-        # "adasyn",
+        "random_under_bootstrap",
+        "smote",
+        "adasyn",
         None,
     ],
     "imbalance_ratio": [0.1, 0.3, 0.5, 0.7, 0.8, 1.0],
     "classifier": [
         "rf",
-        # "xgb",
+        "xgb",
         "knn",
         "lr",
         "sgd",

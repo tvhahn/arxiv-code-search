@@ -9,8 +9,8 @@ import matplotlib
 # https://stackoverflow.com/a/4706614/9214620
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
-from src.models.train import train_single_model
-from src.models.utils import milling_add_y_label_anomaly, get_model_metrics_df
+from src.models_classical.train import train_single_model
+from src.models_classical.utils import get_model_metrics_df
 from ast import literal_eval
 from src.visualization.visualize import plot_pr_roc_curves_kfolds
 
