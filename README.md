@@ -2,9 +2,9 @@ arxiv-code-search
 ==============================
 [![Source code](https://img.shields.io/badge/code-PyTorch-009900.svg)](https://github.com/tvhahn/arxiv-code-search/blob/master/src/models/train_model.py) ![example workflow](https://github.com/tvhahn/arxiv-code-search/actions/workflows/main.yml/badge.svg) [![arXiv](https://img.shields.io/badge/arXiv-2205.15489-b31b1b.svg)](https://arxiv.org/abs/2205.15489)
 
-Do authors on arXiv make their code and data available? We're building text mining and machine learning tools to find out!
+**Do authors on arXiv make their code and data available? We're building text mining and machine learning tools to find out!**
 
-Our goal is to build a system that can "read" arXiv papers, at scale, and determine if the papers come with publicly available code or data. The *planned* design is as follows:
+Our goal is to build a system that can "read" arXiv papers, at scale, and determine if the papers come with publicly available code or data. The *planned* steps are as follows:
 
 * Download paper meta-data from the [arXiv dataset](https://www.kaggle.com/datasets/Cornell-University/arxiv) and select papers by categories etc. ✔️ (complete)
 
@@ -21,10 +21,12 @@ Our goal is to build a system that can "read" arXiv papers, at scale, and determ
   * Use a BERT model, fine-tuned on the labeled paragraphs
   * Train classical ML models on the embeddings from a BERT model
 
+* Deploy classifier onto HPC and classify papers at scale! 🛠️ (in progress)
+
 This is active and preliminary research. **Stay tuned!**
 
 ### Preliminary Results
-* [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/tvhahn/arxiv-code-search/blob/master/notebooks/summarize_manual_labels.ipynb) - Using the labeling system, we've manually labeled several thousand paragraphs (tedious work!). Here are some results from that. You can reproduce the figures in [colab](https://colab.research.google.com/github/tvhahn/arxiv-code-search/blob/master/notebooks/summarize_manual_labels.ipynb), or view the [notebook](https://github.com/tvhahn/arxiv-code-search/blob/master/notebooks/summarize_manual_labels.ipynb).
+* [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/tvhahn/arxiv-code-search/blob/master/notebooks/summarize_manual_labels.ipynb) - Using the labeling system, I've manually labeled several thousand paragraphs (tedious work!). Here are some results from that. You can reproduce the figures in [colab](https://colab.research.google.com/github/tvhahn/arxiv-code-search/blob/master/notebooks/summarize_manual_labels.ipynb), or view the [notebook](https://github.com/tvhahn/arxiv-code-search/blob/master/notebooks/summarize_manual_labels.ipynb).
 
 <p align="center">
   <img alt="face milling" src="./reports/figures/article_pcts_by_publisher.png" height="300px">
@@ -32,6 +34,8 @@ This is active and preliminary research. **Stay tuned!**
   <img alt="flank wear" src="./reports/figures/article_pcts_phm_conf.png" height="300px">
 &nbsp; &nbsp; &nbsp; &nbsp;
 </p>
+
+* 
 
 
 
