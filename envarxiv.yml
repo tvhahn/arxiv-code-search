@@ -20,6 +20,7 @@ dependencies:
   - seaborn=0.11.1
   - pandas
   - black
+  - xgboost
   - tensorboard
   - scikit-learn
   - pdfminer.six
