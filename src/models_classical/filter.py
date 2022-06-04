@@ -33,7 +33,7 @@ def set_directories(args):
     if scratch_path.exists():
         print("Assume on HPC")
 
-        path_final_dir = scratch_path / "feat-store/models" / final_dir_name
+        path_final_dir = scratch_path / "arxiv-code-search/models" / final_dir_name
 
     else:
         print("Assume on local compute")

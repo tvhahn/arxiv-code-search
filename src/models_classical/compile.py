@@ -20,8 +20,8 @@ def set_directories(args):
     if scratch_path.exists():
         print("Assume on HPC")
 
-        path_interim_dir = scratch_path / "feat-store/models" / interim_dir_name
-        path_final_dir = scratch_path / "feat-store/models" / final_dir_name
+        path_interim_dir = scratch_path / "arxiv-code-search/models" / interim_dir_name
+        path_final_dir = scratch_path / "arxiv-code-search/models" / final_dir_name
         Path(path_final_dir).mkdir(parents=True, exist_ok=True)
 
     else:

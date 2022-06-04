@@ -9,10 +9,10 @@
 
 PROJECT_DIR=$1
 
-SCRATCH_DATA_DIR=~/scratch/feat-store/data
+SCRATCH_DATA_DIR=~/scratch/arxiv-code-search/data
 
 module load python/3.8
-source ~/featstore/bin/activate
+source ~/arxiv/bin/activate
 
-python $PROJECT_DIR/src/models/compile.py -p $PROJECT_DIR --n_cores 6 --interim_dir_name interim_results_milling --final_dir_name final_results_milling
+python $PROJECT_DIR/src/models_classical/compile.py -p $PROJECT_DIR --n_cores 6 --interim_dir_name classical_results_interim --final_dir_name final_results_classical
 

@@ -134,6 +134,22 @@ else # assume on HPC
 endif
 
 
+compile: requirements
+ifeq (True,$(HAS_CONDA)) # assume on local
+	$(PYTHON_INTERPRETER) src/models_classical/compile.py -p $(PROJECT_DIR) --n_cores 6 --interim_dir_name interim_results_milling --final_dir_name final_results_milling
+else # assume on HPC
+	sbatch src/models_classical/compile_hpc.sh $(PROJECT_DIR)
+endif
+
+
+filter: requirements
+ifeq (True,$(HAS_CONDA)) # assume on local
+	$(PYTHON_INTERPRETER) src/models_classical/filter.py -p $(PROJECT_DIR) --dataset milling --save_n_figures 2 --path_data_dir $(PROJECT_DIR)/data/ --final_dir_name final_results_milling
+else # assume on HPC
+	sbatch src/models_classical/filter_hpc.sh $(PROJECT_DIR)
+endif
+
+
 ## Train
 train_dummy: requirements
 ifeq (True,$(HAS_CONDA)) # assume on local
