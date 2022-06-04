@@ -29,15 +29,17 @@ This is active and preliminary research. **Stay tuned!**
 * [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/tvhahn/arxiv-code-search/blob/master/notebooks/summarize_manual_labels.ipynb) - Using the labeling system, I've manually labeled several thousand paragraphs (tedious work!). Here are some results from that. You can reproduce the figures in [colab](https://colab.research.google.com/github/tvhahn/arxiv-code-search/blob/master/notebooks/summarize_manual_labels.ipynb), or view the [notebook](https://github.com/tvhahn/arxiv-code-search/blob/master/notebooks/summarize_manual_labels.ipynb).
 
 <p align="center">
-  <img alt="face milling" src="./reports/figures/article_pcts_by_publisher.png" height="300px">
+  <img alt="article percent by publisher" src="./reports/figures/article_pcts_by_publisher.png" height="300px">
 &nbsp; &nbsp; &nbsp; &nbsp;
-  <img alt="flank wear" src="./reports/figures/article_pcts_phm_conf.png" height="300px">
+  <img alt="article percentages for the phm conference" src="./reports/figures/article_pcts_phm_conf.png" height="300px">
 &nbsp; &nbsp; &nbsp; &nbsp;
 </p>
 
-* 
+* Using a random search, I've trained many different classical ML models on the embeddings from a BERT model. I'm using the [Allen AI SciBERT model](https://github.com/allenai/scibert). For now, these models are just classifying paragraphs as to whether or not they indicate code OR data availability. The results are *suprisingly* good, which always makes me skeptical. I'll be collecting more labels to validate the results. Below is the precision-recall and ROC curves for the top performing random forest model.
 
-
+<p align="center">
+  <img alt="precision-recall and roc curves for top-performing rf model" src="./reports/figures/curve_18755424_rf_2022-06-04-0056-01_papers1.png" width="600px">
+</p>
 
 Project Organization
 ------------
