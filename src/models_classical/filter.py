@@ -13,6 +13,7 @@ from src.models_classical.train import train_single_model
 from src.models_classical.utils import get_model_metrics_df
 from ast import literal_eval
 from src.visualization.visualize import plot_pr_roc_curves_kfolds
+import pickle
 
 
 def set_directories(args):
@@ -129,17 +130,12 @@ def main(args):
     df.to_csv(path_final_dir / args.filtered_csv_name, index=False)
 
     # save a certain number of PR-AUC and ROC-AUC curves
-    if args.dataset == "milling" and args.save_n_figures > 0:
-        assert df.iloc[0]["dataset"] == "milling", "dataset in results csv is not the milling dataset"
+    if args.save_n_figures > 0:
 
-        folder_processed_data_milling = path_data_dir / "processed/milling"
+        embedding_dir = path_data_dir / "processed/embeddings"
+        with open(embedding_dir / "df_embeddings.pkl", "rb") as f:
+            df_feat = pickle.load(f)
 
-        # load feature dataframe
-        df_feat = pd.read_csv(
-            folder_processed_data_milling / "milling_features.csv.gz", compression="gzip"
-        )  
-
-        df_feat = milling_add_y_label_anomaly(df_feat)
 
         path_model_curves = path_final_dir / "model_curves"
         Path(path_model_curves).mkdir(parents=True, exist_ok=True)
@@ -149,27 +145,22 @@ def main(args):
             params_clf = rebuild_params_clf(df, row_idx)
             general_params = rebuild_general_params(df, row_idx)
 
-            meta_label_cols = ["cut_id", "cut_no", "case", "tool_class"]
-            stratification_grouping_col = "cut_no"
-            y_label_col = "y"
-            feat_selection = True
-            feat_col_list = literal_eval(df.iloc[row_idx]["feat_col_list"])
+            META_LABEL_COLS = ["para"]
+            STRATIFICATION_GROUPING_COL = "id" # either arxiv paper id, or another unique id (such as the doi)
+            Y_LABEL_COL = "label"
             sampler_seed = int(df.iloc[row_idx]["sampler_seed"])
-            id = df.iloc[row_idx]["id"]
+            id = df.iloc[row_idx]["id"] # unique id for the specific model run
 
             (
                 model_metrics_dict,
                 params_dict_clf_named,
                 params_dict_train_setup,
-                feat_col_list
             ) = train_single_model(
                 df_feat,
                 sampler_seed,
-                meta_label_cols,
-                stratification_grouping_col,
-                y_label_col,
-                feat_selection,
-                feat_col_list,
+                META_LABEL_COLS,
+                STRATIFICATION_GROUPING_COL,
+                Y_LABEL_COL,
                 general_params=general_params,
                 params_clf=params_clf,
             )
@@ -221,14 +212,6 @@ if __name__ == "__main__":
         help="Location of the data folder, containing the raw, interim, and processed folders",
     )
     
-    parser.add_argument(
-        "--dataset",
-        default="milling",
-        type=str,
-        help="Dataset used in training",
-    )
-
-
     parser.add_argument(
         "--compiled_csv_name",
         type=str,
