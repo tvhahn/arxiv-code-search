@@ -5,6 +5,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import logging
 from numpy.lib.stride_tricks import sliding_window_view
+import math
 
 
 def segment_line_by_sliding_window(x, y, x_axis_n=1000):
@@ -41,7 +42,7 @@ def plot_pr_roc_curves_kfolds(
     dpi=300,
 ):
     """
-    Plot the precision-recall curves and the ROC curves for the different k-folds used in 
+    Plot the precision-recall curves and the ROC curves for the different k-folds used in
     cross-validation. Also show the average PR and ROC curves.
 
     :param precision_array: array of precision values for each k-fold
@@ -104,7 +105,7 @@ def plot_pr_roc_curves_kfolds(
     axes[0].text(
         x=-0.05,
         y=-0.3,
-        s=f"PR AUC: {prauc_array.mean():.3f} (avg), {prauc_array.min():.3f} (min), {prauc_array.max():.3f} (max)",
+        s=f"PR AUC: {math.floor(prauc_array.mean() * 1000)/1000.0:.3f} (avg), {math.floor(prauc_array.min() * 1000)/1000.0:.3f} (min), {math.floor(prauc_array.max() * 1000)/1000.0:.3f} (max)",
         # fontsize=10,
         horizontalalignment="left",
         verticalalignment="center",
@@ -154,7 +155,7 @@ def plot_pr_roc_curves_kfolds(
     axes[1].text(
         x=-0.05,
         y=-0.3,
-        s=f"ROC AUC: {rocauc_array.mean():.3f} (avg), {rocauc_array.min():.3f} (min), {rocauc_array.max():.3f} (max)",
+        s=f"PR AUC: {math.floor(rocauc_array.mean() * 1000)/1000.0:.3f} (avg), {math.floor(rocauc_array.min() * 1000)/1000.0:.3f} (min), {math.floor(rocauc_array.max() * 1000)/1000.0:.3f} (max)",
         # fontsize=10,
         horizontalalignment="left",
         verticalalignment="center",
@@ -511,7 +512,7 @@ def main():
         title="PHM Conf. Data and Code Availablility\n(articles from 2015-2021)",
         path_save_dir=path_save_dir,
         save_name="article_pcts_phm_conf",
-        bar_color="#bd0c0c", # red-ish color
+        bar_color="#bd0c0c",  # red-ish color
         dpi=300,
         save_plot=True,
     )

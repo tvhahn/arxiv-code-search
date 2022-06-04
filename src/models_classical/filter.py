@@ -29,7 +29,7 @@ def set_directories(args):
         path_data_dir = proj_dir / "data"
 
     final_dir_name = args.final_dir_name
-    
+
     scratch_path = Path.home() / "scratch"
     if scratch_path.exists():
         print("Assume on HPC")
@@ -77,56 +77,68 @@ def filter_results_df(df, keep_top_n=None):
 
 
 def rebuild_params_clf(df, row_idx):
-    classifier_string = df.iloc[row_idx]['classifier']
+    classifier_string = df.iloc[row_idx]["classifier"]
     if classifier_string == "rf":
-        prefix = 'RandomForestClassifier'
+        prefix = "RandomForestClassifier"
 
     elif classifier_string == "xgb":
-        prefix = 'XGB'
+        prefix = "XGB"
 
     elif classifier_string == "knn":
-        prefix = 'KNeighborsClassifier'
+        prefix = "KNeighborsClassifier"
 
     elif classifier_string == "lr":
-        prefix = 'LogisticRegression'
+        prefix = "LogisticRegression"
 
     elif classifier_string == "sgd":
-        prefix = 'SGDClassifier'
+        prefix = "SGDClassifier"
 
     elif classifier_string == "ridge":
-        prefix = 'RidgeClassifier'
+        prefix = "RidgeClassifier"
 
     elif classifier_string == "svm":
-        prefix = 'SVC'
+        prefix = "SVC"
 
     elif classifier_string == "nb":
-        prefix = 'GaussianNB'
+        prefix = "GaussianNB"
 
-    params_clf = {c.replace(f"{prefix}_",""): df.iloc[row_idx][c]  for c in df.iloc[row_idx].dropna().index if c.startswith(prefix)}
+    params_clf = {
+        c.replace(f"{prefix}_", ""): df.iloc[row_idx][c]
+        for c in df.iloc[row_idx].dropna().index
+        if c.startswith(prefix)
+    }
 
     # convert any whole numbers in clf_cols to int
     for k in params_clf.keys():
         if isinstance(params_clf[k], float) and params_clf[k].is_integer():
             params_clf[k] = int(params_clf[k])
 
-    return {k: [params_clf[k]] for k in params_clf.keys()} # put each value in a list
+    return {k: [params_clf[k]] for k in params_clf.keys()}  # put each value in a list
+
 
 def rebuild_general_params(df, row_idx, general_param_keys=None):
     if general_param_keys is None:
-        general_param_keys = ['scaler_method', 'uo_method', 'imbalance_ratio', 'classifier']
-    return {k: [df.iloc[row_idx][k]] for k in general_param_keys}   
+        general_param_keys = [
+            "scaler_method",
+            "uo_method",
+            "imbalance_ratio",
+            "classifier",
+        ]
+    return {k: [df.iloc[row_idx][k]] for k in general_param_keys}
 
 
 def main(args):
 
     proj_dir, path_data_dir, path_final_dir = set_directories(args)
 
-    df = pd.read_csv(path_final_dir / args.compiled_csv_name,)
+    df = pd.read_csv(
+        path_final_dir / args.compiled_csv_name,
+    )
     df = filter_results_df(df)
 
     if args.keep_top_n:
         df = df[:args.keep_top_n]
-    
+
     df.to_csv(path_final_dir / args.filtered_csv_name, index=False)
 
     # save a certain number of PR-AUC and ROC-AUC curves
@@ -136,20 +148,24 @@ def main(args):
         with open(embedding_dir / "df_embeddings.pkl", "rb") as f:
             df_feat = pickle.load(f)
 
+        percent_true = df_feat["label"].sum() / len(df_feat)
+        print(f"Percent true: {percent_true:.2%}")
 
         path_model_curves = path_final_dir / "model_curves"
         Path(path_model_curves).mkdir(parents=True, exist_ok=True)
-        
+
         for row_idx in range(args.save_n_figures):
 
             params_clf = rebuild_params_clf(df, row_idx)
             general_params = rebuild_general_params(df, row_idx)
 
             META_LABEL_COLS = ["para"]
-            STRATIFICATION_GROUPING_COL = "id" # either arxiv paper id, or another unique id (such as the doi)
+            STRATIFICATION_GROUPING_COL = (
+                "id"  # either arxiv paper id, or another unique id (such as the doi)
+            )
             Y_LABEL_COL = "label"
             sampler_seed = int(df.iloc[row_idx]["sampler_seed"])
-            id = df.iloc[row_idx]["id"] # unique id for the specific model run
+            id = df.iloc[row_idx]["id"]  # unique id for the specific model run
 
             (
                 model_metrics_dict,
@@ -172,18 +188,16 @@ def main(args):
                 model_metrics_dict["tpr_array"],
                 model_metrics_dict["rocauc_array"],
                 model_metrics_dict["prauc_array"],
-                percent_anomalies_truth=0.073,
+                percent_anomalies_truth=percent_true,
                 path_save_name=path_model_curves / f"curve_{id}.png",
                 save_plot=True,
                 dpi=300,
             )
 
 
-
 if __name__ == "__main__":
 
     parser = argparse.ArgumentParser(description="Build data sets for analysis")
-
 
     parser.add_argument(
         "--keep_top_n",
@@ -198,7 +212,6 @@ if __name__ == "__main__":
         help="Keep the top N models in the filtered results CSV.",
     )
 
-
     parser.add_argument(
         "--final_dir_name",
         type=str,
@@ -211,7 +224,7 @@ if __name__ == "__main__":
         type=str,
         help="Location of the data folder, containing the raw, interim, and processed folders",
     )
-    
+
     parser.add_argument(
         "--compiled_csv_name",
         type=str,
@@ -226,7 +239,6 @@ if __name__ == "__main__":
         help="The name of the compiled and filtered csv.",
     )
 
-
     parser.add_argument(
         "-p",
         "--proj_dir",
@@ -234,7 +246,6 @@ if __name__ == "__main__":
         type=str,
         help="Location of project folder",
     )
-
 
     parser.add_argument(
         "--interim_dir_name",
