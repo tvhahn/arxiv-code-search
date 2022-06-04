@@ -35,10 +35,18 @@ This is active and preliminary research. **Stay tuned!**
 &nbsp; &nbsp; &nbsp; &nbsp;
 </p>
 
-* Using a random search, I've trained different classical ML models on the embeddings from a BERT model. I'm using the [Allen AI SciBERT model](https://github.com/allenai/scibert). For now, these models are just classifying paragraphs as to whether or not they indicate code OR data availability. The results are *suprisingly* good, which always makes me skeptical. I'll be collecting more labels to validate the results. Below is the precision-recall and ROC curves for the top performing random forest model. It has been trained with 5-fold cross-validation.
+* Using a random search, I've trained different classical ML models on the embeddings from a BERT model. I'm using the [Allen AI SciBERT model](https://github.com/allenai/scibert). For now, these models are just classifying paragraphs as to whether or not they indicate code OR data availability. The results are *suprisingly* good, which always makes me skeptical. I'll be collecting more labels to validate the results. 
+
+Below is the precision-recall and ROC curves for the top performing random forest model. It has been trained with 5-fold cross-validation.
 
 <p align="center">
   <img alt="precision-recall and roc curves for top-performing rf model" src="./reports/figures/curve_18755424_rf_2022-06-04-0056-01_papers1.png" width="800px">
+</p>
+
+Here's is the precision-recall and ROC curves for the top performing linear regression model.
+
+<p align="center">
+  <img alt="precision-recall and roc curves for top-performing rf model" src="./reports/figures/curve_4567059_ridge_2022-06-04-0045-19_papers1.png" width="800px">
 </p>
 
 Project Organization
