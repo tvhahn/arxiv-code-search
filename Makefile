@@ -108,6 +108,15 @@ else # assume on HPC
 	$(PYTHON_INTERPRETER) $(PROJECT_DIR)/src/models/download_pretrained_bert.py
 endif
 
+## Make BERT embeddings from the label data
+bert_embeddings: requirements
+ifeq (True,$(HAS_CONDA)) # assume on local
+	$(PYTHON_INTERPRETER) $(PROJECT_DIR)/src/features/make_bert_embeddings.py --proj_dir $(PROJECT_DIR) --path_data_dir $(PROJECT_DIR)/data/
+else # assume on HPC
+	sbatch src/models/train_model_hpc.sh $(PROJECT_DIR)
+endif
+
+
 ## Train
 train: requirements
 ifeq (True,$(HAS_CONDA)) # assume on local

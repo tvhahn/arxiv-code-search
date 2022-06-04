@@ -24,9 +24,10 @@ from imblearn.under_sampling import RandomUnderSampler
 
 # create data loader -- inspired by https://curiousily.com/posts/sentiment-analysis-with-bert-and-hugging-face-using-pytorch-and-python/
 class ArxivDataset(Dataset):
-    def __init__(self, texts, labels, tokenizer, max_len):
+    def __init__(self, texts, labels, ids, tokenizer, max_len):
         self.texts = texts
         self.labels = labels
+        self.ids = ids
         self.tokenizer = tokenizer
         self.max_len = max_len
 
@@ -34,7 +35,9 @@ class ArxivDataset(Dataset):
         return len(self.texts)
 
     def __getitem__(self, item):
+        text_orig = str(self.texts[item])
         text = str(self.texts[item]).lower()
+        id = str(self.ids[item])
         label = self.labels[item]
 
         encoding = self.tokenizer.encode_plus(
@@ -50,8 +53,10 @@ class ArxivDataset(Dataset):
 
         return {
             "texts": text,
+            'texts_orig': text_orig,
+            "ids": id,
             "input_ids": encoding["input_ids"].flatten(),
-            "attention_mask": encoding["attention_mask"].flatten(),
+            "attention_masks": encoding["attention_mask"].flatten(),
             "labels": torch.tensor(label, dtype=torch.long),
         }
 
@@ -60,6 +65,7 @@ def create_data_loader(df, tokenizer, max_len, batch_size, label_column="label")
     ds = ArxivDataset(
         texts=df.para.to_numpy(),
         labels=df[label_column].to_numpy(),
+        ids=df.id.to_numpy(),
         tokenizer=tokenizer,
         max_len=max_len,
     )

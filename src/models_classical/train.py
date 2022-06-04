@@ -98,14 +98,14 @@ def kfold_cv(
             y_train = df_train[y_label_col].values.astype(int)
             df_train = df_train.drop(meta_label_cols + [y_label_col], axis=1)
             x_train_cols = df_train.columns
-            x_train = np.array([e for e in df_train.values]) 
+            x_train = np.array([e for e in df_train["h"].values])  
 
             # test
             df_test = df[df[stratification_grouping_col].isin(train_strat_vals)]
             y_test = df_test[y_label_col].values.astype(int)            
             df_test = df_test.drop(meta_label_cols + [y_label_col], axis=1)
             x_test_cols = df_test.columns
-            x_test = np.array([e for e in df_test.values])
+            x_test = np.array([e for e in df_test["h"].values])
             
 
             # scale the data
@@ -396,7 +396,7 @@ def main(args):
     # SAMPLER_SEED = random.randint(0, 2 ** 16)
 
     # load dfh.pickle
-    with open(embedding_dir / "dfh.pkl", "rb") as f:
+    with open(embedding_dir / "df_embeddings.pkl", "rb") as f:
         df = pickle.load(f)
     
 
@@ -404,8 +404,8 @@ def main(args):
 
     # identify if there is another column you want to
     # stratify on, besides the y label
-    # STRATIFICATION_GROUPING_COL = "cut_no"
-    STRATIFICATION_GROUPING_COL = None
+    STRATIFICATION_GROUPING_COL = "id"
+    # STRATIFICATION_GROUPING_COL = None
 
     # list of the columns that are not features columns
     # (not including the y-label column)
@@ -430,7 +430,7 @@ def main(args):
 
 if __name__ == "__main__":
 
-    parser = argparse.ArgumentParser(description="Build data sets for analysis")
+    parser = argparse.ArgumentParser(description="Random search through various models and parameters")
 
     parser.add_argument(
         "--n_cores",
