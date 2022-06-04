@@ -1,10 +1,10 @@
 arxiv-code-search
 ==============================
-[![Source code](https://img.shields.io/badge/code-PyTorch-009900.svg)](https://github.com/tvhahn/arxiv-code-search/blob/master/src/models/train_model.py) ![example workflow](https://github.com/tvhahn/arxiv-code-search/actions/workflows/main.yml/badge.svg)
+[![Source code](https://img.shields.io/badge/code-PyTorch-009900.svg)](https://github.com/tvhahn/arxiv-code-search/blob/master/src/models/train_model.py) ![example workflow](https://github.com/tvhahn/arxiv-code-search/actions/workflows/main.yml/badge.svg) [![arXiv](https://img.shields.io/badge/arXiv-2205.15489-b31b1b.svg)](https://arxiv.org/abs/2205.15489)
 
 Do authors on arXiv make their code and data available? We're building text mining and machine learning tools to find out!
 
-Our goal is to build a system that can ingest arXiv papers, at scale, and automatically determine if the papers come with publicly available code or data. The *planned* design is as follows:
+Our goal is to build a system that can "read" arXiv papers, at scale, and determine if the papers come with publicly available code or data. The *planned* design is as follows:
 
 * Download paper meta-data from the [arXiv dataset](https://www.kaggle.com/datasets/Cornell-University/arxiv) and select papers by categories etc. ✔️ (complete)
 
@@ -19,6 +19,7 @@ Our goal is to build a system that can ingest arXiv papers, at scale, and automa
 * Classifier for identifying papers that make their code or data available 🛠️ (in progress)
 
   * Use a BERT model, fine-tuned on the labeled paragraphs
+  * Train classical ML models on the embeddings from a BERT model
 
 This is active and preliminary research. **Stay tuned!**
 
