@@ -43,7 +43,7 @@ This is active and preliminary research. **Stay tuned!**
   <img alt="precision-recall and roc curves for top-performing rf model" src="./reports/figures/curve_18755424_rf_2022-06-04-0056-01_papers1.png" width="800px">
 </p>
 
-  * Here's is the precision-recall and ROC curves for the top performing linear regression model.
+    * Here's is the precision-recall and ROC curves for the top performing linear regression model.
 
 <p align="center">
   <img alt="precision-recall and roc curves for top-performing rf model" src="./reports/figures/curve_4567059_ridge_2022-06-04-0045-19_papers1.png" width="800px">
