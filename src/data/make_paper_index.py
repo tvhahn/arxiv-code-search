@@ -118,6 +118,8 @@ def main():
         n_papers=args.n_papers,
     )
 
+    print("saving paper index to:", save_name)
+
     save_index_parameters(save_name, args, index_file_dir)
 
 
