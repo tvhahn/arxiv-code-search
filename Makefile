@@ -62,7 +62,7 @@ endif
 ## Download papers from arxiv
 download_papers:
 ifeq (True,$(HAS_CONDA)) # assume on local
-	$(PYTHON_INTERPRETER) src/data/download_papers.py --index_file_no 4
+	$(PYTHON_INTERPRETER) src/data/download_papers.py --index_file_no 3
 else # assume on HPC
 	$(PYTHON_INTERPRETER) src/data/download_papers.py --index_file_no 3
 endif
@@ -71,18 +71,20 @@ endif
 ## Make Dataset
 txt: requirements
 ifeq (True,$(HAS_CONDA)) # assume on local
-	$(PYTHON_INTERPRETER) src/data/make_txt.py --n_cores 6 --pdf_root_dir $(PROJECT_DIR)/data/raw/pdfs/ --index_file_no 97
+	$(PYTHON_INTERPRETER) src/data/make_txt.py --n_cores 6 --pdf_root_dir $(PROJECT_DIR)/data/raw/pdfs/ --index_file_no 3
 else # assume on HPC
 	sbatch src/data/make_txt_hpc.sh
 endif
 
+
 ## Perform search of keywords in papers
 search: requirements
 ifeq (True,$(HAS_CONDA)) # assume on local
-	$(PYTHON_INTERPRETER) src/data/search_txt.py --index_file_no 97 --overwrite --keep_old_files --max_token_len 350
+	$(PYTHON_INTERPRETER) src/data/search_txt.py --index_file_no 3 --overwrite --keep_old_files --max_token_len 350
 else # assume on HPC
 	sbatch src/data/search_txt_hpc.sh
 endif
+
 
 ## Compile the labels from all the individual search csvs
 labels: requirements
@@ -92,6 +94,7 @@ else # assume on HPC
 	sbatch src/data/search_txt_hpc.sh
 endif
 
+
 ## Copy labels from project_dir to scratch (only on HPC)
 copy_labels: requirements
 ifeq (True,$(HAS_CONDA)) # assume on local
@@ -100,13 +103,15 @@ else # assume on HPC
 	bash src/data/copy_labels_to_scratch.sh
 endif
 
-
+# Download the pretrained Scibert model
+# neccessary for using the BERT model on the HPC
 download_pretrained_bert: requirements
 ifeq (True,$(HAS_CONDA)) # assume on local
 	$(PYTHON_INTERPRETER) $(PROJECT_DIR)/src/models/download_pretrained_bert.py
 else # assume on HPC
 	$(PYTHON_INTERPRETER) $(PROJECT_DIR)/src/models/download_pretrained_bert.py
 endif
+
 
 ## Make BERT embeddings from the label data
 bert_embeddings: requirements
@@ -117,7 +122,7 @@ else # assume on HPC
 endif
 
 
-## Train
+## Train the deep learning model
 train: requirements
 ifeq (True,$(HAS_CONDA)) # assume on local
 	$(PYTHON_INTERPRETER) $(PROJECT_DIR)/src/models/train_model.py
@@ -126,6 +131,7 @@ else # assume on HPC
 endif
 
 
+# Train classical ML models through a random search
 train_classical: requirements
 ifeq (True,$(HAS_CONDA)) # assume on local
 	$(PYTHON_INTERPRETER) src/models_classical/train.py --save_dir_name interim_results_$(NOW_TIME) --rand_search_iter 20
@@ -134,6 +140,7 @@ else # assume on HPC
 endif
 
 
+# Compile the results of the classical models trained during the random search
 compile: requirements
 ifeq (True,$(HAS_CONDA)) # assume on local
 	$(PYTHON_INTERPRETER) src/models_classical/compile.py -p $(PROJECT_DIR) --n_cores 6 --interim_dir_name interim_results_milling --final_dir_name final_results_milling
@@ -142,6 +149,7 @@ else # assume on HPC
 endif
 
 
+# Filter out the poorly performing models from the random search
 filter: requirements
 ifeq (True,$(HAS_CONDA)) # assume on local
 	$(PYTHON_INTERPRETER) src/models_classical/filter.py -p $(PROJECT_DIR) --save_n_figures 8 --path_data_dir $(PROJECT_DIR)/data/ --final_dir_name final_results_classical
@@ -150,7 +158,7 @@ else # assume on HPC
 endif
 
 
-## Train
+## Dummy task to test out deep learning training
 train_dummy: requirements
 ifeq (True,$(HAS_CONDA)) # assume on local
 	$(PYTHON_INTERPRETER) $(PROJECT_DIR)/src/models/train_model.py
