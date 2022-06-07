@@ -80,7 +80,11 @@ endif
 ## Perform search of keywords in papers
 search: requirements
 ifeq (True,$(HAS_CONDA)) # assume on local
-	$(PYTHON_INTERPRETER) src/data/search_txt.py --index_file_no 4 --overwrite --keep_old_files --max_token_len 350
+	$(PYTHON_INTERPRETER) src/data/search_txt.py \
+		--index_file_no 4 \
+		--overwrite \
+		--keep_old_files \
+		--max_token_len 350
 else # assume on HPC
 	sbatch src/data/search_txt_hpc.sh
 endif
@@ -139,7 +143,9 @@ endif
 # Train classical ML models through a random search
 train_classical: requirements
 ifeq (True,$(HAS_CONDA)) # assume on local
-	$(PYTHON_INTERPRETER) src/models_classical/train.py --save_dir_name interim_results_$(NOW_TIME) --rand_search_iter 2
+	$(PYTHON_INTERPRETER) src/models_classical/train.py \
+		--save_dir_name interim_results_$(NOW_TIME) \
+		--rand_search_iter 2
 else # assume on HPC
 	sbatch src/models_classical/train_hpc.sh $(PROJECT_DIR) $(NOW_TIME)
 endif
@@ -159,9 +165,10 @@ filter: requirements
 ifeq (True,$(HAS_CONDA)) # assume on local
 	$(PYTHON_INTERPRETER) src/models_classical/filter.py \
 		-p $(PROJECT_DIR) \
-		--save_n_figures 0 \
+		--save_n_figures 1 \
 		--path_data_dir $(PROJECT_DIR)/data/ \
-		--final_dir_name final_results_classical
+		--final_dir_name final_results_classical \
+		--save_models True
 else # assume on HPC
 	sbatch src/models_classical/filter_hpc.sh $(PROJECT_DIR)
 endif

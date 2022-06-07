@@ -154,10 +154,15 @@ def main(args):
             df_feat = pickle.load(f)
 
         percent_true = df_feat["label"].sum() / len(df_feat)
-        print(f"Percent true: {percent_true:.2%}")
+        print(f"Percent imbalance: {percent_true:.2%}")
 
         path_model_curves = path_final_dir / "model_curves"
         Path(path_model_curves).mkdir(parents=True, exist_ok=True)
+
+        if args.save_models == "True":
+            model_save_path = path_final_dir / "model_files"
+            model_save_path.mkdir(parents=True, exist_ok=True)
+            save_models = True
 
         for row_idx in range(args.save_n_figures):
 
@@ -172,6 +177,7 @@ def main(args):
             sampler_seed = int(df.iloc[row_idx]["sampler_seed"])
             id = df.iloc[row_idx]["id"]  # unique id for the specific model run
 
+            print(args.save_models)
             (
                 model_metrics_dict,
                 params_dict_clf_named,
@@ -184,6 +190,10 @@ def main(args):
                 Y_LABEL_COL,
                 general_params=general_params,
                 params_clf=params_clf,
+                save_model=save_models,
+                model_save_name=f"{id}.pkl",
+                model_save_path=model_save_path,
+                dataset_name=df.iloc[row_idx]["dataset"],
             )
 
             plot_pr_roc_curves_kfolds(
@@ -256,6 +266,13 @@ if __name__ == "__main__":
         "--interim_dir_name",
         type=str,
         help="Folder name containing all the interim result csv's that will be compiled into one.",
+    )
+
+    parser.add_argument(
+        "--save_models",
+        type=str,
+        default="False",
+        help="Save the models, and scaler, to disk.",
     )
 
     args = parser.parse_args()

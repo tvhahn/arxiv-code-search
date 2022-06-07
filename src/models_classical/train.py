@@ -277,6 +277,7 @@ def train_single_model(
             scaler_save_name = f"scaler_{sampler_seed}_{classifier}_{now_str}_{dataset_name}.pkl"
         else:
             scaler_save_name = "scaler_" + model_save_name
+            model_save_name = "model_" + model_save_name
 
         # save the model and scaler with pickle
         with open(model_save_path / model_save_name, "wb") as f:
@@ -340,7 +341,7 @@ def random_search_runner(
                 y_label_col,
                 general_params=general_params,
                 params_clf=None,
-                save_model=True,
+                save_model=False,
                 model_save_name=None,
                 model_save_path=path_save_dir,
                 now_str=now_str, # for saving the model - the current time
