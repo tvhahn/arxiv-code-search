@@ -109,7 +109,7 @@ def kfold_cv(
             
 
             # scale the data
-            x_train, x_test = scale_data(x_train, x_test, scaler_method)
+            x_train, x_test, scaler = scale_data(x_train, x_test, scaler_method)
 
             # under-over-sample the data
             x_train, y_train = under_over_sampler(
@@ -160,7 +160,7 @@ def kfold_cv(
             x_test = np.array([e for e in df_test["h"].values])
 
             # scale the data
-            x_train, x_test = scale_data(x_train, x_test, scaler_method)
+            x_train, x_test, scaler = scale_data(x_train, x_test, scaler_method)
 
             # under-over-sample the data
             x_train, y_train = under_over_sampler(

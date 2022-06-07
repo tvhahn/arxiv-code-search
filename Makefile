@@ -139,7 +139,7 @@ endif
 # Train classical ML models through a random search
 train_classical: requirements
 ifeq (True,$(HAS_CONDA)) # assume on local
-	$(PYTHON_INTERPRETER) src/models_classical/train.py --save_dir_name interim_results_$(NOW_TIME) --rand_search_iter 20
+	$(PYTHON_INTERPRETER) src/models_classical/train.py --save_dir_name interim_results_$(NOW_TIME) --rand_search_iter 2
 else # assume on HPC
 	sbatch src/models_classical/train_hpc.sh $(PROJECT_DIR) $(NOW_TIME)
 endif
