@@ -77,13 +77,12 @@ def kfold_cv(
         skfolds = StratifiedKFold(n_splits=n_splits, shuffle=True, random_state=42)
         # use clone to do a deep copy of model without copying attached data
         # https://scikit-learn.org/stable/modules/generated/sklearn.base.clone.html
-        
 
-        for i, (train_index, test_index) in enumerate(skfolds.split(
-            df_strat[[stratification_grouping_col]], df_strat[[y_label_col]]
-        )):
-            print(i)
-
+        for i, (train_index, test_index) in enumerate(
+            skfolds.split(
+                df_strat[[stratification_grouping_col]], df_strat[[y_label_col]]
+            )
+        ):
             clone_clf = clone(clf)
             train_strat_vals = df_strat.iloc[train_index][
                 stratification_grouping_col
@@ -98,15 +97,14 @@ def kfold_cv(
             y_train = df_train[y_label_col].values.astype(int)
             df_train = df_train.drop(meta_label_cols + [y_label_col], axis=1)
             x_train_cols = df_train.columns
-            x_train = np.array([e for e in df_train["h"].values])  
+            x_train = np.array([e for e in df_train["h"].values])
 
             # test
             df_test = df[df[stratification_grouping_col].isin(train_strat_vals)]
-            y_test = df_test[y_label_col].values.astype(int)            
+            y_test = df_test[y_label_col].values.astype(int)
             df_test = df_test.drop(meta_label_cols + [y_label_col], axis=1)
             x_test_cols = df_test.columns
             x_test = np.array([e for e in df_test["h"].values])
-            
 
             # scale the data
             x_train, x_test, scaler = scale_data(x_train, x_test, scaler_method)
@@ -122,10 +120,7 @@ def kfold_cv(
 
             # calculate the scores for each individual model train in the cross validation
             # save as a dictionary: "ind_score_dict"
-            ind_score_dict = calculate_scores(
-                clone_clf, 
-                x_test, 
-                y_test)
+            ind_score_dict = calculate_scores(clone_clf, x_test, y_test)
 
             n_thresholds_list.append(ind_score_dict["n_thresholds"])
             precisions_list.append(ind_score_dict["precisions"])
@@ -143,7 +138,9 @@ def kfold_cv(
     else:
         skfolds = StratifiedKFold(n_splits=n_splits, shuffle=True, random_state=42)
 
-        for i, (train_index, test_index) in enumerate(skfolds.split(df, df[[y_label_col]])):
+        for i, (train_index, test_index) in enumerate(
+            skfolds.split(df, df[[y_label_col]])
+        ):
             clone_clf = clone(clf)
 
             df_train = df.iloc[train_index]
@@ -152,7 +149,7 @@ def kfold_cv(
             y_train = df_train[y_label_col].values.astype(int)
             df_train = df_train.drop(meta_label_cols + [y_label_col], axis=1)
             x_train_cols = df_train.columns
-            x_train = np.array([e for e in df_train["h"].values]) 
+            x_train = np.array([e for e in df_train["h"].values])
 
             y_test = df_test[y_label_col].values.astype(int)
             df_test = df_test.drop(meta_label_cols + [y_label_col], axis=1)
@@ -213,11 +210,24 @@ def kfold_cv(
         "accuracy_array": accuracy_array,
     }
 
-    return trained_result_dict
+    return trained_result_dict, scaler, clone_clf
+
 
 # TO-DO: need to add the general_params dictionary to the functions.
 def train_single_model(
-    df, sampler_seed, meta_label_cols, stratification_grouping_col=None, y_label_col="y", general_params=None, params_clf=None
+    df,
+    sampler_seed,
+    meta_label_cols,
+    stratification_grouping_col=None,
+    y_label_col="y",
+    general_params=None,
+    params_clf=None,
+    save_model=False,
+    model_save_name=None,
+    model_save_path=None,
+    now_str=None, # for saving the model - the current time
+    dataset_name="dataset", # for saving the model - the dataset name
+
 ):
     # generate the list of parameters to sample over
     params_dict_train_setup = list(
@@ -244,7 +254,7 @@ def train_single_model(
     )
     print("\n", params_dict_clf_named)
 
-    model_metrics_dict = kfold_cv(
+    model_metrics_dict, scaler_fitted, clf_trained = kfold_cv(
         df,
         clf,
         uo_method,
@@ -253,11 +263,28 @@ def train_single_model(
         meta_label_cols,
         stratification_grouping_col,
         y_label_col,
-        n_splits=5
+        n_splits=5,
     )
 
     # added additional parameters to the training setup dictionary
     params_dict_train_setup["sampler_seed"] = sampler_seed
+    params_dict_train_setup["classifier"]
+
+    # save the model if requested
+    if save_model:
+        if model_save_name is None:
+            model_save_name = f"model_{sampler_seed}_{classifier}_{now_str}_{dataset_name}.pkl"
+            scaler_save_name = f"scaler_{sampler_seed}_{classifier}_{now_str}_{dataset_name}.pkl"
+        else:
+            scaler_save_name = "scaler_" + model_save_name
+
+        # save the model and scaler with pickle
+        with open(model_save_path / model_save_name, "wb") as f:
+            pickle.dump(clf_trained, f)
+
+        with open(model_save_path / scaler_save_name, "wb") as f:
+            pickle.dump(scaler_fitted, f)
+
 
     return model_metrics_dict, params_dict_clf_named, params_dict_train_setup
 
@@ -278,7 +305,7 @@ def random_search_runner(
     results_list = []
     for i in range(rand_search_iter):
         # set random sample seed
-        sample_seed = random.randint(0, 2 ** 25)
+        sample_seed = random.randint(0, 2**25)
         # sample_seed = 13
 
         if i == 0:
@@ -295,6 +322,12 @@ def random_search_runner(
 
         try:
 
+            if args.date_time:
+                now_str = str(args.date_time)
+            else:
+                now = datetime.now()
+                now_str = now.strftime("%Y-%m-%d-%H%M-%S")
+
             (
                 model_metrics_dict,
                 params_dict_clf_named,
@@ -307,22 +340,20 @@ def random_search_runner(
                 y_label_col,
                 general_params=general_params,
                 params_clf=None,
+                save_model=True,
+                model_save_name=None,
+                model_save_path=path_save_dir,
+                now_str=now_str, # for saving the model - the current time
+                dataset_name=dataset_name,
             )
 
             # train setup params
             df_t = pd.DataFrame.from_dict(params_dict_train_setup, orient="index").T
 
-
-            if args.date_time:
-                now_str = str(args.date_time)
-            else:
-                now = datetime.now()
-                now_str = now.strftime("%Y-%m-%d-%H%M-%S")
-
-            df_t['date_time'] = now_str
-            df_t['dataset'] = dataset_name
+            df_t["date_time"] = now_str
+            df_t["dataset"] = dataset_name
             classifier_used = params_dict_train_setup["classifier"]
-            df_t['id'] = f"{sample_seed}_{classifier_used}_{now_str}_{dataset_name}"
+            df_t["id"] = f"{sample_seed}_{classifier_used}_{now_str}_{dataset_name}"
 
             # classifier params
             df_c = pd.DataFrame.from_dict(params_dict_clf_named, orient="index").T
@@ -330,9 +361,7 @@ def random_search_runner(
             # model metric results
             df_m = get_model_metrics_df(model_metrics_dict)
 
-            results_list.append(
-                pd.concat([df_t, df_m, df_c], axis=1)
-            )  
+            results_list.append(pd.concat([df_t, df_m, df_c], axis=1))
 
             if i % save_freq == 0:
                 df_results = pd.concat(results_list)
@@ -350,6 +379,7 @@ def random_search_runner(
                 logging.exception(f"##### Exception in random_search_runner:\n{e}\n\n")
             pass
 
+
 def set_directories(args):
 
     if args.proj_dir:
@@ -364,10 +394,9 @@ def set_directories(args):
 
     save_dir_name = args.save_dir_name
 
-
     # check if "scratch" path exists in the home directory
     # if it does, assume we are on HPC
-    
+
     scratch_path = Path.home() / "scratch"
     if scratch_path.exists():
         print("Assume on HPC")
@@ -398,7 +427,6 @@ def main(args):
     # load dfh.pickle
     with open(embedding_dir / "df_embeddings.pkl", "rb") as f:
         df = pickle.load(f)
-    
 
     Y_LABEL_COL = "label"
 
@@ -430,7 +458,9 @@ def main(args):
 
 if __name__ == "__main__":
 
-    parser = argparse.ArgumentParser(description="Random search through various models and parameters")
+    parser = argparse.ArgumentParser(
+        description="Random search through various models and parameters"
+    )
 
     parser.add_argument(
         "--n_cores",
@@ -445,7 +475,6 @@ if __name__ == "__main__":
         default=2,
         help="Number number of randem search iterations",
     )
-
 
     parser.add_argument(
         "-p",
