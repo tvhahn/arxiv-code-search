@@ -116,7 +116,12 @@ endif
 ## Make BERT embeddings from the label data
 bert_embeddings: requirements
 ifeq (True,$(HAS_CONDA)) # assume on local
-	$(PYTHON_INTERPRETER) $(PROJECT_DIR)/src/features/make_bert_embeddings.py --proj_dir $(PROJECT_DIR) --path_data_dir $(PROJECT_DIR)/data/
+	$(PYTHON_INTERPRETER) $(PROJECT_DIR)/src/features/make_bert_embeddings.py \
+		--proj_dir $(PROJECT_DIR) \
+		--path_label_dir $(PROJECT_DIR)/data/processed/labels/labels_complete \
+		--label_file_name labels.csv \
+		--path_emb_dir $(PROJECT_DIR)/data/processed/embeddings \
+		--emb_file_name df_embeddings.pkl 
 else # assume on HPC
 	sbatch src/models/train_model_hpc.sh $(PROJECT_DIR)
 endif
@@ -152,7 +157,11 @@ endif
 # Filter out the poorly performing models from the random search
 filter: requirements
 ifeq (True,$(HAS_CONDA)) # assume on local
-	$(PYTHON_INTERPRETER) src/models_classical/filter.py -p $(PROJECT_DIR) --save_n_figures 8 --path_data_dir $(PROJECT_DIR)/data/ --final_dir_name final_results_classical
+	$(PYTHON_INTERPRETER) src/models_classical/filter.py \
+		-p $(PROJECT_DIR) \
+		--save_n_figures 0 \
+		--path_data_dir $(PROJECT_DIR)/data/ \
+		--final_dir_name final_results_classical
 else # assume on HPC
 	sbatch src/models_classical/filter_hpc.sh $(PROJECT_DIR)
 endif

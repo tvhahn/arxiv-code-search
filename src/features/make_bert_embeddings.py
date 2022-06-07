@@ -31,24 +31,32 @@ def set_directories(args):
     else:
         proj_dir = Path().cwd()
 
-    if args.path_data_dir:
-        path_data_dir = Path(args.path_data_dir)
+    if args.path_emb_dir:
+        path_emb_dir = Path(args.path_emb_dir)
     else:
-        path_data_dir = proj_dir / "data"
+        path_emb_dir = proj_dir / "data" / "processed" / "embeddings"
 
-    return proj_dir, path_data_dir
+    path_emb_dir.mkdir(parents=True, exist_ok=True)
+    
+    if args.path_label_dir:
+        path_label_dir = Path(args.path_label_dir)
+    else:
+        path_label_dir = proj_dir / "data" / "processed" / "labels" / "labels_complete"
+
+    return proj_dir, path_emb_dir, path_label_dir
 
 
 def main(args):
 
     # set directories
-    proj_dir, path_data_dir = set_directories(args)
-    path_label_dir = path_data_dir / "processed/labels/labels_complete"
-    embedding_dir = path_data_dir / "processed/embeddings"
-    embedding_dir.mkdir(parents=True, exist_ok=True)
+    proj_dir, path_emb_dir, path_label_dir = set_directories(args)
+
+    # set file names
+    label_file_name = args.label_file_name
+    emb_file_name = args.emb_file_name
 
     # load label data
-    df = pd.read_csv(path_label_dir / "labels.csv", dtype={"id": str})
+    df = pd.read_csv(path_label_dir / label_file_name, dtype={"id": str})
     df["para"] = df["para"].str.lower()
     df["label"] = df["label"].apply(lambda x: 1 if x > 0 else 0)  # binary labels
 
@@ -96,7 +104,7 @@ def main(args):
 
     dfh = pd.concat(dfh_list)
     # save dfh as a pickle file
-    with open(embedding_dir / "df_embeddings.pkl", "wb") as f:
+    with open(path_emb_dir / emb_file_name, "wb") as f:
         pickle.dump(dfh, f)
 
 
@@ -113,10 +121,29 @@ if __name__ == "__main__":
     )
 
     parser.add_argument(
-        "--path_data_dir",
-        dest="path_data_dir",
+        "--path_emb_dir",
         type=str,
-        help="Location of the data folder, containing the raw, interim, and processed folders",
+        help="Path to the folder that contains all the embedding pickle files",
+    )
+
+    parser.add_argument(
+        "--path_label_dir",
+        type=str,
+        help="Path to the folder that contains all the individual label files (csv or ods)",
+    )
+
+    parser.add_argument(
+        "--emb_file_name",
+        type=str,
+        default="df_embeddings.pkl",
+        help="Name of the embedding file to save",
+    )
+
+    parser.add_argument(
+        "--label_file_name",
+        type=str,
+        default="labels.csv",
+        help="Name of the label file (containing paragrapsh) used to create the embeddings",
     )
 
     args = parser.parse_args()
