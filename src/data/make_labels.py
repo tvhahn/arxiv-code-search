@@ -28,17 +28,23 @@ def read_ods(filename):
 
 def set_directories(args):
 
-    if args.path_data_folder:
-        path_data_folder = Path(args.path_data_folder)
+    if args.path_data_dir:
+        path_data_dir = Path(args.path_data_dir)
     else:
-        path_data_folder = Path().cwd() / "data"
+        path_data_dir = Path().cwd() / "data"
 
-    path_interim_folder = path_data_folder / "interim"
 
-    path_label_folder = path_data_folder / "processed" / "labels" / "labels_complete"
-    Path(path_label_folder).mkdir(parents=True, exist_ok=True)
+    if args.path_label_dir:
+        path_label_dir = Path(args.path_label_dir)
+    else:
+        path_label_dir = path_data_dir / "interim"
 
-    return path_data_folder, path_interim_folder, path_label_folder
+
+    path_save_dir = path_data_dir / "processed" / "labels" / "labels_complete"
+
+    Path(path_save_dir).mkdir(parents=True, exist_ok=True)
+
+    return path_data_dir, path_label_dir, path_save_dir
 
 
 def main(args):
@@ -48,13 +54,13 @@ def main(args):
     logger = logging.getLogger(__name__)
     logger.info("making final data set from raw data")
 
-    path_data_folder, path_interim_folder, path_label_folder = set_directories(args)
+    path_data_dir, path_label_dir, path_save_dir = set_directories(args)
 
     # get a list of file names
     if args.file_type == "ods":
-        files = os.listdir(path_interim_folder)
+        files = os.listdir(path_label_dir)
         file_list = [
-            Path(path_interim_folder) / filename
+            Path(path_label_dir) / filename
             for filename in files
             if filename.endswith(".ods")
         ]
@@ -62,9 +68,9 @@ def main(args):
         reader_func = read_ods
 
     elif args.file_type == "csv":
-        files = os.listdir(path_interim_folder)
+        files = os.listdir(path_label_dir)
         file_list = [
-            Path(path_interim_folder) / filename
+            Path(path_label_dir) / filename
             for filename in files
             if filename.endswith(".csv")
         ]
@@ -95,10 +101,17 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Create final labels.")
 
     parser.add_argument(
-        "--path_data_folder",
+        "--path_data_dir",
         type=str,
         help="Path to data folder that contains raw/interim/processed data folders",
     )
+
+    parser.add_argument(
+        "--path_label_dir",
+        type=str,
+        help="Path to the folder that contains all the individual label files (csv or ods)",
+    )
+
 
     parser.add_argument(
         "--n_cores",
@@ -114,6 +127,13 @@ if __name__ == "__main__":
         help="Combine either the csv or ods files",
     )
 
+    parser.add_argument(
+        "--save_name",
+        type=str,
+        default="labels.csv",
+        help="Name of the final compiled label csv file",
+    )
+
     args = parser.parse_args()
 
 
@@ -121,8 +141,8 @@ if __name__ == "__main__":
     df = df.dropna(subset=['label']).astype({'label': int})
     print("Final df shape:", df.shape)
 
-    path_data_folder, path_interim_folder, path_label_folder = set_directories(args)
+    path_data_dir, path_label_dir, path_save_dir = set_directories(args)
     df.to_csv(
-        path_label_folder / "labels.csv",
+        path_save_dir / args.save_name,
         index=False,
     )

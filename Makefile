@@ -71,7 +71,7 @@ endif
 ## Make Dataset
 txt: requirements
 ifeq (True,$(HAS_CONDA)) # assume on local
-	$(PYTHON_INTERPRETER) src/data/make_txt.py --n_cores 6 --pdf_root_dir $(PROJECT_DIR)/data/raw/pdfs/ --index_file_no 3
+	$(PYTHON_INTERPRETER) src/data/make_txt.py --n_cores 6 --pdf_root_dir $(PROJECT_DIR)/data/raw/pdfs/ --index_file_no 4
 else # assume on HPC
 	sbatch src/data/make_txt_hpc.sh
 endif
@@ -80,7 +80,7 @@ endif
 ## Perform search of keywords in papers
 search: requirements
 ifeq (True,$(HAS_CONDA)) # assume on local
-	$(PYTHON_INTERPRETER) src/data/search_txt.py --index_file_no 3 --overwrite --keep_old_files --max_token_len 350
+	$(PYTHON_INTERPRETER) src/data/search_txt.py --index_file_no 4 --overwrite --keep_old_files --max_token_len 350
 else # assume on HPC
 	sbatch src/data/search_txt_hpc.sh
 endif
@@ -89,7 +89,7 @@ endif
 ## Compile the labels from all the individual search csvs
 labels: requirements
 ifeq (True,$(HAS_CONDA)) # assume on local
-	$(PYTHON_INTERPRETER) src/data/make_labels.py --path_data_folder $(PROJECT_DIR)/data/ --n_cores 2 --file_type ods
+	$(PYTHON_INTERPRETER) src/data/make_labels.py --path_data_dir $(PROJECT_DIR)/data/ --path_label_dir $(PROJECT_DIR)/data/interim/ --n_cores 2 --file_type ods --save_name labels.csv
 else # assume on HPC
 	sbatch src/data/search_txt_hpc.sh
 endif
