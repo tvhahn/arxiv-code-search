@@ -59,18 +59,6 @@ def kfold_cv(
     n_splits=5,
 ):
 
-    n_thresholds_list = []
-    precisions_list = []
-    recalls_list = []
-    precision_score_list = []
-    recall_score_list = []
-    fpr_list = []
-    tpr_list = []
-    prauc_list = []
-    rocauc_list = []
-    f1_list = []
-    accuracy_list = []
-
     scores_list = []
 
     # perform stratified k-fold cross validation using the grouping of the y-label and another column
@@ -106,7 +94,7 @@ def kfold_cv(
             x_train = np.array([e for e in df_train["h"].values])
 
             # test
-            df_test = df[df[stratification_grouping_col].isin(train_strat_vals)]
+            df_test = df[df[stratification_grouping_col].isin(test_strat_vals)]
             y_test = df_test[y_label_col].values.astype(int)
             df_test = df_test.drop(meta_label_cols + [y_label_col], axis=1)
             x_test_cols = df_test.columns
@@ -356,7 +344,6 @@ def set_directories(args):
 
     # check if "scratch" path exists in the home directory
     # if it does, assume we are on HPC
-
     scratch_path = Path.home() / "scratch"
     if scratch_path.exists():
         print("Assume on HPC")
