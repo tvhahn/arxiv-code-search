@@ -117,6 +117,54 @@ def get_classifier_and_params(classifier_string):
         raise ValueError("Classifier string not recognized")
 
 
+def collate_scores_binary_classification(scores_list):
+    """
+    Collate the scores from the k-fold cross-validation
+    """
+
+    n_thresholds_list = []
+    precisions_list = []
+    recalls_list = []
+    precision_score_list = []
+    recall_score_list = []
+    fpr_list = []
+    tpr_list = []
+    prauc_list = []
+    rocauc_list = []
+    f1_list = []
+    accuracy_list = []
+
+    for ind_score_dict in scores_list:
+            n_thresholds_list.append(ind_score_dict["n_thresholds"])
+            precisions_list.append(ind_score_dict["precisions"])
+            recalls_list.append(ind_score_dict["recalls"])
+            precision_score_list.append(ind_score_dict["precision_result"])
+            recall_score_list.append(ind_score_dict["recall_result"])
+            fpr_list.append(ind_score_dict["fpr"])
+            tpr_list.append(ind_score_dict["tpr"])
+            prauc_list.append(ind_score_dict["prauc_result"])
+            rocauc_list.append(ind_score_dict["rocauc_result"])
+            f1_list.append(ind_score_dict["f1_result"])
+            accuracy_list.append(ind_score_dict["accuracy_result"])
+
+    result_dict = {
+        "precisions_array": np.array(precisions_list, dtype=object),
+        "recalls_array": np.array(recalls_list, dtype=object),
+        "precision_score_array": np.array(precision_score_list, dtype=object),
+        "recall_score_array": np.array(recall_score_list, dtype=object),
+        "fpr_array": np.array(fpr_list, dtype=object),
+        "tpr_array": np.array(tpr_list, dtype=object),
+        "prauc_array": np.array(prauc_list, dtype=object),
+        "rocauc_array": np.array(rocauc_list, dtype=object),
+        "f1_score_array": np.array(f1_list, dtype=object),
+        "n_thresholds_array": np.array(n_thresholds_list, dtype=int),
+        "accuracy_array": np.array(accuracy_list, dtype=object),
+    }
+
+    return result_dict
+
+
+
 def calculate_scores(clf, x_test, y_test,):
     """Helper function for calculating a bunch of scores"""
 

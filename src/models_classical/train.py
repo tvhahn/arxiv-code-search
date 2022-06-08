@@ -14,6 +14,7 @@ from src.models_classical.utils import (
     under_over_sampler,
     scale_data,
     calculate_scores,
+    collate_scores_binary_classification,
     get_classifier_and_params,
     get_model_metrics_df,
 )
@@ -43,6 +44,9 @@ from sklearn.metrics import (
 from src.visualization.visualize import plot_pr_roc_curves_kfolds
 
 
+
+
+
 def kfold_cv(
     df,
     clf,
@@ -66,6 +70,8 @@ def kfold_cv(
     rocauc_list = []
     f1_list = []
     accuracy_list = []
+
+    scores_list = []
 
     # perform stratified k-fold cross validation using the grouping of the y-label and another column
     if (
@@ -121,18 +127,7 @@ def kfold_cv(
             # calculate the scores for each individual model train in the cross validation
             # save as a dictionary: "ind_score_dict"
             ind_score_dict = calculate_scores(clone_clf, x_test, y_test)
-
-            n_thresholds_list.append(ind_score_dict["n_thresholds"])
-            precisions_list.append(ind_score_dict["precisions"])
-            recalls_list.append(ind_score_dict["recalls"])
-            precision_score_list.append(ind_score_dict["precision_result"])
-            recall_score_list.append(ind_score_dict["recall_result"])
-            fpr_list.append(ind_score_dict["fpr"])
-            tpr_list.append(ind_score_dict["tpr"])
-            prauc_list.append(ind_score_dict["prauc_result"])
-            rocauc_list.append(ind_score_dict["rocauc_result"])
-            f1_list.append(ind_score_dict["f1_result"])
-            accuracy_list.append(ind_score_dict["accuracy_result"])
+            scores_list.append(ind_score_dict)
 
     # perform stratified k-fold cross if only using the y-label for stratification
     else:
@@ -167,48 +162,12 @@ def kfold_cv(
             # train model
             clone_clf.fit(x_train, y_train)
 
-            # calculate the scores for each individual model train in the cross validation
+            # calculate the scores for each k in the cross validation
             # save as a dictionary: "ind_score_dict"
             ind_score_dict = calculate_scores(clone_clf, x_test, y_test)
+            scores_list.append(ind_score_dict)
 
-            n_thresholds_list.append(ind_score_dict["n_thresholds"])
-            precisions_list.append(ind_score_dict["precisions"])
-            recalls_list.append(ind_score_dict["recalls"])
-            precision_score_list.append(ind_score_dict["precision_result"])
-            recall_score_list.append(ind_score_dict["recall_result"])
-            fpr_list.append(ind_score_dict["fpr"])
-            tpr_list.append(ind_score_dict["tpr"])
-            prauc_list.append(ind_score_dict["prauc_result"])
-            rocauc_list.append(ind_score_dict["rocauc_result"])
-            f1_list.append(ind_score_dict["f1_result"])
-            accuracy_list.append(ind_score_dict["accuracy_result"])
-
-    n_thresholds_array = np.array(n_thresholds_list, dtype=int)
-    precisions_array = np.array(precisions_list, dtype=object)
-    recalls_array = np.array(recalls_list, dtype=object)
-    precision_score_array = np.array(precision_score_list, dtype=object)
-    recall_score_array = np.array(recall_score_list, dtype=object)
-    fpr_array = np.array(fpr_list, dtype=object)
-    tpr_array = np.array(tpr_list, dtype=object)
-    prauc_array = np.array(prauc_list, dtype=object)
-    rocauc_array = np.array(rocauc_list, dtype=object)
-    f1_score_array = np.array(f1_list, dtype=object)
-    accuracy_array = np.array(accuracy_list, dtype=object)
-
-    # create a dictionary of the result arrays
-    trained_result_dict = {
-        "precisions_array": precisions_array,
-        "recalls_array": recalls_array,
-        "precision_score_array": precision_score_array,
-        "recall_score_array": recall_score_array,
-        "fpr_array": fpr_array,
-        "tpr_array": tpr_array,
-        "prauc_array": prauc_array,
-        "rocauc_array": rocauc_array,
-        "f1_score_array": f1_score_array,
-        "n_thresholds_array": n_thresholds_array,
-        "accuracy_array": accuracy_array,
-    }
+    trained_result_dict = collate_scores_binary_classification(scores_list)
 
     return trained_result_dict, scaler, clone_clf
 
