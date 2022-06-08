@@ -165,7 +165,7 @@ filter: requirements
 ifeq (True,$(HAS_CONDA)) # assume on local
 	$(PYTHON_INTERPRETER) src/models_classical/filter.py \
 		-p $(PROJECT_DIR) \
-		--save_n_figures 1 \
+		--save_n_figures 8 \
 		--path_data_dir $(PROJECT_DIR)/data/ \
 		--final_dir_name final_results_classical \
 		--save_models True
