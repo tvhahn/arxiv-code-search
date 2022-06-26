@@ -35,7 +35,7 @@ This is active and preliminary research. **Stay tuned!**
 &nbsp; &nbsp; &nbsp; &nbsp;
 </p>
 
-* Using a random search, I've trained different classical ML models on the embeddings from a BERT model. I'm using the [Allen AI SciBERT model](https://github.com/allenai/scibert). For now, these models are just classifying paragraphs as to whether or not they indicate code OR data availability. I'll be labelling more paragraphs to *hopefully* further improve the results.
+* Using a random search, I've trained different classical ML models on the embeddings from a BERT model. I'm using the [Allen AI SciBERT model](https://github.com/allenai/scibert). These models are classifying paragraphs as to whether or not they indicate code OR data availability. I'll be labelling more paragraphs to further improve the results.
 
  * Below are the precision-recall and ROC curves for the top performing random forest model. It has been trained with 5-fold cross-validation.
 
