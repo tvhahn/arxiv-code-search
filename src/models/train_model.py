@@ -169,12 +169,12 @@ def train_epoch(
   
     for d in data_loader:
         input_ids = d["input_ids"].to(device)
-        attention_mask = d["attention_mask"].to(device)
+        attention_masks = d["attention_masks"].to(device)
         labels = d["labels"].to(device)
 
         outputs = model(
         input_ids=input_ids,
-        attention_mask=attention_mask
+        attention_mask=attention_masks
         )
 
         _, preds = torch.max(outputs, dim=1)
@@ -201,12 +201,12 @@ def eval_model(model, data_loader, loss_fn, device, n_examples):
     with torch.no_grad():
         for d in data_loader:
             input_ids = d["input_ids"].to(device)
-            attention_mask = d["attention_mask"].to(device)
+            attention_masks = d["attention_masks"].to(device)
             labels = d["labels"].to(device)
 
             outputs = model(
                 input_ids=input_ids,
-                attention_mask=attention_mask
+                attention_mask=attention_masks
             )
             _, preds = torch.max(outputs, dim=1)
 
