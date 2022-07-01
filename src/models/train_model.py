@@ -153,6 +153,15 @@ def save_checkpoint(model, path_checkpoint_dir, model_name="model_checkpoint.pt"
         path_checkpoint_dir / model_name,
     )
 
+
+# Function to calculate the accuracy of our predictions vs labels
+# from https://mccormickml.com/2019/07/22/BERT-fine-tuning/#41-bertforsequenceclassification
+def flat_accuracy(preds, labels):
+    pred_flat = np.argmax(preds, axis=1).flatten()
+    labels_flat = labels.flatten()
+    return np.sum(pred_flat == labels_flat) / len(labels_flat)
+
+
 def train_epoch(
   model, 
   data_loader, 
@@ -167,6 +176,7 @@ def train_epoch(
     # losses = []
     # correct_predictions = 0
     total_train_loss = 0
+    total_train_accuracy = 0
   
     for d in data_loader:
         input_ids = d["input_ids"].to(device)
@@ -193,15 +203,20 @@ def train_epoch(
         nn.utils.clip_grad_norm_(model.parameters(), max_norm=1.0)
         optimizer.step()
         scheduler.step()
+
+        logits = logits.detach().cpu().numpy()
+        labels = labels.to('cpu').numpy()
+
+        total_train_accuracy += flat_accuracy(logits, labels)
         
-    return np.mean(total_train_loss)
+    return np.mean(total_train_accuracy), np.mean(total_train_loss)
 
 
 def eval_model(model, data_loader, loss_fn, device, n_examples):
     model = model.eval()
 
-    losses = []
-    correct_predictions = 0
+    total_val_loss = 0
+    total_val_accuracy = 0
 
     with torch.no_grad():
         for d in data_loader:
@@ -209,18 +224,20 @@ def eval_model(model, data_loader, loss_fn, device, n_examples):
             attention_masks = d["attention_masks"].to(device)
             labels = d["labels"].to(device)
 
-            outputs = model(
+            loss, logits = model(
                 input_ids=input_ids,
-                attention_mask=attention_masks
+                attention_mask=attention_masks,
+                labels=labels
             )
-            _, preds = torch.max(outputs, dim=1)
 
-            loss = loss_fn(outputs, labels)
+            total_val_loss += loss.item()
 
-            correct_predictions += torch.sum(preds == labels)
-            losses.append(loss.item())
+            logits = logits.detach().cpu().numpy()
+            labels = labels.to('cpu').numpy()
 
-    return correct_predictions.double() / n_examples, np.mean(losses)
+            total_val_accuracy += flat_accuracy(logits, labels)
+
+    return np.mean(total_val_accuracy), np.mean(total_val_loss)
 
 
 def main(args):
