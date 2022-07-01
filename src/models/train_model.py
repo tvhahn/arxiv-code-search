@@ -164,32 +164,37 @@ def train_epoch(
 ):
     model = model.train()
 
-    losses = []
-    correct_predictions = 0
+    # losses = []
+    # correct_predictions = 0
+    total_train_loss = 0
   
     for d in data_loader:
         input_ids = d["input_ids"].to(device)
         attention_masks = d["attention_masks"].to(device)
         labels = d["labels"].to(device)
 
-        outputs = model(
-        input_ids=input_ids,
-        attention_mask=attention_masks
+        model.zero_grad()    
+
+        loss, logits = model(
+            input_ids=input_ids,
+            attention_mask=attention_masks,
+            labels=labels
         )
 
-        _, preds = torch.max(outputs, dim=1)
-        loss = loss_fn(outputs, labels)
+        total_train_loss += loss.item()
 
-        correct_predictions += torch.sum(preds == labels)
-        losses.append(loss.item())
+        # _, preds = torch.max(outputs, dim=1)
+        # loss = loss_fn(outputs, labels)
+
+        # correct_predictions += torch.sum(preds == labels)
+        # losses.append(loss.item())
 
         loss.backward()
         nn.utils.clip_grad_norm_(model.parameters(), max_norm=1.0)
         optimizer.step()
         scheduler.step()
-        optimizer.zero_grad()
-
-    return correct_predictions.double() / n_examples, np.mean(losses)
+        
+    return np.mean(total_train_loss)
 
 
 def eval_model(model, data_loader, loss_fn, device, n_examples):
@@ -287,10 +292,21 @@ def main(args):
     val_data_loader = create_data_loader(df_val, tokenizer, MAX_LEN, batch_size, label_column)
 
     # model and model parameters
-    model = ArxivClassifier(n_classes, proj_dir / "bert_cache_dir")
+    # model = ArxivClassifier(n_classes, proj_dir / "bert_cache_dir")
+
+    
+    model = BertForSequenceClassification.from_pretrained(
+        "bert-base-uncased", # Use the 12-layer BERT model, with an uncased vocab.
+        num_labels = 2, # The number of output labels--2 for binary classification.
+                        # You can increase this for multi-class tasks.   
+        output_attentions = False, # Whether the model returns attentions weights.
+        output_hidden_states = False, # Whether the model returns all hidden-states.
+    )
+
     model = model.to(device)
 
-    optimizer = AdamW(model.parameters(), lr=2e-5, correct_bias=False)
+
+    optimizer = AdamW(model.parameters(), lr=2e-5, eps = 1e-8)
     total_steps = len(train_data_loader) * n_epochs
 
     scheduler = get_linear_schedule_with_warmup(
