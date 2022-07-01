@@ -313,7 +313,7 @@ def main(args):
 
     
     model = BertForSequenceClassification.from_pretrained(
-        "bert-base-uncased", # Use the 12-layer BERT model, with an uncased vocab.
+        proj_dir / "bert_cache_dir", # Use the 12-layer BERT model, with an uncased vocab.
         num_labels = 2, # The number of output labels--2 for binary classification.
                         # You can increase this for multi-class tasks.   
         output_attentions = False, # Whether the model returns attentions weights.
