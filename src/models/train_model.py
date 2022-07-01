@@ -189,7 +189,7 @@ def train_epoch(
         scheduler.step()
         optimizer.zero_grad()
 
-    return correct_predictions.double() / n_examples, np.mean(losses)
+    return model, correct_predictions.double() / n_examples, np.mean(losses)
 
 
 def eval_model(model, data_loader, loss_fn, device, n_examples):
@@ -328,7 +328,7 @@ def main(args):
     for epoch in range(epoch_start, epoch_start + n_epochs):
         print(f'Epoch {epoch + 1}/{n_epochs}')
         print('-' * 10)
-        train_acc, train_loss = train_epoch(
+        model, train_acc, train_loss = train_epoch(
                                     model,
                                     train_data_loader,    
                                     loss_fn, 
