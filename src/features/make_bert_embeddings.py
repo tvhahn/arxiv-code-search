@@ -62,6 +62,7 @@ def main(args):
 
     # load bert tokenizer and model
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    # device = "cpu"
     print("device name:", device)
 
     scratch_path = Path.home() / "scratch"
