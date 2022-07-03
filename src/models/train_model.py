@@ -86,7 +86,7 @@ def set_directories(args):
     elif scratch_path.exists():
         path_label_dir = scratch_path / "arxiv-code-search" / "data" / "processed" / "labels" / "labels_complete"
     else:  # default to proj_dir
-        path_label_dir = proj_dir / "processed" / "labels" / "labels_complete"
+        path_label_dir = proj_dir / "data" / "processed" / "labels" / "labels_complete"
 
     Path(path_label_dir).mkdir(parents=True, exist_ok=True)
 
@@ -185,16 +185,27 @@ def train_epoch(
 
         model.zero_grad()    
 
-        (loss, logits) = model(
+        model_output = model(
             input_ids=input_ids,
             attention_mask=attention_masks,
             labels=labels
         )
 
-        print(loss)
-        print("type(loss):", type(loss))
+        loss = model_output.loss
+        # print(f"loss:", loss)
+        # print(type(loss))
+        logits = model_output.logits
+        loss.backward()
 
-        total_train_loss += loss.item()
+        
+
+        # print(loss)
+        # print("type(loss):", type(loss))
+        # print(model_output)
+        # print("type(model_output):", type(model_output))
+        # print("model_output.loss:", model_output.loss.item())
+
+        
 
         # _, preds = torch.max(outputs, dim=1)
         # loss = loss_fn(outputs, labels)
@@ -202,11 +213,12 @@ def train_epoch(
         # correct_predictions += torch.sum(preds == labels)
         # losses.append(loss.item())
 
-        loss.backward()
+
         nn.utils.clip_grad_norm_(model.parameters(), max_norm=1.0)
         optimizer.step()
         scheduler.step()
 
+        total_train_loss += loss.detach().cpu().numpy()
         logits = logits.detach().cpu().numpy()
         labels = labels.to('cpu').numpy()
 
@@ -227,14 +239,16 @@ def eval_model(model, data_loader, loss_fn, device, n_examples):
             attention_masks = d["attention_masks"].to(device)
             labels = d["labels"].to(device)
 
-            (loss, logits) = model(
+            model_output = model(
                 input_ids=input_ids,
                 attention_mask=attention_masks,
                 labels=labels
             )
 
-            total_val_loss += loss.item()
+            loss = model_output.loss
+            logits = model_output.logits
 
+            total_val_loss += loss.detach().cpu().numpy()
             logits = logits.detach().cpu().numpy()
             labels = labels.to('cpu').numpy()
 
