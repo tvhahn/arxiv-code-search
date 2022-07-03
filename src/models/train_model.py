@@ -184,6 +184,7 @@ def train_epoch(
         labels = d["labels"].to(device)
 
         model.zero_grad()    
+        optimizer.zero_grad()
 
         model_output = model(
             input_ids=input_ids,
