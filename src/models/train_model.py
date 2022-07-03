@@ -185,11 +185,14 @@ def train_epoch(
 
         model.zero_grad()    
 
-        loss, logits = model(
+        (loss, logits) = model(
             input_ids=input_ids,
             attention_mask=attention_masks,
             labels=labels
         )
+
+        print(loss)
+        print("type(loss):", type(loss))
 
         total_train_loss += loss.item()
 
@@ -224,7 +227,7 @@ def eval_model(model, data_loader, loss_fn, device, n_examples):
             attention_masks = d["attention_masks"].to(device)
             labels = d["labels"].to(device)
 
-            loss, logits = model(
+            (loss, logits) = model(
                 input_ids=input_ids,
                 attention_mask=attention_masks,
                 labels=labels
