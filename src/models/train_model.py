@@ -175,8 +175,8 @@ def train_epoch(
 
     # losses = []
     # correct_predictions = 0
-    total_train_loss = 0
-    total_train_accuracy = 0
+    total_train_loss = []
+    total_train_accuracy = []
   
     for d in data_loader:
         input_ids = d["input_ids"].to(device)
@@ -218,11 +218,11 @@ def train_epoch(
         optimizer.step()
         scheduler.step()
 
-        total_train_loss += loss.detach().cpu().numpy()
+        total_train_loss.append(loss.detach().cpu().numpy())
         logits = logits.detach().cpu().numpy()
         labels = labels.to('cpu').numpy()
 
-        total_train_accuracy += flat_accuracy(logits, labels)
+        total_train_accuracy.append(flat_accuracy(logits, labels))
         
     return np.mean(total_train_accuracy), np.mean(total_train_loss)
 
@@ -230,8 +230,8 @@ def train_epoch(
 def eval_model(model, data_loader, loss_fn, device, n_examples):
     model = model.eval()
 
-    total_val_loss = 0
-    total_val_accuracy = 0
+    total_val_loss = []
+    total_val_accuracy = []
 
     with torch.no_grad():
         for d in data_loader:
@@ -248,11 +248,11 @@ def eval_model(model, data_loader, loss_fn, device, n_examples):
             loss = model_output.loss
             logits = model_output.logits
 
-            total_val_loss += loss.detach().cpu().numpy()
+            total_val_loss.append(loss.detach().cpu().numpy())
             logits = logits.detach().cpu().numpy()
             labels = labels.to('cpu').numpy()
 
-            total_val_accuracy += flat_accuracy(logits, labels)
+            total_val_accuracy.append(flat_accuracy(logits, labels))
 
     return np.mean(total_val_accuracy), np.mean(total_val_loss)
 
@@ -340,7 +340,7 @@ def main(args):
     model = model.to(device)
 
 
-    optimizer = AdamW(model.parameters(), lr=2e-5, eps = 1e-8)
+    optimizer = AdamW(model.parameters(), lr=2e-5, eps = 1e-8, correct_bias=False)
     total_steps = len(train_data_loader) * n_epochs
 
     scheduler = get_linear_schedule_with_warmup(
