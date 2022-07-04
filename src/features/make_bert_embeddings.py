@@ -56,7 +56,19 @@ def main(args):
     emb_file_name = args.emb_file_name
 
     # load label data
-    df = pd.read_csv(path_label_dir / label_file_name, dtype={"id": str})
+    # if csv file
+    if label_file_name.endswith(".csv"):
+        df = pd.read_csv(path_label_dir / label_file_name, dtype={"id": str})
+    elif label_file_name.endswith(".ods"):
+        df = pd.read_excel(
+            path_label_dir / label_file_name,
+            parse_dates=["update_date"],
+            engine="odf",
+            dtype={"id": str},
+            )
+    else:
+        raise ValueError("label file name must end with .csv or .ods")
+        
     df["para"] = df["para"].str.lower()
     df["label"] = df["label"].apply(lambda x: 1 if x > 0 else 0)  # binary labels
 
