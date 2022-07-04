@@ -46,7 +46,7 @@ def set_directories(args):
     return proj_dir, path_emb_dir, path_label_dir
 
 
-def creat_single_embedding(text, model, tokenizer, device=None, max_len=512):
+def create_single_embedding(text, model, tokenizer, device=None, max_len=512):
     """Create a single embedding for a given text.
     
     Parameters
@@ -87,7 +87,8 @@ def creat_single_embedding(text, model, tokenizer, device=None, max_len=512):
             attention_mask=attention_masks.to(device)
         )
 
-        features =last_hidden_states[0][:, 0, :].cpu().numpy().flatten()
+        # features =last_hidden_states[0][:, 0, :].cpu().numpy().flatten()
+        features =last_hidden_states[0][:, 0, :].cpu().numpy()
 
     return features
 
