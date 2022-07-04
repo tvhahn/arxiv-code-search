@@ -47,14 +47,49 @@ def set_directories(args):
 
 
 def creat_single_embedding(text, model, tokenizer, device=None, max_len=512):
+    """Create a single embedding for a given text.
+    
+    Parameters
+    ----------
+    text : str
+        Text to create embedding for.
+    model : BertModel
+        Bert model to use. The model should already be sent to the appropriate device.
+    tokenizer : BertTokenizer
+        Bert tokenizer to use.
+
+
+    """
     if device is None:
         device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-    # device = "cpu"
-    print("device name:", device)
 
+    # lowercase text
+    text = text.lower()
+
+    encoding = tokenizer.encode_plus(
+        text,
+        add_special_tokens=True,  # Add '[CLS]' and '[SEP]'
+        max_length=512,
+        return_token_type_ids=False,
+        padding="max_length",
+        return_attention_mask=True,
+        truncation=True,
+        return_tensors="pt",  # Return PyTorch tensors
+    )
+
+    input_ids = encoding["input_ids"]
+    attention_masks = encoding["attention_mask"]
+
+    with torch.no_grad():
+        # from https://jalammar.github.io/a-visual-guide-to-using-bert-for-the-first-time/
+        last_hidden_states = model(
+            input_ids=input_ids.to(device),
+            attention_mask=attention_masks.to(device)
+        )
+
+        features =last_hidden_states[0][:, 0, :].cpu().numpy().flatten()
 
     return features
-
 
 
 def main(args):
