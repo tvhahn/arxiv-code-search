@@ -46,6 +46,17 @@ def set_directories(args):
     return proj_dir, path_emb_dir, path_label_dir
 
 
+def creat_single_embedding(text, model, tokenizer, device=None, max_len=512):
+    if device is None:
+        device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    # device = "cpu"
+    print("device name:", device)
+
+
+    return features
+
+
+
 def main(args):
 
     # set directories
@@ -95,6 +106,7 @@ def main(args):
 
         labels = data["labels"]
         with torch.no_grad():
+            print(data["input_ids"].shape)
             # from https://jalammar.github.io/a-visual-guide-to-using-bert-for-the-first-time/
             last_hidden_states = model(
                 data["input_ids"].to(device),
