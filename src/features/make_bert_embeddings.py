@@ -93,6 +93,63 @@ def create_single_embedding(text, model, tokenizer, device=None, max_len=512):
     return features
 
 
+def create_batch_embeddings(df, model, tokenizer, device=None, max_len=512, batch_size=20, label_column="label"):
+    """Create batch embeddings for a given dataframe.
+    
+    Parameters
+    ----------
+    df : pandas.DataFrame
+        Dataframe with text and labels.
+    model : BertModel
+        Model to use for embedding.
+    tokenizer : BertTokenizer
+        Tokenizer to use for embedding.
+    data_loader : DataLoader
+        Pytorch DataLoader to get the text from the df.
+    device : torch.device, optional
+        Device to use for embedding. If "none" is specified, the system will look for a GPU, else will use the CPU.
+    max_len : int, optional
+        Maximum length of the text. The default is 512.
+    batch_size : int, optional
+        Batch size for embedding. The default is 20.
+    label_column : str, optional
+        Column name for the label. The default is "label".
+    """
+
+    if device is None:
+        device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+
+    # create copy of df
+    df_copy = df.copy()
+
+    df_copy["para"] = df_copy["para"].str.lower()
+    df_copy["label"] = df_copy["label"].apply(lambda x: 1 if x > 0 else 0)  # binary labels
+
+    # loop through label data and create embeddings
+    data_loader = create_data_loader(df_copy, tokenizer, max_len, batch_size)
+
+    features_list = []
+    for i, data in enumerate(data_loader):
+        if i % 5 == 0:
+            print(f"No. para: {batch_size * i}")
+
+        with torch.no_grad():
+            # print(data["input_ids"].shape)
+            # from https://jalammar.github.io/a-visual-guide-to-using-bert-for-the-first-time/
+            last_hidden_states = model(
+                data["input_ids"].to(device),
+                attention_mask=data["attention_masks"].to(device),
+            )
+
+            features = (
+                last_hidden_states[0][:, 0, :].cpu().numpy()
+            )
+
+            features_list.append(features)  
+
+    return np.vstack(features_list)
+
+
 def main(args):
 
     # set directories
@@ -116,7 +173,7 @@ def main(args):
     else:
         raise ValueError("label file name must end with .csv or .ods")
         
-    df["para"] = df["para"].str.lower()
+    # df["para"] = df["para"].str.lower()
     df["label"] = df["label"].apply(lambda x: 1 if x > 0 else 0)  # binary labels
 
     # load bert tokenizer and model
@@ -134,39 +191,15 @@ def main(args):
 
     model.to(device)
 
-    # loop through label data and create embeddings
-    data_loader = create_data_loader(df, tokenizer, 512, 20)
+    features_array = create_batch_embeddings(df, model, tokenizer, device=device, max_len=512, batch_size=20, label_column="label")
 
-    dfh_list = []
-    for i, data in enumerate(data_loader):
+    df["h"] = features_array.tolist()
 
-        labels = data["labels"]
-        with torch.no_grad():
-            print(data["input_ids"].shape)
-            # from https://jalammar.github.io/a-visual-guide-to-using-bert-for-the-first-time/
-            last_hidden_states = model(
-                data["input_ids"].to(device),
-                attention_mask=data["attention_masks"].to(device),
-            )
+    df = df[["id", "label", "para", "h"]]
 
-            features = (
-                last_hidden_states[0][:, 0, :].cpu().numpy()
-            )  
-
-            df_h = pd.DataFrame(labels, columns=["label"])
-            df_h["id"] = data["ids"]
-            df_h["para"] = data["texts_orig"]
-            df_h["h"] = features.tolist()
-            df_h["h"] = df_h["h"].apply(lambda x: np.array(x))
-            dfh_list.append(df_h)
-
-        if i % 5 == 0:
-            print(i * 20)
-
-    dfh = pd.concat(dfh_list)
     # save dfh as a pickle file
     with open(path_emb_dir / emb_file_name, "wb") as f:
-        pickle.dump(dfh, f)
+        pickle.dump(df, f)
 
 
 if __name__ == "__main__":
