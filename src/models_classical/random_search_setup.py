@@ -20,15 +20,19 @@ general_params = {
         "minmax",
         None
     ],
-    "uo_method": [
+    "oversamp_method": [
         "random_over",
-        "random_under",
-        "random_under_bootstrap",
         "smote",
         "adasyn",
         None,
     ],
-    "imbalance_ratio": [0.1, 0.3, 0.5, 0.7, 0.8, 1.0],
+    "undersamp_method": [
+        "random_under",
+        "random_under_bootstrap",
+        None,
+    ],
+    "oversamp_ratio": [0.1, 0.2, 0.3, 0.5, 0.7, 0.8, 0.9],
+    "undersamp_ratio": [0.1, 0.2, 0.3, 0.5, 0.7, 0.8, 0.9],
     "classifier": [
         "rf",
         "xgb",

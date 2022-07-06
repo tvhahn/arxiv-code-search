@@ -50,9 +50,11 @@ from src.visualization.visualize import plot_pr_roc_curves_kfolds
 def kfold_cv(
     df,
     clf,
-    uo_method,
+    oversamp_method,
+    undersamp_method,
     scaler_method,
-    imbalance_ratio,
+    oversamp_ratio,
+    undersamp_ratio,
     meta_label_cols,
     stratification_grouping_col=None,
     y_label_col="y",
@@ -100,13 +102,19 @@ def kfold_cv(
             x_test_cols = df_test.columns
             x_test = np.array([e for e in df_test["h"].values])
 
+            # over-sample the data
+            x_train, y_train = under_over_sampler(
+                x_train, y_train, method=oversamp_method, ratio=oversamp_ratio
+            )
+
+            # under-sample the data
+            x_train, y_train = under_over_sampler(
+                x_train, y_train, method=undersamp_method, ratio=undersamp_ratio
+            )
+
             # scale the data
             x_train, x_test, scaler = scale_data(x_train, x_test, scaler_method)
 
-            # under-over-sample the data
-            x_train, y_train = under_over_sampler(
-                x_train, y_train, method=uo_method, ratio=imbalance_ratio
-            )
 
             # train model
             print("x_train shape:", x_train.shape)
@@ -139,13 +147,18 @@ def kfold_cv(
             x_test_cols = df_test.columns
             x_test = np.array([e for e in df_test["h"].values])
 
+            # over-sample the data
+            x_train, y_train = under_over_sampler(
+                x_train, y_train, method=oversamp_method, ratio=oversamp_ratio
+            )
+
+            # under-sample the data
+            x_train, y_train = under_over_sampler(
+                x_train, y_train, method=undersamp_method, ratio=undersamp_ratio
+            )
+
             # scale the data
             x_train, x_test, scaler = scale_data(x_train, x_test, scaler_method)
-
-            # under-over-sample the data
-            x_train, y_train = under_over_sampler(
-                x_train, y_train, method=uo_method, ratio=imbalance_ratio
-            )
 
             # train model
             clone_clf.fit(x_train, y_train)
@@ -181,12 +194,15 @@ def train_single_model(
         ParameterSampler(general_params, n_iter=1, random_state=sampler_seed)
     )[0]
 
-    uo_method = params_dict_train_setup["uo_method"]
+    oversamp_method = params_dict_train_setup["oversamp_method"]
+    undersamp_method = params_dict_train_setup["undersamp_method"]
     scaler_method = params_dict_train_setup["scaler_method"]
-    imbalance_ratio = params_dict_train_setup["imbalance_ratio"]
+    oversamp_ratio = params_dict_train_setup["oversamp_ratio"]
+    undersamp_ratio = params_dict_train_setup["undersamp_ratio"]
     classifier = params_dict_train_setup["classifier"]
+
     print(
-        f"classifier: {classifier}, uo_method: {uo_method}, imbalance_ratio: {imbalance_ratio}"
+        f"classifier: {classifier}, oversamp_method: {oversamp_method}, undersamp_method: {undersamp_method}"
     )
 
     # get classifier and its parameters
@@ -204,9 +220,11 @@ def train_single_model(
     model_metrics_dict, scaler_fitted, clf_trained = kfold_cv(
         df,
         clf,
-        uo_method,
+        oversamp_method,
+        undersamp_method,
         scaler_method,
-        imbalance_ratio,
+        oversamp_ratio,
+        undersamp_ratio,
         meta_label_cols,
         stratification_grouping_col,
         y_label_col,
