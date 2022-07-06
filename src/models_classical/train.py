@@ -233,7 +233,7 @@ def train_single_model(
 
     # added additional parameters to the training setup dictionary
     params_dict_train_setup["sampler_seed"] = sampler_seed
-    params_dict_train_setup["classifier"]
+    # params_dict_train_setup["classifier"]
 
     # save the model if requested
     if save_model:
