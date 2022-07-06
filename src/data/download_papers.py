@@ -41,19 +41,23 @@ def download_papers_from_index(pdf_root_dir, index_file_path=None, index_file_no
     df = load_metadata_csv(index_file_path)
 
     for i, row in df.iterrows():
-        id = row['id']
-        title = row['title']
-        print(f"{i}: {id} - {title}")
-        url = f"https://arxiv.org/pdf/{id}.pdf"
-        urlretrieve(url, pdf_save_dir / f"{id}.pdf")
-        sleep_time = 3
-        # print('sleep time: ', sleep_time)
-        sleep(sleep_time)
+        try:
+            id = row['id']
+            title = row['title']
+            print(f"{i}: {id} - {title}")
+            url = f"https://arxiv.org/pdf/{id}.pdf"
+            urlretrieve(url, pdf_save_dir / f"{id}.pdf")
+            sleep_time = 3
+            # print('sleep time: ', sleep_time)
+            sleep(sleep_time)
+        except Exception as e:
+            print(e)
+            continue
         if n_papers is not None and i >= n_papers-1:
             break
 
 
-def main():
+def main(args):
     """
     Download papers from an index file.
     """
@@ -94,4 +98,4 @@ if __name__ == "__main__":
     # not used in this stub but often useful for finding various files
     project_dir = Path(__file__).resolve().parents[2]
 
-    main()
+    main(args)
