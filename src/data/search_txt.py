@@ -258,7 +258,7 @@ def main(file_list, index_no):
             r"\b(supplementary|supplement)(?:\W+\w+){0,9}?\W+(code)\b"
         ),
         "data available": re.compile(
-            r"\b(data|dataset|data set)(?:\W+\w+){0,9}?\W+(available|access|found)\b"
+            r"\b(data|dataset|data set|freely)(?:\W+\w+){0,9}?\W+(available|access|found)\b"
         ),  # https://www.regular-expressions.info/near.html
         "code available": re.compile(
             r"\b(code)(?:\W+\w+){0,9}?\W+(available|access|download|package)\b"

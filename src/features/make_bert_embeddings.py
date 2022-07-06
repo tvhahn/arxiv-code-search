@@ -236,7 +236,6 @@ if __name__ == "__main__":
     parser.add_argument(
         "--label_file_name",
         type=str,
-        default="labels.csv",
         help="Name of the label file (containing paragrapsh) used to create the embeddings",
     )
 

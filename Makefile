@@ -131,6 +131,22 @@ else # assume on HPC
 endif
 
 
+## Active learning -- add probailities and predictions to label file
+add_probabilities: requirements
+ifeq (True,$(HAS_CONDA)) # assume on local
+	$(PYTHON_INTERPRETER) $(PROJECT_DIR)/src/data/add_probabilities.py \
+		--proj_dir $(PROJECT_DIR) \
+		--path_trained_model_dir $(PROJECT_DIR)/models/final_results_classical/model_files \
+		--model_name model_14438904_rf_2022-06-08-0020-00_papers1.pkl \
+		--scaler_name scaler_14438904_rf_2022-06-08-0020-00_papers1.pkl \
+		--path_label_dir $(PROJECT_DIR)/data/interim \
+		--label_file_name labels_4.ods \
+		--label_file_save_name labels_4_probabilities.ods
+else # assume on HPC
+	sbatch src/models/train_model_hpc.sh $(PROJECT_DIR)
+endif
+
+
 ## Train the deep learning model
 train: requirements
 ifeq (True,$(HAS_CONDA)) # assume on local
