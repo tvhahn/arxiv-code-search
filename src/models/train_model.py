@@ -5,6 +5,7 @@ from transformers import (
     AdamW,
     get_linear_schedule_with_warmup,
     BertForSequenceClassification,
+    AutoModelForSequenceClassification
 )
 from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
@@ -329,8 +330,10 @@ def main(args):
     # model and model parameters
     # model = ArxivClassifier(n_classes, proj_dir / "bert_cache_dir")
 
+    # try with automodel for classification:
+    # https://github.com/allenai/scibert/issues/95#issuecomment-698105467
     
-    model = BertForSequenceClassification.from_pretrained(
+    model = AutoModelForSequenceClassification.from_pretrained(
         proj_dir / "bert_cache_dir", # Use the 12-layer BERT model, with an uncased vocab.
         num_labels = 2, # The number of output labels--2 for binary classification.
                         # You can increase this for multi-class tasks.   
