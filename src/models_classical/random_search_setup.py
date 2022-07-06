@@ -67,11 +67,11 @@ xgb_params = {
     "max_depth": sp_randint(2, 64),
     "eta": [0.1, 0.3, 0.7],
     "objective": ["binary:logistic"],
-    "eval_metric": ["error", "aucpr"],
+    "eval_metric": ["error", "aucpr", "logloss"],
     "seed": sp_randint(1, 2**16),
     "scale_pos_weight": sp_randint(1, 100),
     "lambda": [0.0, 0.5, 1, 1.5, 3],
-    "alpha": [0, 0.5, 1, 1.5, 3],
+    "alpha": [0, 0.1, 0.2, 0.5, 1, 1.5, 3],
 }
 
 # knn parameters

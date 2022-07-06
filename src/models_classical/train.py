@@ -161,7 +161,7 @@ def kfold_cv(
             x_train, x_test, scaler = scale_data(x_train, x_test, scaler_method)
 
             # train model
-            clone_clf.fit(x_train, y_train)
+            clone_clf.fit(x_train, y_train, early_stopping_rounds=10)
 
             # calculate the scores for each k in the cross validation
             # save as a dictionary: "ind_score_dict"
