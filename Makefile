@@ -140,8 +140,8 @@ ifeq (True,$(HAS_CONDA)) # assume on local
 		--model_name model_14438904_rf_2022-06-08-0020-00_papers1.pkl \
 		--scaler_name scaler_14438904_rf_2022-06-08-0020-00_papers1.pkl \
 		--path_label_dir $(PROJECT_DIR)/data/interim \
-		--label_file_name labels_4.ods \
-		--label_file_save_name labels_4_probabilities.ods
+		--label_file_name labels_5.ods
+
 else # assume on HPC
 	sbatch src/models/train_model_hpc.sh $(PROJECT_DIR)
 endif
