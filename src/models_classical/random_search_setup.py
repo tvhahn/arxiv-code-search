@@ -16,8 +16,8 @@ import numpy as np
 
 general_params = {
     "scaler_method": [
-        # "standard",
-        # "minmax",
+        "standard",
+        "minmax",
         None
     ],
     "oversamp_method": [
