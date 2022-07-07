@@ -181,10 +181,11 @@ filter: requirements
 ifeq (True,$(HAS_CONDA)) # assume on local
 	$(PYTHON_INTERPRETER) src/models_classical/filter.py \
 		-p $(PROJECT_DIR) \
-		--save_n_figures 8 \
+		--keep_top_n 2 \
+		--save_n_figures 0 \
 		--path_data_dir $(PROJECT_DIR)/data/ \
 		--final_dir_name final_results_classical \
-		--save_models True
+		--save_models False
 else # assume on HPC
 	sbatch src/models_classical/filter_hpc.sh $(PROJECT_DIR)
 endif

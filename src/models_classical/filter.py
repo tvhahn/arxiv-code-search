@@ -120,8 +120,10 @@ def rebuild_general_params(df, row_idx, general_param_keys=None):
     if general_param_keys is None:
         general_param_keys = [
             "scaler_method",
-            "uo_method",
-            "imbalance_ratio",
+            "oversamp_method",
+            "undersamp_method",
+            "oversamp_ratio",
+            "undersamp_ratio",
             "classifier",
         ]
     return {k: [df.iloc[row_idx][k]] for k in general_param_keys}
@@ -136,12 +138,11 @@ def main(args):
     )
     df = filter_results_df(df)
 
-    if args.keep_top_n:
-        df = df[:args.keep_top_n]
+    df = df[:500]
 
     # use this is you want to only select the top models by model type (e.g. top SVM, RF, etc.)
     sort_by = 'prauc_avg'
-    df = df.groupby(['classifier']).head(1).sort_values(by=sort_by, ascending=False)
+    # df = df.groupby(['classifier']).head(args.keep_top_n).sort_values(by=sort_by, ascending=False)
 
     # save the top models to a csv
     df.to_csv(path_final_dir / args.filtered_csv_name, index=False)
@@ -217,6 +218,7 @@ if __name__ == "__main__":
     parser.add_argument(
         "--keep_top_n",
         type=int,
+        default=1,
         help="Keep the top N models in the filtered results CSV.",
     )
 
