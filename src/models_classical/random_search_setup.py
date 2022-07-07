@@ -21,15 +21,15 @@ general_params = {
         None
     ],
     "oversamp_method": [
-        # "random_over",
-        # "smote_enn",
-        # "smote_tomek",
+        "random_over",
+        "smote_enn",
+        "smote_tomek",
         "borderline_smote",
         "kmeans_smote",
         "svm_smote",
-        # "smote",
-        # "adasyn",
-        # None,
+        "smote",
+        "adasyn",
+        None,
     ],
     "undersamp_method": [
         "random_under",
