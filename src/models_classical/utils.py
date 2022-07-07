@@ -5,6 +5,7 @@ Utility functions used in the random search training.
 from sklearn.model_selection import ParameterSampler
 from imblearn.over_sampling import RandomOverSampler
 from imblearn.under_sampling import RandomUnderSampler
+from imblearn.combine import SMOTEENN, SMOTETomek
 from imblearn.over_sampling import SMOTE, ADASYN
 from sklearn.preprocessing import StandardScaler, MinMaxScaler
 import numpy as np
@@ -74,6 +75,18 @@ def under_over_sampler(x, y, method=None, ratio=0.5):
 
     elif method == "smote":
         x_resampled, y_resampled = SMOTE(
+            sampling_strategy=ratio, random_state=0
+        ).fit_resample(x, y)
+        return x_resampled, y_resampled
+
+    elif method == "smote_enn":
+        x_resampled, y_resampled = SMOTEENN(
+            sampling_strategy=ratio, random_state=0
+        ).fit_resample(x, y)
+        return x_resampled, y_resampled
+
+    elif method == "smote_tomek":
+        x_resampled, y_resampled = SMOTETomek(
             sampling_strategy=ratio, random_state=0
         ).fit_resample(x, y)
         return x_resampled, y_resampled

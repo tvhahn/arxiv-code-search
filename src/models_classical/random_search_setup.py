@@ -22,6 +22,8 @@ general_params = {
     ],
     "oversamp_method": [
         "random_over",
+        "smote_enn",
+        "smote_tomek",
         "smote",
         "adasyn",
         None,
@@ -31,7 +33,7 @@ general_params = {
         "random_under_bootstrap",
         None,
     ],
-    "oversamp_ratio": [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0],
+    "oversamp_ratio": [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.85, 0.9, 0.95, 1.0],
     "undersamp_ratio": [0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0],
     "classifier": [
         "rf",
