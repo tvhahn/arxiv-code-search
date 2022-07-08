@@ -181,9 +181,11 @@ filter: requirements
 ifeq (True,$(HAS_CONDA)) # assume on local
 	$(PYTHON_INTERPRETER) src/models_classical/filter.py \
 		-p $(PROJECT_DIR) \
-		--keep_top_n 2 \
-		--save_n_figures 16 \
+		--keep_top_n 1 \
+		--save_n_figures 8 \
 		--path_data_dir $(PROJECT_DIR)/data/ \
+		--path_emb_dir $(PROJECT_DIR)/data/processed/embeddings \
+		--emb_file_name df_embeddings_2022-07-01.pkl \
 		--final_dir_name final_results_classical \
 		--save_models True
 else # assume on HPC
