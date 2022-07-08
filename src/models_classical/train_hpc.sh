@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --time=09:00:00 # 30 min
+#SBATCH --time=16:10:00 # 30 min
 #SBATCH --array=1-90
 #SBATCH --cpus-per-task=1
 #SBATCH --mem=4G
@@ -16,5 +16,5 @@ SCRATCH_DATA_DIR=~/scratch/arxiv-code-search/data
 module load python/3.8
 source ~/arxiv/bin/activate
 
-python $PROJECT_DIR/src/models_classical/train.py --save_dir_name classical_results_interim --date_time $NOW_TIME --path_data_dir $SCRATCH_DATA_DIR --rand_search_iter 3000
+python $PROJECT_DIR/src/models_classical/train.py --save_dir_name classical_results_interim --date_time $NOW_TIME --path_data_dir $SCRATCH_DATA_DIR --rand_search_iter 5000
 

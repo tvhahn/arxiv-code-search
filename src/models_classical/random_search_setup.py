@@ -42,11 +42,11 @@ general_params = {
         "rf",
         "xgb",
         "knn",
-        "lr",
-        "sgd",
-        "ridge",
+        # "lr",
+        # "sgd",
+        # "ridge",
         "svm",
-        "nb",
+        # "nb",
     ],
 }
 
