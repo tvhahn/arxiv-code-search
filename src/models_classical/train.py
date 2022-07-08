@@ -396,7 +396,11 @@ def main(args):
     # set directories
     proj_dir, path_data_dir, path_save_dir = set_directories(args)
 
-    embedding_dir = path_data_dir / "processed/embeddings"
+    if args.path_emb_dir:
+        path_emb_dir = Path(args.path_emb_dir)
+    else:
+        path_emb_dir = path_data_dir / "processed" / "embeddings"
+
 
     RAND_SEARCH_ITER = args.rand_search_iter
 
@@ -404,7 +408,7 @@ def main(args):
     # SAMPLER_SEED = random.randint(0, 2 ** 16)
 
     # load dfh.pickle
-    with open(embedding_dir / "df_embeddings.pkl", "rb") as f:
+    with open(path_emb_dir / args.emb_file_name, "rb") as f:
         df = pickle.load(f)
 
     Y_LABEL_COL = "label"
@@ -475,6 +479,19 @@ if __name__ == "__main__":
         default="interim_results",
         type=str,
         help="Name of the save directory. Used to store the results of the random search",
+    )
+
+    parser.add_argument(
+        "--emb_file_name",
+        type=str,
+        default="df_embeddings.pkl",
+        help="Name of the embedding file to save",
+    )
+
+    parser.add_argument(
+        "--path_emb_dir",
+        type=str,
+        help="Path to the folder that contains all the embedding pickle files",
     )
 
     parser.add_argument(

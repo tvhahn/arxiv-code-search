@@ -161,7 +161,9 @@ train_classical: requirements
 ifeq (True,$(HAS_CONDA)) # assume on local
 	$(PYTHON_INTERPRETER) src/models_classical/train.py \
 		--save_dir_name classical_results_interim \
-		--rand_search_iter 50
+		--path_emb_dir $(PROJECT_DIR)/data/processed/embeddings \
+		--emb_file_name df_embeddings_2022-07-08.pkl \
+		--rand_search_iter 5000
 else # assume on HPC
 	sbatch src/models_classical/train_hpc.sh $(PROJECT_DIR) $(NOW_TIME)
 endif
