@@ -137,8 +137,8 @@ ifeq (True,$(HAS_CONDA)) # assume on local
 	$(PYTHON_INTERPRETER) $(PROJECT_DIR)/src/data/add_probabilities.py \
 		--proj_dir $(PROJECT_DIR) \
 		--path_trained_model_dir $(PROJECT_DIR)/models/final_results_classical/model_files \
-		--model_name model_14438904_rf_2022-06-08-0020-00_papers1.pkl \
-		--scaler_name scaler_14438904_rf_2022-06-08-0020-00_papers1.pkl \
+		--model_name model_13275110_rf_2022-07-06-1933-36_papers1.pkl \
+		--scaler_name scaler_13275110_rf_2022-07-06-1933-36_papers1.pkl \
 		--path_label_dir $(PROJECT_DIR)/data/interim \
 		--label_file_name labels_5.ods
 
@@ -182,10 +182,10 @@ ifeq (True,$(HAS_CONDA)) # assume on local
 	$(PYTHON_INTERPRETER) src/models_classical/filter.py \
 		-p $(PROJECT_DIR) \
 		--keep_top_n 2 \
-		--save_n_figures 0 \
+		--save_n_figures 16 \
 		--path_data_dir $(PROJECT_DIR)/data/ \
 		--final_dir_name final_results_classical \
-		--save_models False
+		--save_models True
 else # assume on HPC
 	sbatch src/models_classical/filter_hpc.sh $(PROJECT_DIR)
 endif

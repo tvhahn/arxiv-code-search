@@ -138,11 +138,11 @@ def main(args):
     )
     df = filter_results_df(df)
 
-    df = df[:500]
+    # df = df[:500]
 
     # use this is you want to only select the top models by model type (e.g. top SVM, RF, etc.)
     sort_by = 'prauc_avg'
-    # df = df.groupby(['classifier']).head(args.keep_top_n).sort_values(by=sort_by, ascending=False)
+    df = df.groupby(['classifier']).head(args.keep_top_n).sort_values(by=sort_by, ascending=False)
 
     # save the top models to a csv
     df.to_csv(path_final_dir / args.filtered_csv_name, index=False)
