@@ -1,3 +1,4 @@
+from tkinter import N
 import numpy as np
 import pandas as pd
 from sklearn.model_selection import ParameterSampler
@@ -32,7 +33,7 @@ def rf_classifier(sampler_seed, params):
         ParameterSampler(params, n_iter=1, random_state=sampler_seed)
     )[0]
 
-    clf = RandomForestClassifier(random_state=sampler_seed, **param_dict_raw)
+    clf = RandomForestClassifier(random_state=sampler_seed, n_jobs=-1, **param_dict_raw)
 
     return (
         clf,
@@ -70,7 +71,7 @@ def knn_classifier(sampler_seed, params):
         ParameterSampler(params, n_iter=1, random_state=sampler_seed)
     )[0]
 
-    clf = KNeighborsClassifier(**param_dict_raw)
+    clf = KNeighborsClassifier(n_jobs=-1, **param_dict_raw)
 
     return (
         clf,
@@ -92,7 +93,7 @@ def lr_classifier(sampler_seed, params):
     if param_dict_raw["penalty"] in ["l1", "elasticnet"]:
         param_dict_raw["solver"] = "saga"
 
-    clf = LogisticRegression(random_state=sampler_seed, **param_dict_raw)
+    clf = LogisticRegression(random_state=sampler_seed, n_jobs=-1, **param_dict_raw)
 
     return (
         clf,
