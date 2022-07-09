@@ -14,5 +14,5 @@ source ~/arxiv/bin/activate
 python src/data/search_txt.py --txt_root_dir /home/tvhahn/scratch/arxiv-code-search/data/raw/txts \
     --overwrite \
     --keep_old_files \
-    --index_file_no 5 \
+    --index_file_no 6 \
     --max_token_len 350
