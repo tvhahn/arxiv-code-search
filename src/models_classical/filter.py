@@ -218,6 +218,9 @@ def main(args):
             model_save_path = path_final_dir / "model_files"
             model_save_path.mkdir(parents=True, exist_ok=True)
             save_models = True
+        else:
+            save_models = False
+            model_save_path = None
 
         for row_idx in range(args.save_n_figures):
 

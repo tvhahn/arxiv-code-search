@@ -4,6 +4,7 @@ import argparse
 import logging
 import os
 from multiprocessing import Pool
+from src.models_classical.filter import order_columns_on_results_df
 
 
 def set_directories(args):
@@ -106,5 +107,7 @@ if __name__ == "__main__":
     proj_dir, path_interim_dir, path_final_dir = set_directories(args)
 
     df = main(path_interim_dir)
+
+    df = order_columns_on_results_df(df)
 
     df.to_csv(path_final_dir / args.compiled_csv_name, index=False)

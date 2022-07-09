@@ -172,7 +172,11 @@ endif
 # Compile the results of the classical models trained during the random search
 compile: requirements
 ifeq (True,$(HAS_CONDA)) # assume on local
-	$(PYTHON_INTERPRETER) src/models_classical/compile.py -p $(PROJECT_DIR) --n_cores 6 --interim_dir_name interim_results_milling --final_dir_name final_results_milling
+	$(PYTHON_INTERPRETER) src/models_classical/compile.py \
+	-p $(PROJECT_DIR) \
+	--n_cores 6 \
+	--interim_dir_name classical_results_interim \
+	--final_dir_name final_results_classical
 else # assume on HPC
 	sbatch src/models_classical/compile_hpc.sh $(PROJECT_DIR)
 endif
@@ -184,12 +188,12 @@ ifeq (True,$(HAS_CONDA)) # assume on local
 	$(PYTHON_INTERPRETER) src/models_classical/filter.py \
 		-p $(PROJECT_DIR) \
 		--keep_top_n 1 \
-		--save_n_figures 8 \
+		--save_n_figures 0 \
 		--path_data_dir $(PROJECT_DIR)/data/ \
 		--path_emb_dir $(PROJECT_DIR)/data/processed/embeddings \
-		--emb_file_name df_embeddings_2022-07-01.pkl \
+		--emb_file_name df_embeddings_2022-07-08.pkl \
 		--final_dir_name final_results_classical \
-		--save_models True
+		--save_models False
 else # assume on HPC
 	sbatch src/models_classical/filter_hpc.sh $(PROJECT_DIR)
 endif
