@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --time=02:20:00 # 30 minutes
+#SBATCH --time=00:10:00 # 30 minutes
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=16
 #SBATCH --mem=32G
@@ -11,4 +11,4 @@ module load python/3.8
 
 source ~/arxiv/bin/activate
 
-python src/data/make_txt.py --n_cores 16 --pdf_root_dir /home/tvhahn/scratch/arxiv-code-search/data/raw/pdfs --index_file_no 5
+python src/data/make_txt.py --n_cores 16 --pdf_root_dir /home/tvhahn/scratch/arxiv-code-search/data/raw/pdfs --index_file_no 6

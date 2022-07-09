@@ -8,4 +8,4 @@ fi
 cd ..
 cd ..
 
-cp -r ./data/raw ~/scratch/arxiv-code-search/data
+cp -r ./data/raw/pdfs/6 ~/scratch/arxiv-code-search/data/raw/pdfs
