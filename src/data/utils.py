@@ -126,6 +126,7 @@ def select_random_papers(df, index_file_dir, check_duplicates=True, save_csv=Tru
     no_exisiting_index_files = len(file_list)
 
     if check_duplicates and no_exisiting_index_files > 0:
+        print("Checking for duplicates...")
         # load index files with pandas and append to index_data_list
         index_data_list = []
         for file in file_list:
@@ -134,9 +135,14 @@ def select_random_papers(df, index_file_dir, check_duplicates=True, save_csv=Tru
         # concatenate index_data_list into one dataframe
         df_used = pd.concat(index_data_list).reset_index(drop=True)
 
-        # concatenate df and df_used
-        df_unique = pd.concat([df, df_used], sort=False).drop_duplicates(["id"], keep=False)
+        ids_used = df_used["id"].tolist()
+
+        df_unique = df[~df["id"].isin(ids_used)]
+
+
+
     else:
+        print("Check duplicates not selected...")
         df_unique = df
 
     # select random papers
