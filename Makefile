@@ -62,9 +62,9 @@ endif
 ## Download papers from arxiv
 download_papers:
 ifeq (True,$(HAS_CONDA)) # assume on local
-	$(PYTHON_INTERPRETER) src/data/download_papers.py --index_file_no 7
+	$(PYTHON_INTERPRETER) src/data/download_papers.py --index_file_no 6
 else # assume on HPC
-	$(PYTHON_INTERPRETER) src/data/download_papers.py --index_file_no 7
+	$(PYTHON_INTERPRETER) src/data/download_papers.py --index_file_no 6
 endif
 
 
@@ -125,7 +125,7 @@ ifeq (True,$(HAS_CONDA)) # assume on local
 		--path_label_dir $(PROJECT_DIR)/data/processed/labels/labels_complete \
 		--label_file_name labels.csv \
 		--path_emb_dir $(PROJECT_DIR)/data/processed/embeddings \
-		--emb_file_name df_embeddings_2022-07-08.pkl 
+		--emb_file_name df_embeddings_2022-07-09.pkl 
 else # assume on HPC
 	sbatch src/models/train_model_hpc.sh $(PROJECT_DIR)
 endif
@@ -136,11 +136,11 @@ add_probabilities: requirements
 ifeq (True,$(HAS_CONDA)) # assume on local
 	$(PYTHON_INTERPRETER) $(PROJECT_DIR)/src/data/add_probabilities.py \
 		--proj_dir $(PROJECT_DIR) \
-		--path_trained_model_dir $(PROJECT_DIR)/models/final_results_classical/model_files \
-		--model_name model_13275110_rf_2022-07-06-1933-36_papers1.pkl \
-		--scaler_name scaler_13275110_rf_2022-07-06-1933-36_papers1.pkl \
+		--path_trained_model_dir $(PROJECT_DIR)/models/final_results_classical_2022-07-08/model_files \
+		--model_name model_26687116_rf_2022-07-08-1941-51_papers1.pkl \
+		--scaler_name scaler_26687116_rf_2022-07-08-1941-51_papers1.pkl \
 		--path_label_dir $(PROJECT_DIR)/data/interim \
-		--label_file_name labels_5.ods
+		--label_file_name labels_6.ods
 
 else # assume on HPC
 	sbatch src/models/train_model_hpc.sh $(PROJECT_DIR)
@@ -188,12 +188,12 @@ ifeq (True,$(HAS_CONDA)) # assume on local
 	$(PYTHON_INTERPRETER) src/models_classical/filter.py \
 		-p $(PROJECT_DIR) \
 		--keep_top_n 1 \
-		--save_n_figures 0 \
+		--save_n_figures 4 \
 		--path_data_dir $(PROJECT_DIR)/data/ \
 		--path_emb_dir $(PROJECT_DIR)/data/processed/embeddings \
 		--emb_file_name df_embeddings_2022-07-08.pkl \
 		--final_dir_name final_results_classical \
-		--save_models False
+		--save_models True
 else # assume on HPC
 	sbatch src/models_classical/filter_hpc.sh $(PROJECT_DIR)
 endif

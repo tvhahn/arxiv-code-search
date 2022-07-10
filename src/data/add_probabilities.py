@@ -93,7 +93,11 @@ def main(args):
     with open(path_trained_model_dir / model_name, "rb") as f:
         model = pickle.load(f)
 
-    features = scaler.transform(features)
+    if scaler is not None:
+        features = scaler.transform(features)
+    else:
+        print("No scaler used.")
+
     probabilities = model.predict_proba(features)
     predictions = model.predict(features)
 
