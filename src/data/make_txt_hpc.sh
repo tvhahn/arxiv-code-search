@@ -11,4 +11,4 @@ module load python/3.8
 
 source ~/arxiv/bin/activate
 
-python src/data/make_txt.py --n_cores 16 --pdf_root_dir /home/tvhahn/scratch/arxiv-code-search/data/raw/pdfs --index_file_no 6
+python src/data/make_txt.py --n_cores 16 --pdf_root_dir /home/tvhahn/scratch/arxiv-code-search/data/raw/pdfs --index_file_no 7
