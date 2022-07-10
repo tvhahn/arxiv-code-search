@@ -1,6 +1,6 @@
 #!/bin/bash
-#SBATCH --time=17:10:00 # 30 min
-#SBATCH --array=1-90
+#SBATCH --time=00:10:00 # 30 min
+#SBATCH --array=1-2
 #SBATCH --cpus-per-task=4
 #SBATCH --mem=8G
 #SBATCH --account=rrg-mechefsk
@@ -16,5 +16,5 @@ SCRATCH_DATA_DIR=~/scratch/arxiv-code-search/data
 module load python/3.8
 source ~/arxiv/bin/activate
 
-python $PROJECT_DIR/src/models_classical/train.py --save_dir_name classical_results_interim --date_time $NOW_TIME --path_data_dir $SCRATCH_DATA_DIR --rand_search_iter 8000
+python $PROJECT_DIR/src/models_classical/train.py --save_dir_name classical_results_interim --path_data_dir $SCRATCH_DATA_DIR --date_time $NOW_TIME --path_emb_dir $SCRATCH_DATA_DIR/processed/embeddings --emb_file_name df_embeddings_2022-07-09.pkl --rand_search_iter 8000
 
