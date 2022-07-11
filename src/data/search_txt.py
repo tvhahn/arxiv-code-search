@@ -230,6 +230,7 @@ def main(file_list, index_no):
         "github": re.compile(r"\b(github|gitlab)\b"),
         "retrieve": re.compile(r"(retreived|retrieved)"),
         "data repos": re.compile(r"(mendeley|phm data challenge|nasa ames)"),
+        "repository": re.compile(r"\b(repository|repositories)\b"),
         "data repository": re.compile(
             r"\b(data|dataset|data set)(?:\W+\w+){0,9}?\W+(repository|repo|catalogue)\b"
         ),
@@ -241,6 +242,8 @@ def main(file_list, index_no):
         "case study data": re.compile(
             r"\b(case study|benchmark)(?:\W+\w+){0,9}?\W+(data|data set|dataset)\b"
         ),
+        "public": re.compile(r"\b(public)\b"),
+        "public instance": re.compile(r"\b(public instance)\b"),
         "dataset": re.compile(r"\b(dataset|data set|datasets|data-sets)\b"),
         "corpus": re.compile(r"\b(corpus)\b"),
         "download": re.compile(r"\b(download|download)\b"),
