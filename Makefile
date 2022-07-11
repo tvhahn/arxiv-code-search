@@ -125,7 +125,7 @@ ifeq (True,$(HAS_CONDA)) # assume on local
 		--path_label_dir $(PROJECT_DIR)/data/processed/labels/labels_complete \
 		--label_file_name labels.csv \
 		--path_emb_dir $(PROJECT_DIR)/data/processed/embeddings \
-		--emb_file_name df_embeddings_2022-07-09.pkl 
+		--emb_file_name df_embeddings_2022-07-11.pkl 
 else # assume on HPC
 	sbatch src/models/train_model_hpc.sh $(PROJECT_DIR)
 endif
