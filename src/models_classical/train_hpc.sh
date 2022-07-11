@@ -20,6 +20,6 @@ python $PROJECT_DIR/src/models_classical/train.py \
     --save_dir_name classical_results_interim \
     --path_data_dir $SCRATCH_DATA_DIR \
     --path_emb_dir $SCRATCH_DATA_DIR/processed/embeddings \
-    --emb_file_name df_embeddings_2022-07-09.pkl \
+    --emb_file_name df_embeddings_2022-07-11.pkl \
     --rand_search_iter 8000
 

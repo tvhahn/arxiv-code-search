@@ -337,11 +337,13 @@ def random_search_runner(
             # drop any file extensions from the dataset name
             if dataset_name is not None:
                 try:
-                    dataset_name = dataset_name.split(".")[0]
+                    d_name = dataset_name.split(".")[0]
                 except:
-                    pass
+                    d_name = dataset_name
+            else:
+                d_name = "None"
 
-            df_t["id"] = f"{sample_seed}_{classifier_used}_{now_str}_{dataset_name}"
+            df_t["id"] = f"{sample_seed}_{classifier_used}_{now_str}_{d_name}"
 
             # classifier params
             df_c = pd.DataFrame.from_dict(params_dict_clf_named, orient="index").T
