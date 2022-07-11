@@ -195,6 +195,7 @@ def main(args):
 
     # use this is you want to only select the top models by model type (e.g. top SVM, RF, etc.)
     sort_by = 'prauc_avg'
+    # sort_by = 'prauc_min'
     df = df.groupby(['classifier']).head(args.keep_top_n).sort_values(by=sort_by, ascending=False)
 
     df = order_columns_on_results_df(df)
