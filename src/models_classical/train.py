@@ -333,6 +333,14 @@ def random_search_runner(
             df_t["date_time"] = now_str
             df_t["dataset"] = dataset_name
             classifier_used = params_dict_train_setup["classifier"]
+
+            # drop any file extensions from the dataset name
+            if dataset_name is not None:
+                try:
+                    dataset_name = dataset_name.split(".")[0]
+                except:
+                    pass
+
             df_t["id"] = f"{sample_seed}_{classifier_used}_{now_str}_{dataset_name}"
 
             # classifier params
@@ -401,6 +409,10 @@ def main(args):
     else:
         path_emb_dir = path_data_dir / "processed" / "embeddings"
 
+    if args.dataset_name:
+        dataset_name = args.dataset_name
+    else:
+        dataset_name = str(args.emb_file_name)
 
     RAND_SEARCH_ITER = args.rand_search_iter
 
@@ -432,7 +444,7 @@ def main(args):
         STRATIFICATION_GROUPING_COL,
         proj_dir,
         path_save_dir,
-        dataset_name="papers1",
+        dataset_name=dataset_name,
         y_label_col=Y_LABEL_COL,
         save_freq=1,
         debug=True,
@@ -484,7 +496,6 @@ if __name__ == "__main__":
     parser.add_argument(
         "--emb_file_name",
         type=str,
-        default="df_embeddings.pkl",
         help="Name of the embedding file to save",
     )
 
@@ -498,6 +509,12 @@ if __name__ == "__main__":
         "--date_time",
         type=str,
         help="Date and time that random search was executed.",
+    )
+
+    parser.add_argument(
+        "--dataset_name",
+        type=str,
+        help="Name of the dataset (pickle file) that was used for the random search",
     )
 
     args = parser.parse_args()

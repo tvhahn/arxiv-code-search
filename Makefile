@@ -162,8 +162,8 @@ ifeq (True,$(HAS_CONDA)) # assume on local
 	$(PYTHON_INTERPRETER) src/models_classical/train.py \
 		--save_dir_name classical_results_interim \
 		--path_emb_dir $(PROJECT_DIR)/data/processed/embeddings \
-		--emb_file_name df_embeddings_2022-07-08.pkl \
-		--rand_search_iter 5000
+		--emb_file_name df_embeddings_2022-07-09.pkl \
+		--rand_search_iter 2000
 else # assume on HPC
 	sbatch src/models_classical/train_hpc.sh $(PROJECT_DIR) $(NOW_TIME)
 endif
@@ -196,15 +196,6 @@ ifeq (True,$(HAS_CONDA)) # assume on local
 		--save_models True
 else # assume on HPC
 	sbatch src/models_classical/filter_hpc.sh $(PROJECT_DIR)
-endif
-
-
-## Dummy task to test out deep learning training
-train_dummy: requirements
-ifeq (True,$(HAS_CONDA)) # assume on local
-	$(PYTHON_INTERPRETER) $(PROJECT_DIR)/src/models/train_model.py
-else # assume on HPC
-	sbatch src/models/train_model_hpc_dummy.sh $(PROJECT_DIR)
 endif
 
 
