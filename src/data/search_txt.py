@@ -207,20 +207,22 @@ def main(file_list, index_no):
 
     # get a list of file names
     pattern_dict = {
-        "open-source": re.compile(r"\b(open-source|open source)\b"),
+        "open-source": re.compile(r"\b(open-source|open source|open-sourced|open sourced)\b"),
         "open-source data": re.compile(
             r"\b(open-source|open source|open)(?:\W+\w+){0,9}?\W+(data|dataset|data set)\b"
         ),
         "data open-source ": re.compile(
             r"\b(data|dataset|data set)(?:\W+\w+){0,9}?\W+(open-source|open source)\b"
         ),
+        "reproducibility": re.compile(r"\b(reproducibility|reproducible|reproducible data|reproduce)\b"),
         # "open-source data": re.compile(r'\b(?:open-source|open source\W+(?:\w+\W+){1,6}?data|dataset|data set|(data|dataset|data set)\W+(?:\w+\W+){1,6}?(open-source|open source))\b'),
         "open-source code": re.compile(
-            r"\b(open-source|open source)(?:\W+\w+){0,9}?\W+(code)\b"
+            r"\b(open-source|open source|open-sourced|open sourced)(?:\W+\w+){0,9}?\W+(code)\b"
         ),
         "provide implementation": re.compile(
             r"\b(provide|provided)(?:\W+\w+){0,9}?\W+(implementation|implementations)\b"
         ),
+        "implementation available": re.compile(r"\b(implementation)(?:\W+\w+){0,9}?\W+(available)\b"),
         "code open-source": re.compile(
             r"\b(code)(?:\W+\w+){0,9}?\W+(open-source|open source)\b"
         ),
@@ -274,7 +276,7 @@ def main(file_list, index_no):
             r"\b(data|dataset|data set)(?:\W+\w+){0,9}?\W+(provide|provided|supplied|public)\b"
         ),
         "publicly available": re.compile(
-            r"\b(publicly|public)(?:\W+\w+){0,9}?\W+(available|access|download|package|accessible|dataset|data set|data)\b"
+            r"\b(publicly|public|available)(?:\W+\w+){0,9}?\W+(publicly|available|access|download|package|accessible|dataset|data set|data)\b"
         ),
     }
 
