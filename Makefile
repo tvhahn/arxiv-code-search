@@ -176,7 +176,7 @@ ifeq (True,$(HAS_CONDA)) # assume on local
 	-p $(PROJECT_DIR) \
 	--n_cores 6 \
 	--interim_dir_name classical_results_interim \
-	--final_dir_name final_results_classical
+	--final_dir_name final_results_classical_2022-07-11
 else # assume on HPC
 	sbatch src/models_classical/compile_hpc.sh $(PROJECT_DIR)
 endif
@@ -191,8 +191,8 @@ ifeq (True,$(HAS_CONDA)) # assume on local
 		--save_n_figures 4 \
 		--path_data_dir $(PROJECT_DIR)/data/ \
 		--path_emb_dir $(PROJECT_DIR)/data/processed/embeddings \
-		--emb_file_name df_embeddings_2022-07-08.pkl \
-		--final_dir_name final_results_classical \
+		--emb_file_name df_embeddings_2022-07-11.pkl \
+		--final_dir_name final_results_classical_2022-07-11 \
 		--save_models True
 else # assume on HPC
 	sbatch src/models_classical/filter_hpc.sh $(PROJECT_DIR)
