@@ -62,9 +62,9 @@ endif
 ## Download papers from arxiv
 download_papers:
 ifeq (True,$(HAS_CONDA)) # assume on local
-	$(PYTHON_INTERPRETER) src/data/download_papers.py --index_file_no 6
+	$(PYTHON_INTERPRETER) src/data/download_papers.py --index_file_no 8
 else # assume on HPC
-	$(PYTHON_INTERPRETER) src/data/download_papers.py --index_file_no 6
+	$(PYTHON_INTERPRETER) src/data/download_papers.py --index_file_no 8
 endif
 
 
