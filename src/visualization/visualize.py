@@ -105,7 +105,8 @@ def plot_pr_roc_curves_kfolds(
     axes[0].text(
         x=-0.05,
         y=-0.3,
-        s=f"PR AUC: {math.floor(prauc_array.mean() * 1000)/1000.0:.3f} (avg), {math.floor(prauc_array.min() * 1000)/1000.0:.3f} (min), {math.floor(prauc_array.max() * 1000)/1000.0:.3f} (max)",
+        s=f"PR AUC: {prauc_array.mean():.3f} (avg), {prauc_array.min():.3f} (min), {prauc_array.max():.3f} (max)",
+        # s=f"PR AUC: {math.floor(prauc_array.mean() * 1000)/1000.0:.3f} (avg), {math.floor(prauc_array.min() * 1000)/1000.0:.3f} (min), {math.floor(prauc_array.max() * 1000)/1000.0:.3f} (max)",
         # fontsize=10,
         horizontalalignment="left",
         verticalalignment="center",
@@ -155,7 +156,8 @@ def plot_pr_roc_curves_kfolds(
     axes[1].text(
         x=-0.05,
         y=-0.3,
-        s=f"PR AUC: {math.floor(rocauc_array.mean() * 1000)/1000.0:.3f} (avg), {math.floor(rocauc_array.min() * 1000)/1000.0:.3f} (min), {math.floor(rocauc_array.max() * 1000)/1000.0:.3f} (max)",
+        s=f"ROC AUC: {rocauc_array.mean():.3f} (avg), {rocauc_array.min():.3f} (min), {rocauc_array.max():.3f} (max)",
+        # s=f"ROC AUC: {math.floor(rocauc_array.mean() * 1000)/1000.0:.3f} (avg), {math.floor(rocauc_array.min() * 1000)/1000.0:.3f} (min), {math.floor(rocauc_array.max() * 1000)/1000.0:.3f} (max)",
         # fontsize=10,
         horizontalalignment="left",
         verticalalignment="center",
