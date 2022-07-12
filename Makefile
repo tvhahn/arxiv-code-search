@@ -137,8 +137,8 @@ ifeq (True,$(HAS_CONDA)) # assume on local
 	$(PYTHON_INTERPRETER) $(PROJECT_DIR)/src/data/add_probabilities.py \
 		--proj_dir $(PROJECT_DIR) \
 		--path_trained_model_dir $(PROJECT_DIR)/models/final_results_classical_2022-07-11/model_files \
-		--model_name model_25243116_rf_2022-07-12-0107-57_df_embeddings_2022-07-11.pkl \
-		--scaler_name scaler_25243116_rf_2022-07-12-0107-57_df_embeddings_2022-07-11.pkl \
+		--model_name model_6669115_rf_2022-07-12-1105-22_df_embeddings_2022-07-11.pkl \
+		--scaler_name scaler_6669115_rf_2022-07-12-1105-22_df_embeddings_2022-07-11.pkl \
 		--path_label_dir $(PROJECT_DIR)/data/interim \
 		--label_file_name labels_7.ods
 
