@@ -251,6 +251,7 @@ def main(file_list, index_no):
         "download": re.compile(r"\b(download|download)\b"),
         "data": re.compile(r"\b(data)\b"),
         "database": re.compile(r"\b(database)\b"),
+        "baseline": re.compile(r"\b(baseline|baselines)\b"),
         "python": "python",
         "package": re.compile(r"\b(package)\b"),
         "code": re.compile(r"\b(code)\b"),
