@@ -94,6 +94,7 @@ def order_columns_on_results_df(df):
             "oversamp_ratio",
             "undersamp_method",
             "undersamp_ratio",
+            "early_stopping_rounds",
             "prauc_min",
             "prauc_max",
             "prauc_avg",
@@ -178,6 +179,7 @@ def rebuild_general_params(df, row_idx, general_param_keys=None):
             "oversamp_ratio",
             "undersamp_ratio",
             "classifier",
+            "early_stopping_rounds",
         ]
     return {k: [df.iloc[row_idx][k]] for k in general_param_keys}
 

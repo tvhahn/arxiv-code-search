@@ -59,6 +59,7 @@ def kfold_cv(
     stratification_grouping_col=None,
     y_label_col="y",
     n_splits=5,
+    early_stopping_rounds=None,
 ):
 
     scores_list = []
@@ -116,9 +117,19 @@ def kfold_cv(
             x_train, x_test, scaler = scale_data(x_train, x_test, scaler_method)
 
 
-            # train model
+            # train model. Use early stopping if specified (only for xgb)
             print("x_train shape:", x_train.shape)
-            clone_clf.fit(x_train, y_train)
+            if early_stopping_rounds is not None:
+                clone_clf.fit(
+                    x_train,
+                    y_train,
+                    early_stopping_rounds=early_stopping_rounds,
+                    eval_set=[(x_train, y_train), (x_test, y_test)],
+                    verbose=True,
+                )
+            else:
+                clone_clf.fit(x_train, y_train)
+
 
             # calculate the scores for each individual model train in the cross validation
             # save as a dictionary: "ind_score_dict"
@@ -160,8 +171,18 @@ def kfold_cv(
             # scale the data
             x_train, x_test, scaler = scale_data(x_train, x_test, scaler_method)
 
-            # train model
-            clone_clf.fit(x_train, y_train, early_stopping_rounds=10)
+            # train model. Use early stopping if specified (only for xgb)
+            print("x_train shape:", x_train.shape)
+            if early_stopping_rounds is not None:
+                clone_clf.fit(
+                    x_train,
+                    y_train,
+                    early_stopping_rounds=early_stopping_rounds,
+                    eval_set=[(x_train, y_train), (x_test, y_test)],
+                    verbose=True,
+                )
+            else:
+                clone_clf.fit(x_train, y_train)
 
             # calculate the scores for each k in the cross validation
             # save as a dictionary: "ind_score_dict"
@@ -200,6 +221,15 @@ def train_single_model(
     oversamp_ratio = params_dict_train_setup["oversamp_ratio"]
     undersamp_ratio = params_dict_train_setup["undersamp_ratio"]
     classifier = params_dict_train_setup["classifier"]
+
+    # for early stopping -- only with XGBoost
+    if classifier == "xgb" and isinstance(params_dict_train_setup["early_stopping_rounds"], (int, float)):
+        early_stopping_rounds = int(params_dict_train_setup["early_stopping_rounds"])
+        print("early_stopping_rounds:", early_stopping_rounds)
+        print("type(early_stopping_rounds)", type(early_stopping_rounds))
+    else:
+        print("No early stopping rounds for this classifier")
+        early_stopping_rounds = None
 
     # add any qualifiers to the parameters. e.g. if "smote_enn", then do not use undersampling
     if oversamp_method in ["smote_enn", "smote_tomek"]:
@@ -243,6 +273,7 @@ def train_single_model(
         stratification_grouping_col,
         y_label_col,
         n_splits=5,
+        early_stopping_rounds=early_stopping_rounds,
     )
 
     # added additional parameters to the training setup dictionary
@@ -424,6 +455,8 @@ def main(args):
     # load dfh.pickle
     with open(path_emb_dir / args.emb_file_name, "rb") as f:
         df = pickle.load(f)
+
+    df = df[:1000]
 
     Y_LABEL_COL = "label"
 
