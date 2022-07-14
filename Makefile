@@ -168,7 +168,7 @@ ifeq (True,$(HAS_CONDA)) # assume on local
 		--save_dir_name classical_results_interim \
 		--path_emb_dir $(PROJECT_DIR)/data/processed/embeddings \
 		--emb_file_name df_embeddings_2022-07-11.pkl \
-		--rand_search_iter 2000
+		--rand_search_iter 6
 else # assume on HPC
 	sbatch src/models_classical/train_hpc.sh $(PROJECT_DIR) $(NOW_TIME)
 endif
@@ -181,7 +181,7 @@ ifeq (True,$(HAS_CONDA)) # assume on local
 	-p $(PROJECT_DIR) \
 	--n_cores 6 \
 	--interim_dir_name classical_results_interim \
-	--final_dir_name final_results_classical_2022-07-11
+	--final_dir_name final_results_classical
 else # assume on HPC
 	sbatch src/models_classical/compile_hpc.sh $(PROJECT_DIR)
 endif
@@ -193,11 +193,11 @@ ifeq (True,$(HAS_CONDA)) # assume on local
 	$(PYTHON_INTERPRETER) src/models_classical/filter.py \
 		-p $(PROJECT_DIR) \
 		--keep_top_n 1 \
-		--save_n_figures 4 \
+		--save_n_figures 1 \
 		--path_data_dir $(PROJECT_DIR)/data/ \
 		--path_emb_dir $(PROJECT_DIR)/data/processed/embeddings \
-		--emb_file_name df_embeddings_2022-07-14.pkl \
-		--final_dir_name final_results_classical_2022-07-14 \
+		--emb_file_name df_embeddings_2022-07-11.pkl \
+		--final_dir_name final_results_classical \
 		--save_models False
 else # assume on HPC
 	sbatch src/models_classical/filter_hpc.sh $(PROJECT_DIR)

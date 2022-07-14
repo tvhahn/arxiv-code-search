@@ -49,12 +49,13 @@ def under_over_sampler(x, y, method=None, ratio=0.5):
     Returns an undersampled or oversampled data set. Implemented using imbalanced-learn package.
     ['random_over','random_under','random_under_bootstrap','smote', 'adasyn']
     """
+    print("method: ", method)
 
-    if method == None:
-        return x, y
+    # if method == None:
+    #     return x, y
 
     # oversample methods: https://imbalanced-learn.readthedocs.io/en/stable/over_sampling.html
-    elif method == "random_over":
+    if method == "random_over":
         # print('before:',sorted(Counter(y).items()))
         ros = RandomOverSampler(sampling_strategy=ratio, random_state=0)
         x_resampled, y_resampled = ros.fit_resample(x, y)

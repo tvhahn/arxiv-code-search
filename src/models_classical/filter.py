@@ -214,7 +214,7 @@ def main(args):
 
     # save a certain number of PR-AUC and ROC-AUC curves
     if args.save_n_figures > 0:
-        print(f"Using embedding file: {args.embedding_file}")
+        print(f"Using embedding file: {args.emb_file_name}")
 
         with open(path_emb_dir / args.emb_file_name, "rb") as f:
             df_feat = pickle.load(f)
@@ -238,6 +238,11 @@ def main(args):
             params_clf = rebuild_params_clf(df, row_idx)
             general_params = rebuild_general_params(df, row_idx)
 
+            print("Classifier params:\n")
+            print(params_clf)
+            print("General params:\n")
+            print(general_params)
+
             META_LABEL_COLS = ["para"]
             STRATIFICATION_GROUPING_COL = (
                 "id"  # either arxiv paper id, or another unique id (such as the doi)
@@ -260,7 +265,6 @@ def main(args):
                     path_final_dir / "setup_files" / "Makefile",
                 )
 
-            print(args.save_models)
             (
                 model_metrics_dict,
                 params_dict_clf_named,

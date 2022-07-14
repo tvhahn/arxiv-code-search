@@ -115,6 +115,7 @@ def kfold_cv(
 
             # train model. Use early stopping if specified (only for xgb)
             print("x_train shape:", x_train.shape)
+            print("early stopping rounds in kfold_cv:", early_stopping_rounds)
             if early_stopping_rounds is not None:
                 clone_clf.fit(
                     x_train,
@@ -216,11 +217,16 @@ def train_single_model(
     undersamp_ratio = params_dict_train_setup["undersamp_ratio"]
     classifier = params_dict_train_setup["classifier"]
 
+    print("############################################################")
+    print("Classifier:", classifier)
+    print("\n")
+
     # for early stopping -- only with XGBoost
     if (
         classifier == "xgb"
         and "early_stopping_rounds" in params_dict_train_setup.keys()
         and isinstance(params_dict_train_setup["early_stopping_rounds"], (int, float))
+        and params_dict_train_setup["early_stopping_rounds"] >= 0
     ):
         early_stopping_rounds = int(params_dict_train_setup["early_stopping_rounds"])
         print("early_stopping_rounds:", early_stopping_rounds)
@@ -251,6 +257,10 @@ def train_single_model(
 
     if params_clf is None:
         params_clf = params_clf_generated
+
+    print("\ngeneral params:\n", params_dict_train_setup)
+
+    print("\nparams_clf:\n", params_clf)
 
     # instantiate the model
     clf, param_dict_clf_raw, params_dict_clf_named = clf_function(
@@ -456,7 +466,6 @@ def main(args):
     with open(path_emb_dir / args.emb_file_name, "rb") as f:
         df = pickle.load(f)
 
-    df = df[:1000]
 
     Y_LABEL_COL = "label"
 
