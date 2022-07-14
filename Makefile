@@ -196,7 +196,7 @@ ifeq (True,$(HAS_CONDA)) # assume on local
 		--save_n_figures 1 \
 		--path_data_dir $(PROJECT_DIR)/data/ \
 		--path_emb_dir $(PROJECT_DIR)/data/processed/embeddings \
-		--emb_file_name df_embeddings_2022-07-11.pkl \
+		--emb_file_name df_embeddings_2022-07-14.pkl \
 		--final_dir_name final_results_classical \
 		--save_models False
 else # assume on HPC
