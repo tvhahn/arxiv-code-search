@@ -44,9 +44,6 @@ from sklearn.metrics import (
 from src.visualization.visualize import plot_pr_roc_curves_kfolds
 
 
-
-
-
 def kfold_cv(
     df,
     clf,
@@ -116,7 +113,6 @@ def kfold_cv(
             # scale the data
             x_train, x_test, scaler = scale_data(x_train, x_test, scaler_method)
 
-
             # train model. Use early stopping if specified (only for xgb)
             print("x_train shape:", x_train.shape)
             if early_stopping_rounds is not None:
@@ -129,7 +125,6 @@ def kfold_cv(
                 )
             else:
                 clone_clf.fit(x_train, y_train)
-
 
             # calculate the scores for each individual model train in the cross validation
             # save as a dictionary: "ind_score_dict"
@@ -206,9 +201,8 @@ def train_single_model(
     save_model=False,
     model_save_name=None,
     model_save_path=None,
-    now_str=None, # for saving the model - the current time
-    dataset_name="dataset", # for saving the model - the dataset name
-
+    now_str=None,  # for saving the model - the current time
+    dataset_name="dataset",  # for saving the model - the dataset name
 ):
     # generate the list of parameters to sample over
     params_dict_train_setup = list(
@@ -223,7 +217,11 @@ def train_single_model(
     classifier = params_dict_train_setup["classifier"]
 
     # for early stopping -- only with XGBoost
-    if classifier == "xgb" and isinstance(params_dict_train_setup["early_stopping_rounds"], (int, float)):
+    if (
+        classifier == "xgb"
+        and "early_stopping_rounds" in params_dict_train_setup.keys()
+        and isinstance(params_dict_train_setup["early_stopping_rounds"], (int, float))
+    ):
         early_stopping_rounds = int(params_dict_train_setup["early_stopping_rounds"])
         print("early_stopping_rounds:", early_stopping_rounds)
         print("type(early_stopping_rounds)", type(early_stopping_rounds))
@@ -243,7 +241,6 @@ def train_single_model(
     if undersamp_method == None:
         undersamp_ratio = None
         params_dict_train_setup["undersamp_ratio"] = None
-
 
     print(
         f"classifier: {classifier}, oversamp_method: {oversamp_method}, oversamp_ratio: {oversamp_ratio} undersamp_method: {undersamp_method} undersamp_ratio: {undersamp_ratio}"
@@ -283,8 +280,12 @@ def train_single_model(
     # save the model if requested
     if save_model:
         if model_save_name is None:
-            model_save_name = f"model_{sampler_seed}_{classifier}_{now_str}_{dataset_name}.pkl"
-            scaler_save_name = f"scaler_{sampler_seed}_{classifier}_{now_str}_{dataset_name}.pkl"
+            model_save_name = (
+                f"model_{sampler_seed}_{classifier}_{now_str}_{dataset_name}.pkl"
+            )
+            scaler_save_name = (
+                f"scaler_{sampler_seed}_{classifier}_{now_str}_{dataset_name}.pkl"
+            )
         else:
             scaler_save_name = "scaler_" + model_save_name
             model_save_name = "model_" + model_save_name
@@ -295,7 +296,6 @@ def train_single_model(
 
         with open(model_save_path / scaler_save_name, "wb") as f:
             pickle.dump(scaler_fitted, f)
-
 
     return model_metrics_dict, params_dict_clf_named, params_dict_train_setup
 
@@ -354,7 +354,7 @@ def random_search_runner(
                 save_model=False,
                 model_save_name=None,
                 model_save_path=path_save_dir,
-                now_str=now_str, # for saving the model - the current time
+                now_str=now_str,  # for saving the model - the current time
                 dataset_name=dataset_name,
             )
 

@@ -93,7 +93,12 @@ endif
 ## Compile the labels from all the individual search csvs
 labels: requirements
 ifeq (True,$(HAS_CONDA)) # assume on local
-	$(PYTHON_INTERPRETER) src/data/make_labels.py --path_data_dir $(PROJECT_DIR)/data/ --path_label_dir $(PROJECT_DIR)/data/interim/ --n_cores 2 --file_type ods --save_name labels.csv
+	$(PYTHON_INTERPRETER) src/data/make_labels.py \
+		--path_data_dir $(PROJECT_DIR)/data/ \
+		--path_label_dir $(PROJECT_DIR)/data/interim/ \
+		--n_cores 2 \
+		--file_type ods \
+		--save_name labels.csv
 else # assume on HPC
 	sbatch src/data/search_txt_hpc.sh
 endif
@@ -188,7 +193,7 @@ ifeq (True,$(HAS_CONDA)) # assume on local
 	$(PYTHON_INTERPRETER) src/models_classical/filter.py \
 		-p $(PROJECT_DIR) \
 		--keep_top_n 1 \
-		--save_n_figures 4 \
+		--save_n_figures 8 \
 		--path_data_dir $(PROJECT_DIR)/data/ \
 		--path_emb_dir $(PROJECT_DIR)/data/processed/embeddings \
 		--emb_file_name df_embeddings_2022-07-11.pkl \
