@@ -214,6 +214,7 @@ def main(args):
 
     # save a certain number of PR-AUC and ROC-AUC curves
     if args.save_n_figures > 0:
+        print(f"Using embedding file: {args.embedding_file}")
 
         with open(path_emb_dir / args.emb_file_name, "rb") as f:
             df_feat = pickle.load(f)
