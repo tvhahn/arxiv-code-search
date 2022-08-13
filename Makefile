@@ -141,11 +141,11 @@ add_probabilities: requirements
 ifeq (True,$(HAS_CONDA)) # assume on local
 	$(PYTHON_INTERPRETER) $(PROJECT_DIR)/src/data/add_probabilities.py \
 		--proj_dir $(PROJECT_DIR) \
-		--path_trained_model_dir $(PROJECT_DIR)/models/final_results_classical_2022-07-11/model_files \
-		--model_name model_6669115_rf_2022-07-12-1105-22_df_embeddings_2022-07-11.pkl \
-		--scaler_name scaler_6669115_rf_2022-07-12-1105-22_df_embeddings_2022-07-11.pkl \
+		--path_trained_model_dir $(PROJECT_DIR)/models/final_results_classical_2022-07-14/model_files \
+		--model_name model_24667462_rf_2022-07-15-1755-09_df_embeddings_2022-07-14.pkl \
+		--scaler_name scaler_24667462_rf_2022-07-15-1755-09_df_embeddings_2022-07-14.pkl \
 		--path_label_dir $(PROJECT_DIR)/data/interim \
-		--label_file_name labels_7.ods
+		--label_file_name labels_8.ods
 
 else # assume on HPC
 	sbatch src/models/train_model_hpc.sh $(PROJECT_DIR)
@@ -193,12 +193,12 @@ ifeq (True,$(HAS_CONDA)) # assume on local
 	$(PYTHON_INTERPRETER) src/models_classical/filter.py \
 		-p $(PROJECT_DIR) \
 		--keep_top_n 1 \
-		--save_n_figures 1 \
+		--save_n_figures 4 \
 		--path_data_dir $(PROJECT_DIR)/data/ \
 		--path_emb_dir $(PROJECT_DIR)/data/processed/embeddings \
 		--emb_file_name df_embeddings_2022-07-14.pkl \
-		--final_dir_name final_results_classical \
-		--save_models False
+		--final_dir_name final_results_classical_2022-07-14 \
+		--save_models True
 else # assume on HPC
 	sbatch src/models_classical/filter_hpc.sh $(PROJECT_DIR)
 endif
