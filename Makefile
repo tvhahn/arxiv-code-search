@@ -128,9 +128,9 @@ ifeq (True,$(HAS_CONDA)) # assume on local
 	$(PYTHON_INTERPRETER) $(PROJECT_DIR)/src/features/make_bert_embeddings.py \
 		--proj_dir $(PROJECT_DIR) \
 		--path_label_dir $(PROJECT_DIR)/data/processed/labels/labels_complete \
-		--label_file_name labels_2022-07-14.csv \
+		--label_file_name labels_2022-08-15.csv \
 		--path_emb_dir $(PROJECT_DIR)/data/processed/embeddings \
-		--emb_file_name df_embeddings_2022-07-14.pkl 
+		--emb_file_name df_embeddings_2022-08-15.pkl 
 else # assume on HPC
 	sbatch src/models/train_model_hpc.sh $(PROJECT_DIR)
 endif
