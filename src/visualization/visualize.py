@@ -282,6 +282,7 @@ def summarize_final_label_file(file_path, sample_size, publisher_name):
 def plot_percent_articles_by_publisher(
     df,
     title="Data and Code Availablility for Articles\nat Various Venues (from 2015-2021)",
+    font_size=16,
     path_save_dir=None,
     save_name="article_pcts_by_publisher",
     dpi=300,
@@ -298,7 +299,6 @@ def plot_percent_articles_by_publisher(
 
     sns.set(style="whitegrid", font="DejaVu Sans")
     pal = sns.color_palette("Greys_r")
-    font_size = 14
 
     # define color palette
     custom_pal = []
@@ -347,7 +347,7 @@ def plot_percent_articles_by_publisher(
         verticalalignment="top",
         horizontalalignment="center",
         transform=ax.transAxes,
-        fontsize=14,
+        fontsize=font_size,
     )
 
     # ax.set_title(title, fontsize=font_size, loc='right', pad=20, x=-0.25)
@@ -377,6 +377,7 @@ def plot_individual_publisher(
     df,
     publisher_name="PHM Conf.",
     title="Data and Code Availablility for Articles\nat the PHM Conf. (from 2015-2021)",
+    font_size=16,
     path_save_dir=None,
     save_name="article_pcts_phm_conf",
     bar_color=None,
@@ -393,7 +394,6 @@ def plot_individual_publisher(
 
     sns.set(style="whitegrid", font="DejaVu Sans")
     pal = sns.color_palette("Greys_r")
-    font_size = 14
 
     if bar_color is None:
         bar_color = pal[2]
@@ -436,7 +436,7 @@ def plot_individual_publisher(
         verticalalignment="top",
         horizontalalignment="center",
         transform=ax.transAxes,
-        fontsize=14,
+        fontsize=font_size,
     )
 
     # ax.set_title(title, fontsize=font_size, loc="center", pad=20, x=-0.05)
@@ -501,6 +501,7 @@ def main():
     plot_percent_articles_by_publisher(
         df,
         title="Data and Code Availablility for Different\nPublications (articles from 2015-2021)",
+        font_size=16,
         path_save_dir=path_save_dir,
         save_name="article_pcts_by_publisher",
         dpi=300,
@@ -512,6 +513,7 @@ def main():
         df_all,
         publisher_name="PHM Conf.",
         title="PHM Conf. Data and Code Availablility\n(articles from 2015-2021)",
+        font_size=16,
         path_save_dir=path_save_dir,
         save_name="article_pcts_phm_conf",
         bar_color="#bd0c0c",  # red-ish color
@@ -524,6 +526,7 @@ def main():
         df_all,
         publisher_name="MSSP",
         title="MSSP Data and Code Availablility\n(articles from 2015-2021)",
+        font_size=16,
         path_save_dir=path_save_dir,
         save_name="article_pcts_mssp",
         dpi=300,
@@ -535,6 +538,7 @@ def main():
         df_all,
         publisher_name="Energies",
         title="Energies Data and Code Availablility\n(articles from 2015-2021)",
+        font_size=16,
         path_save_dir=path_save_dir,
         save_name="article_pcts_energies",
         dpi=300,
@@ -546,6 +550,7 @@ def main():
         df_all,
         publisher_name="arXiv",
         title="arXiv Data and Code Availablility\n(articles from 2015-2021)",
+        font_size=16,
         path_save_dir=path_save_dir,
         save_name="article_pcts_arxiv",
         dpi=300,

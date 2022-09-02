@@ -205,7 +205,7 @@ endif
 
 
 ## Make the various figures
-figures: requirements
+viz: requirements
 ifeq (True,$(HAS_CONDA)) # assume on local
 	$(PYTHON_INTERPRETER) src/visualization/visualize.py
 else # assume on HPC
